@@ -1,0 +1,11 @@
+@startuml Planning
+start
+:get orders;
+:check stock;
+if () is (Enoughs part stock) then
+:Add order to prod planning;
+else (Not enough)
+:order missing parts;
+endif
+stop
+@enduml

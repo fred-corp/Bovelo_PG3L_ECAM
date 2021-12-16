@@ -1,0 +1,12 @@
+@startuml Sale
+start
+:get planning;
+:start prod;
+:get parts list;
+:ask stock;
+:get parts;
+:update stock;
+:build bike;
+:confirm build and update planning;
+stop
+@enduml
