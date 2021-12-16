@@ -24,8 +24,8 @@ Package System{
 
 Production_manager --> uc3
 Production_manager --> uc7
-Production_manager -->uc8
-Production_manager -->uc9
+Production_manager --> uc8
+Production_manager --> uc9
 Mechanic --> uc2
 Mechanic --> uc3
 Mechanic --> uc4
