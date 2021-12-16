@@ -3,13 +3,13 @@ start
 :get orders;
 :check stock;
 if () is (not enough stock) then
-:order minimum stock;
+	:order minimum stock;
 else (enough stock)
 endif
 if () is (Enoughs part stock) then
-:Add order to prod planning;
+	:Add order to prod planning;
 else (Not enough)
-:order missing parts;
+	:order missing parts;
 endif
 stop
 @enduml

@@ -2,16 +2,16 @@
 start
 :show catalog;
 if () is (Interested) then
-:choose models and quantity;
-:get shipping date estimate;
-if () is (Cancelled) then
-stop
-else (Validate)
-:get contact details;
-:save order;
-stop
-endif
+	:choose models and quantity;
+	:get shipping date estimate;
+	if () is (Cancelled) then
+		stop
+	else (Validate)
+		:get contact details;
+		:save order;
+		stop
+	endif
 else (Not interested)
-stop
+	stop
 endif
 @enduml
