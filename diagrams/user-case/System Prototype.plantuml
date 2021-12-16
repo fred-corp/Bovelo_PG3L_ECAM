@@ -1,4 +1,6 @@
-@startuml System Prototype
+@startuml Prototype
+
+left to right direction
 
 :Representative:
 :Production_manager:
@@ -11,7 +13,7 @@ Package System{
 		(Get a shipping date) as (uc6)
 		(Enter a new order) as (uc5)
 	}
-	
+
 	Package Production{
 		(See prod plannig) as (uc2)
 		(See stock) as (uc3)
@@ -22,15 +24,17 @@ Package System{
 	}
 }
 
-Production_manager --> uc3
-Production_manager --> uc7
-Production_manager --> uc8
-Production_manager --> uc9
-Mechanic --> uc2
-Mechanic --> uc3
-Mechanic --> uc4
+uc3 <-- Production_manager
+uc7 <-- Production_manager
+uc8 <-- Production_manager
+uc9 <-- Production_manager
+uc2 <-- Mechanic 
+uc3 <-- Mechanic 
+uc4 <-- Mechanic 
 Representative --> uc1
 Representative --> uc5
 Representative --> uc6
+
+Sales -[hidden]-> Production
 
 @enduml
