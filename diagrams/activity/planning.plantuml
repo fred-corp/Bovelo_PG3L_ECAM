@@ -2,13 +2,13 @@
 start
 :get orders;
 :check stock;
-if () is (not enough stock) then
+if (stock) is (not enough) then
 	:order minimum stock;
-else (enough stock)
+else (enough)
 endif
-if () is (Enoughs part stock) then
+if (parts) is (enough) then
 	:Add order to prod planning;
-else (Not enough)
+else (not enough)
 	:order missing parts;
 endif
 stop
