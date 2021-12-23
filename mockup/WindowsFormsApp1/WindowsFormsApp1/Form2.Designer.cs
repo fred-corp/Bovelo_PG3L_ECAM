@@ -56,6 +56,7 @@ namespace WindowsFormsApp1
             this.richTextBox18 = new System.Windows.Forms.RichTextBox();
             this.richTextBox19 = new System.Windows.Forms.RichTextBox();
             this.richTextBox20 = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,7 +94,7 @@ namespace WindowsFormsApp1
             // pictureBox1
             // 
             this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.cropped_pexels_philipp_m_100582_scaled_1;
-            this.pictureBox1.Location = new System.Drawing.Point(32, 123);
+            this.pictureBox1.Location = new System.Drawing.Point(32, 192);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(879, 456);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -103,7 +104,7 @@ namespace WindowsFormsApp1
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(32, 655);
+            this.textBox1.Location = new System.Drawing.Point(32, 685);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(879, 287);
@@ -135,7 +136,7 @@ namespace WindowsFormsApp1
             this.tableLayoutPanel1.Controls.Add(this.richTextBox3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(932, 123);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(936, 192);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -149,7 +150,7 @@ namespace WindowsFormsApp1
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(909, 819);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(909, 780);
             this.tableLayoutPanel1.TabIndex = 18;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -158,7 +159,7 @@ namespace WindowsFormsApp1
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox1.Size = new System.Drawing.Size(266, 72);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "Composant";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -168,7 +169,7 @@ namespace WindowsFormsApp1
             this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox2.Location = new System.Drawing.Point(275, 3);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox2.Size = new System.Drawing.Size(631, 72);
             this.richTextBox2.TabIndex = 1;
             this.richTextBox2.Text = "Caracteristiques";
             this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
@@ -176,170 +177,182 @@ namespace WindowsFormsApp1
             // richTextBox3
             // 
             this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox3.Location = new System.Drawing.Point(3, 84);
+            this.richTextBox3.Location = new System.Drawing.Point(3, 81);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox3.Size = new System.Drawing.Size(266, 72);
             this.richTextBox3.TabIndex = 2;
             this.richTextBox3.Text = "Caracteristiques";
             // 
             // richTextBox4
             // 
             this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox4.Location = new System.Drawing.Point(275, 84);
+            this.richTextBox4.Location = new System.Drawing.Point(275, 81);
             this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox4.Size = new System.Drawing.Size(631, 72);
             this.richTextBox4.TabIndex = 3;
             this.richTextBox4.Text = "Caracteristiques";
             // 
             // richTextBox5
             // 
             this.richTextBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox5.Location = new System.Drawing.Point(3, 165);
+            this.richTextBox5.Location = new System.Drawing.Point(3, 159);
             this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox5.Size = new System.Drawing.Size(266, 72);
             this.richTextBox5.TabIndex = 4;
             this.richTextBox5.Text = "Caracteristiques";
             // 
             // richTextBox6
             // 
             this.richTextBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox6.Location = new System.Drawing.Point(275, 165);
+            this.richTextBox6.Location = new System.Drawing.Point(275, 159);
             this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox6.Size = new System.Drawing.Size(631, 72);
             this.richTextBox6.TabIndex = 5;
             this.richTextBox6.Text = "Caracteristiques";
             // 
             // richTextBox7
             // 
             this.richTextBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox7.Location = new System.Drawing.Point(3, 246);
+            this.richTextBox7.Location = new System.Drawing.Point(3, 237);
             this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox7.Size = new System.Drawing.Size(266, 72);
             this.richTextBox7.TabIndex = 6;
             this.richTextBox7.Text = "Caracteristiques";
             // 
             // richTextBox8
             // 
             this.richTextBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox8.Location = new System.Drawing.Point(275, 246);
+            this.richTextBox8.Location = new System.Drawing.Point(275, 237);
             this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox8.Size = new System.Drawing.Size(631, 72);
             this.richTextBox8.TabIndex = 7;
             this.richTextBox8.Text = "Caracteristiques";
             // 
             // richTextBox9
             // 
             this.richTextBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox9.Location = new System.Drawing.Point(3, 327);
+            this.richTextBox9.Location = new System.Drawing.Point(3, 315);
             this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox9.Size = new System.Drawing.Size(266, 72);
             this.richTextBox9.TabIndex = 8;
             this.richTextBox9.Text = "Caracteristiques";
             // 
             // richTextBox10
             // 
             this.richTextBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox10.Location = new System.Drawing.Point(275, 327);
+            this.richTextBox10.Location = new System.Drawing.Point(275, 315);
             this.richTextBox10.Name = "richTextBox10";
-            this.richTextBox10.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox10.Size = new System.Drawing.Size(631, 72);
             this.richTextBox10.TabIndex = 9;
             this.richTextBox10.Text = "Caracteristiques";
             // 
             // richTextBox11
             // 
             this.richTextBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox11.Location = new System.Drawing.Point(3, 408);
+            this.richTextBox11.Location = new System.Drawing.Point(3, 393);
             this.richTextBox11.Name = "richTextBox11";
-            this.richTextBox11.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox11.Size = new System.Drawing.Size(266, 72);
             this.richTextBox11.TabIndex = 10;
             this.richTextBox11.Text = "Caracteristiques";
             // 
             // richTextBox12
             // 
             this.richTextBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox12.Location = new System.Drawing.Point(275, 408);
+            this.richTextBox12.Location = new System.Drawing.Point(275, 393);
             this.richTextBox12.Name = "richTextBox12";
-            this.richTextBox12.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox12.Size = new System.Drawing.Size(631, 72);
             this.richTextBox12.TabIndex = 11;
             this.richTextBox12.Text = "Caracteristiques";
             // 
             // richTextBox13
             // 
             this.richTextBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox13.Location = new System.Drawing.Point(3, 489);
+            this.richTextBox13.Location = new System.Drawing.Point(3, 471);
             this.richTextBox13.Name = "richTextBox13";
-            this.richTextBox13.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox13.Size = new System.Drawing.Size(266, 72);
             this.richTextBox13.TabIndex = 12;
             this.richTextBox13.Text = "Caracteristiques";
             // 
             // richTextBox14
             // 
             this.richTextBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox14.Location = new System.Drawing.Point(275, 489);
+            this.richTextBox14.Location = new System.Drawing.Point(275, 471);
             this.richTextBox14.Name = "richTextBox14";
-            this.richTextBox14.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox14.Size = new System.Drawing.Size(631, 72);
             this.richTextBox14.TabIndex = 13;
             this.richTextBox14.Text = "Caracteristiques";
             // 
             // richTextBox15
             // 
             this.richTextBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox15.Location = new System.Drawing.Point(3, 570);
+            this.richTextBox15.Location = new System.Drawing.Point(3, 549);
             this.richTextBox15.Name = "richTextBox15";
-            this.richTextBox15.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox15.Size = new System.Drawing.Size(266, 72);
             this.richTextBox15.TabIndex = 14;
             this.richTextBox15.Text = "Caracteristiques";
             // 
             // richTextBox16
             // 
             this.richTextBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox16.Location = new System.Drawing.Point(275, 570);
+            this.richTextBox16.Location = new System.Drawing.Point(275, 549);
             this.richTextBox16.Name = "richTextBox16";
-            this.richTextBox16.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox16.Size = new System.Drawing.Size(631, 72);
             this.richTextBox16.TabIndex = 15;
             this.richTextBox16.Text = "Caracteristiques";
             // 
             // richTextBox17
             // 
             this.richTextBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox17.Location = new System.Drawing.Point(3, 651);
+            this.richTextBox17.Location = new System.Drawing.Point(3, 627);
             this.richTextBox17.Name = "richTextBox17";
-            this.richTextBox17.Size = new System.Drawing.Size(266, 75);
+            this.richTextBox17.Size = new System.Drawing.Size(266, 72);
             this.richTextBox17.TabIndex = 16;
             this.richTextBox17.Text = "Caracteristiques";
             // 
             // richTextBox18
             // 
             this.richTextBox18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox18.Location = new System.Drawing.Point(275, 651);
+            this.richTextBox18.Location = new System.Drawing.Point(275, 627);
             this.richTextBox18.Name = "richTextBox18";
-            this.richTextBox18.Size = new System.Drawing.Size(631, 75);
+            this.richTextBox18.Size = new System.Drawing.Size(631, 72);
             this.richTextBox18.TabIndex = 17;
             this.richTextBox18.Text = "Caracteristiques";
             // 
             // richTextBox19
             // 
             this.richTextBox19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox19.Location = new System.Drawing.Point(3, 732);
+            this.richTextBox19.Location = new System.Drawing.Point(3, 705);
             this.richTextBox19.Name = "richTextBox19";
-            this.richTextBox19.Size = new System.Drawing.Size(266, 84);
+            this.richTextBox19.Size = new System.Drawing.Size(266, 72);
             this.richTextBox19.TabIndex = 18;
             this.richTextBox19.Text = "Caracteristiques";
             // 
             // richTextBox20
             // 
             this.richTextBox20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox20.Location = new System.Drawing.Point(275, 732);
+            this.richTextBox20.Location = new System.Drawing.Point(275, 705);
             this.richTextBox20.Name = "richTextBox20";
-            this.richTextBox20.Size = new System.Drawing.Size(631, 84);
+            this.richTextBox20.Size = new System.Drawing.Size(631, 72);
             this.richTextBox20.TabIndex = 19;
             this.richTextBox20.Text = "Caracteristiques";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(35, 110);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(229, 63);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Explorer";
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1894, 1009);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
@@ -384,5 +397,6 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.RichTextBox richTextBox5;
         private System.Windows.Forms.RichTextBox richTextBox4;
         private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.Label label1;
     }
 }
