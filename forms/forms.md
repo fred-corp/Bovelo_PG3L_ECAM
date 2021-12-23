@@ -59,4 +59,3 @@
 2) get parts
 3) build bike
 4) Confirm the end of production
-
