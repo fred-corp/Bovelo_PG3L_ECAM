@@ -18,14 +18,12 @@ Package System{
 		(See prod plannig) as (uc2)
 		(See stock) as (uc3)
 		(Confirm end of production) as (uc4)
-		(Start production) as (uc7)
 		(Plan  production) as (uc8)
 		(Manage stock) as (uc9)
 	}
 }
 
 uc3 <-- Production_manager
-uc7 <-- Production_manager
 uc8 <-- Production_manager
 uc9 <-- Production_manager
 uc2 <-- Mechanic 
