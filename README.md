@@ -14,3 +14,6 @@
   * User-stories
   * Mockups (interface)
   * Divide & assign Tasks (tickets)
+* 28/02/2022 Iteration 2
+  * Catalog
+  * Orders
