@@ -20,9 +20,47 @@ namespace Main
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> Models;
+        int ModelIndex;
+
         public MainWindow()
         {
             InitializeComponent();
+            Models = new List<string>{"Adventure","City","Explorer"};
+            ModelList.ItemsSource = Models;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ModelIndex = ModelList.SelectedIndex;
+            CurrentModel.Content = Models[ModelIndex];
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+    class Order
+    {
+        public Order(string product, int nb)
+        {
+
+        }
+    }
+    class Product
+    {
+        string name;
+        int price;
+        public Product(string name, int price)
+        {
+            this.name = name;
+            this.price = price;
+        }
+
+        public int getPrice(int nb)
+        {
+            return nb * price;
         }
     }
 }
