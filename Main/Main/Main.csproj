@@ -16,16 +16,5 @@
     <None Remove="Ressources\explorer.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Ressources\adventure.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Ressources\city bike.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Ressources\explorer.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
 
 </Project>
