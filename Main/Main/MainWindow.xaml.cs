@@ -49,6 +49,10 @@ namespace Main
         {
             ModelIndex = ModelList.SelectedIndex;
             CurrentModel.Content = Models[ModelIndex];
+            foreach (TextBox textbox in TextBoxes)
+            {
+                textbox.Text = "0";
+            }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -60,6 +64,7 @@ namespace Main
                 test = textbox.Text;
                 nb =Int32.Parse(test);
                 total += Products[Models[ModelIndex]].getPrice(nb);
+                textbox.Text = "0";
             }
 
             Display_Total.Content = total;
