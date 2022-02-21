@@ -36,18 +36,18 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="tab_command" Header="Command"/>
-            <TabItem HorizontalAlignment="Center" Height="20" Header="TabItem" VerticalAlignment="Center" Width="54">
+            <TabItem HorizontalAlignment="Center" Height="20" Header="TabItem" VerticalAlignment="Bottom" Width="54">
                 <Grid Background="#FFE5E5E5" Margin="-2,0,2,0">
                     <ListBox Name ="ModelList"  Margin="10,61,629,214" SelectionChanged="ListBox_SelectionChanged">
 
                     </ListBox>
 
-                    <TextBox HorizontalAlignment="Left" Margin="452,174,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Margin="452,127,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Margin="452,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Margin="271,174,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Margin="271,128,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Margin="271,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size2Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size2Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size2Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size1Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size1Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="In_Size1Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="Taille1" Content="Taille 1" HorizontalAlignment="Left" Margin="318,61,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="Taille2" Content="Taille2" HorizontalAlignment="Left" Margin="512,61,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="CurrentModel" Content="Model" HorizontalAlignment="Left" Margin="397,21,0,0" VerticalAlignment="Top"/>
