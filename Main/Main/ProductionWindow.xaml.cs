@@ -15,21 +15,13 @@ using System.Windows.Shapes;
 namespace Main
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for ProductionWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class ProductionWindow : Window
     {
-        public LoginWindow()
+        public ProductionWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ProductionWindow mnw = new();
-            mnw.Owner = Window.GetWindow(this);
-            mnw.ShowDialog();
-            this.Close();
         }
     }
 }
