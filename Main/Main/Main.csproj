@@ -11,6 +11,10 @@
     <None Remove="adventure.jpg" />
     <None Remove="city.jpg" />
     <None Remove="explorer.jpg" />
+    <None Remove="Ressources\adventure.jpg" />
+    <None Remove="Ressources\city bike.jpg" />
+    <None Remove="Ressources\explorer.jpg" />
   </ItemGroup>
+
 
 </Project>

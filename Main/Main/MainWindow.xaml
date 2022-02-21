@@ -13,23 +13,32 @@
                     <TabControl>
                         <TabItem x:Name="tab_city" Header="City">
                             <Grid Background="#FFE5E5E5">
-                                <Image Height="100" Width="100" Source="/city bike.jpg"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="27*"/>
+                                    <ColumnDefinition Width="367*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/city bike.jpg" Grid.Column="3" Margin="161,139,348,139"/>
+                                <Image Margin="21,112,441,139" Grid.Column="3" Source="/Ressources/city bike.jpg"/>
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tab_adventure" Header="Adventure" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="71">
                             <Grid Background="#FFE5E5E5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0*"/>
-                                    <ColumnDefinition Width="112*"/>
-                                    <ColumnDefinition Width="27*"/>
-                                    <ColumnDefinition Width="649*"/>
+                                    <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="137*"/>
+                                    <ColumnDefinition Width="651*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image x:Name="img_adventure" Grid.Column="1" HorizontalAlignment="Left" Margin="32,0,0,0" Width="217" Source="/adventure.jpg" Grid.ColumnSpan="3"/>
+                                <Image Margin="12,112,441,139" Grid.Column="3" Grid.ColumnSpan="2"/>
+                                <Image Grid.ColumnSpan="5" Margin="129,112,441,139" Source="/Ressources/adventure.jpg"/>
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tab_explorer" HorizontalAlignment="Center" Height="20" Header="Explorer" VerticalAlignment="Center" Width="54">
                             <Grid Background="#FFE5E5E5">
-                                <Image HorizontalAlignment="Left" Margin="75,0,0,0" Width="241" Source="/explorer.jpg"/>
+                                <Image Margin="129,112,441,139" Source="/Ressources/explorer.jpg"/>
                             </Grid>
                         </TabItem>
                     </TabControl>
