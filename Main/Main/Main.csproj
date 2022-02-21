@@ -13,10 +13,4 @@
     <None Remove="explorer.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="adventure.jpg" />
-    <Resource Include="city.jpg" />
-    <Resource Include="explorer.jpg" />
-  </ItemGroup>
-
 </Project>
