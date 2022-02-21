@@ -16,5 +16,11 @@
     <None Remove="Ressources\explorer.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
+  </ItemGroup>
+
 
 </Project>
+
+
