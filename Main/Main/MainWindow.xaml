@@ -16,29 +16,42 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0*"/>
                                     <ColumnDefinition Width="0*"/>
-                                    <ColumnDefinition Width="27*"/>
-                                    <ColumnDefinition Width="367*"/>
+                                    <ColumnDefinition Width="99*"/>
+                                    <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="295*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="/city bike.jpg" Grid.Column="3" Margin="161,139,348,139"/>
-                                <Image Margin="21,112,441,139" Grid.Column="3" Source="/Ressources/city bike.jpg"/>
+                                <Image Margin="-8,106,24,164" Source="/Ressources/city bike.jpg" RenderTransformOrigin="0.871,0.399" Grid.ColumnSpan="3"/>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" Height="60" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414"><Run Text="A city "/><Run Text="bike "/><Run Language="fr-be" Text="is a"/><Run Text=" type of bike used predominantly for trips in urban areas."/><LineBreak/><Run Text="City bikes are built with comfort and practicality in mind and are designed to allow the rider to sit upright rather than bent forward, like on road bikes."/></TextBlock>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Left" Height="22" Margin="114,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontWeight="Bold"><Run Text="F"/><Run Text="eatures"/><Run Language="fr-be" Text=" : "/></TextBlock>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" Height="76" Margin="0,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414"><Run Language="fr-be" Text="Classic city bike"/></TextBlock>
+                                <Grid Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="361" Margin="10,5,0,0" VerticalAlignment="Top" Width="220"/>
                             </Grid>
                         </TabItem>
-                        <TabItem x:Name="tab_adventure" Header="Adventure" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="71">
+                        <TabItem x:Name="tab_adventure" Header="Adventure" HorizontalAlignment="Left" Margin="-2,0,0,0" Width="71" Height="22" VerticalAlignment="Bottom">
                             <Grid Background="#FFE5E5E5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0*"/>
+                                    <ColumnDefinition Width="55*"/>
                                     <ColumnDefinition Width="0*"/>
                                     <ColumnDefinition Width="0*"/>
-                                    <ColumnDefinition Width="137*"/>
-                                    <ColumnDefinition Width="651*"/>
+                                    <ColumnDefinition Width="142*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Margin="12,112,441,139" Grid.Column="3" Grid.ColumnSpan="2"/>
-                                <Image Grid.ColumnSpan="5" Margin="129,112,441,139" Source="/Ressources/adventure.jpg"/>
+                                <Image Grid.ColumnSpan="2" Margin="0,96,7,155" Source="/Ressources/adventure.jpg"/>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" Height="60" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414"><Run Text="Adventure"/><Run Text=" "/><Run Language="fr-be" Text="bikes "/><Run Text="are built to be stable, reliable, and versatile, so you can tackle anything from a commute to work to weeks of camping along unmapped backroads."/></TextBlock>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Left" Height="22" Margin="77,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontWeight="Bold"><Run Text="F"/><Run Text="eatures"/><Run Language="fr-be" Text=" : "/></TextBlock>
+                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" Height="76" Margin="0,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414"><Run Language="fr-be" Text="W"/><Run Text="ider tires"/><LineBreak/><Run Language="fr-be" Text="S"/><Run Text="limmer tires"/><LineBreak/><Run Language="fr-be" Text="A"/><Run Text="dapted mudguards "/></TextBlock>
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tab_explorer" HorizontalAlignment="Center" Height="20" Header="Explorer" VerticalAlignment="Center" Width="54">
                             <Grid Background="#FFE5E5E5">
-                                <Image Margin="129,112,441,139" Source="/Ressources/explorer.jpg"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="135*"/>
+                                    <ColumnDefinition Width="259*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="-23,110,60,141" Source="/Ressources/explorer.jpg"/>
+                                <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" Grid.Column="1" Text=" Explorer is all about getting the most fun out of the ride, with performance and comfort features that make getting around so effortless it hardly feels like exercise."/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="52,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontWeight="Bold"><Run Text="F"/><Run Text="eatures"/><Run Language="fr-be" Text=" : "/></TextBlock>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Height="76" Margin="0,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414"><Run Language="fr-be" Text="W"/><Run Text="ider tires"/><LineBreak/><Run Language="fr-be" Text="S"/><Run Text="limmer tires"/><LineBreak/><Run Language="fr-be" Text="A"/><Run Text="dapted mudguards "/><LineBreak/><Run Text="Strengthened frame"/><LineBreak/><Run/></TextBlock>
                             </Grid>
                         </TabItem>
                     </TabControl>
@@ -46,6 +59,7 @@
             </TabItem>
             <TabItem x:Name="tab_command" Header="Command"/>
         </TabControl>
+        <TextBlock HorizontalAlignment="Left" Margin="382,-51,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
