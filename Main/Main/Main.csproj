@@ -13,12 +13,15 @@
     <None Remove="Ressources\adventure.jpg" />
     <None Remove="Ressources\city bike.jpg" />
     <None Remove="Ressources\explorer.jpg" />
+
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Ressources\adventure.jpg" />
     <Resource Include="Ressources\city bike.jpg" />
     <Resource Include="Ressources\explorer.jpg" />
+
   </ItemGroup>
+
 
 </Project>
