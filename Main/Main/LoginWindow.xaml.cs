@@ -26,7 +26,7 @@ namespace Main
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ProductionWindow mnw = new ProductionWindow();
+            ProductionWindow mnw = new();
             mnw.Owner = Window.GetWindow(this);
             mnw.ShowDialog();
             this.Close();
