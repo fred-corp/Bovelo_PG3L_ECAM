@@ -7,4 +7,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="adventure.jpg" />
+    <None Remove="city.jpg" />
+    <None Remove="explorer.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="adventure.jpg" />
+    <Resource Include="city.jpg" />
+    <Resource Include="explorer.jpg" />
+  </ItemGroup>
+
 </Project>
