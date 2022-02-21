@@ -22,10 +22,9 @@
 
 * city :  
 cadres simple, pneus classiques, gardes boues simple, porte bagage, éclairage
-  
+
 * Explorer :  
 cadres simple, pneus larges et rainurés, gardes boues améliorés, porte bagage, eclairage
- 
-* Adventure :  
-cadre renforcé 
 
+* Adventure :  
+cadre renforcé
