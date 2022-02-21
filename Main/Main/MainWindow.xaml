@@ -12,20 +12,24 @@
                 <Grid Background="#FFE5E5E5">
                     <TabControl>
                         <TabItem x:Name="tab_city" Header="City">
-                            <Grid Background="#FFE5E5E5"/>
+                            <Grid Background="#FFE5E5E5">
+                                <Image Height="100" Width="100" Source="/city bike.jpg"/>
+                            </Grid>
                         </TabItem>
                         <TabItem x:Name="tab_adventure" Header="Adventure" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="71">
                             <Grid Background="#FFE5E5E5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0*"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="112*"/>
+                                    <ColumnDefinition Width="27*"/>
+                                    <ColumnDefinition Width="649*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image x:Name="img_adventure" Grid.Column="1" HorizontalAlignment="Left" Height="152" Margin="32,63,0,0" VerticalAlignment="Top" Width="298" Source="/adventure.jpg"/>
+                                <Image x:Name="img_adventure" Grid.Column="1" HorizontalAlignment="Left" Margin="32,0,0,0" Width="217" Source="/adventure.jpg" Grid.ColumnSpan="3"/>
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tab_explorer" HorizontalAlignment="Center" Height="20" Header="Explorer" VerticalAlignment="Center" Width="54">
                             <Grid Background="#FFE5E5E5">
-                                <Image HorizontalAlignment="Left" Height="143" Margin="75,111,0,0" VerticalAlignment="Top" Width="241" Source="/explorer.jpg"/>
+                                <Image HorizontalAlignment="Left" Margin="75,0,0,0" Width="241" Source="/explorer.jpg"/>
                             </Grid>
                         </TabItem>
                     </TabControl>
