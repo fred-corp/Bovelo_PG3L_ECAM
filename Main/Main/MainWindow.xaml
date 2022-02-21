@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Bovelo" Height="450" Width="800" WindowState="Maximized">
     <Grid>
+        <TabControl>
+            <TabItem x:Name="tab_catalog" Header="Catalog">
+                <Grid Background="#FFE5E5E5">
+                    <TabControl>
+                        <TabItem x:Name="tab_city" Header="City">
+                            <Grid Background="#FFE5E5E5"/>
+                        </TabItem>
+                        <TabItem x:Name="tab_adventure" Header="Adventure" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="71">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="51*"/>
+                                    <ColumnDefinition Width="737*"/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tab_explorer" HorizontalAlignment="Center" Height="20" Header="Explorer" VerticalAlignment="Center" Width="54">
+                            <Grid Background="#FFE5E5E5"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tab_command" Header="Command"/>
+        </TabControl>
 
     </Grid>
 </Window>
