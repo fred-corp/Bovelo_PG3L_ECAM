@@ -24,9 +24,17 @@ namespace Main
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Production_Click(object sender, RoutedEventArgs e)
         {
             ProductionWindow mnw = new();
+            mnw.Owner = Window.GetWindow(this);
+            mnw.ShowDialog();
+            this.Close();
+        }
+
+        private void Button_Sales_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mnw = new();
             mnw.Owner = Window.GetWindow(this);
             mnw.ShowDialog();
             this.Close();
