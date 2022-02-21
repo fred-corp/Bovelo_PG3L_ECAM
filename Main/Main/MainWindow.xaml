@@ -57,27 +57,30 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tab_command" Header="Command"/>
-            <TabItem HorizontalAlignment="Center" Height="20" Header="TabItem" VerticalAlignment="Top" Width="54">
+            <TabItem HorizontalAlignment="Center" Height="20" Header="Order" VerticalAlignment="Top" Width="54">
                 <Grid Background="#FFE5E5E5" Margin="-2,0,2,0">
-                    <ListBox Name ="ModelList"  Margin="10,61,629,214" SelectionChanged="ListBox_SelectionChanged">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="77*"/>
+                        <ColumnDefinition Width="717*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Name ="ModelList"  Margin="10,61,629,214" SelectionChanged="ListBox_SelectionChanged" Grid.ColumnSpan="2">
 
                     </ListBox>
 
-                    <TextBox x:Name="In_Size2Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <TextBox x:Name="In_Size2Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <TextBox x:Name="In_Size2Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="452,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <TextBox x:Name="In_Size1Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <TextBox x:Name="In_Size1Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <TextBox x:Name="In_Size1Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="271,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0"/>
-                    <Label x:Name="Taille1" Content="Taille 1" HorizontalAlignment="Left" Margin="318,61,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="Taille2" Content="Taille2" HorizontalAlignment="Left" Margin="512,61,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="CurrentModel" Content="Model" HorizontalAlignment="Left" Margin="397,21,0,0" VerticalAlignment="Top"/>
-                    <ItemsControl x:Name="Command_Summary" Margin="606,34,10,136" />
-                    <Label x:Name="comma_d_summary_label" Content="Résumé de la commade" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="Total" Content="Total" HorizontalAlignment="Left" Margin="629,292,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="Display_Total" Content="Label" HorizontalAlignment="Left" Margin="695,292,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="Add" Content="Ajouter" HorizontalAlignment="Left" Margin="398,231,0,0" VerticalAlignment="Top" Click="Add_Click"/>
+                    <TextBox x:Name="In_Size2Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="375,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <TextBox x:Name="In_Size2Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="375,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <TextBox x:Name="In_Size2Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="375,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <TextBox x:Name="In_Size1Color3" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="194,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <TextBox x:Name="In_Size1Color2" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="194,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <TextBox x:Name="In_Size1Color1" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="194,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" Grid.Column="1"/>
+                    <Label x:Name="Taille1" Content="Taille 1" HorizontalAlignment="Left" Margin="241,61,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="Taille2" Content="Taille2" HorizontalAlignment="Left" Margin="435,61,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="CurrentModel" Content="Model" HorizontalAlignment="Left" Margin="320,21,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <ItemsControl x:Name="Command_Summary" Margin="529,34,10,136" Grid.Column="1" />
+                    <Label x:Name="comma_d_summary_label" Content="Résumé de la commade" HorizontalAlignment="Left" Margin="552,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="Total" Content="Total" HorizontalAlignment="Left" Margin="552,292,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="Display_Total" Content="Label" HorizontalAlignment="Left" Margin="618,292,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Button x:Name="Add" Content="Ajouter" HorizontalAlignment="Left" Margin="321,231,0,0" VerticalAlignment="Top" Click="Add_Click" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

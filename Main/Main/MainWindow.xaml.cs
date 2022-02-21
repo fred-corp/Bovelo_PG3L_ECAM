@@ -25,7 +25,8 @@ namespace Main
         int ModelIndex;
         List<Order> Orders=new List<Order>();
         Dictionary<string, Product> Products = new Dictionary<string, Product>();
-        List<System.Windows.Controls.TextBox> TextBoxes = new List<TextBox>(); 
+        List<System.Windows.Controls.TextBox> TextBoxes = new List<TextBox>();
+        int total;
 
         public MainWindow()
         {
@@ -41,6 +42,7 @@ namespace Main
             TextBoxes.Add(In_Size2Color1);
             TextBoxes.Add(In_Size2Color2);
             TextBoxes.Add(In_Size2Color3);
+            total = 0;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,7 +53,6 @@ namespace Main
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            int total = 0;
             string test;
             int nb = 0;
             foreach(TextBox textbox in TextBoxes)
