@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="ProductionWindow" Height="450" Width="800">
+        Title="ProductionWindow" Height="450" Width="800" Icon="/icon.png">
     <Grid>
         
     </Grid>

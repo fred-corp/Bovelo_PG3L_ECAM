@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="city.jpg" />
     <None Remove="explorer.jpg" />
+    <None Remove="icon.png" />
     <None Remove="Ressources\adventure.jpg" />
     <None Remove="Ressources\city bike.jpg" />
     <None Remove="Ressources\explorer.jpg" />
@@ -17,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icon.png" />
     <Resource Include="Ressources\adventure.jpg" />
     <Resource Include="Ressources\city bike.jpg" />
     <Resource Include="Ressources\explorer.jpg" />
