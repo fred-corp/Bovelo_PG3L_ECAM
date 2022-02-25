@@ -21,91 +21,134 @@ namespace Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> Models;
-        int ModelIndex;
-        List<Order> Orders=new List<Order>();
-        Dictionary<string, Product> Products = new Dictionary<string, Product>();
-        List<System.Windows.Controls.TextBox> TextBoxes = new List<TextBox>();
-        int total;
-
+        
+        Model[] Models = { new Model("Explorer", 1000), new Model("Adventure", 500), new Model("City", 300) };
+        //String[] Models = { "Explorer", "Adventure", "City"};
+        String[] Colors = { "Blue", "Red", "Black" };
+        int[] Sizes = { 26, 32 };
+        List<TextBox> CommandInputs = new List<TextBox>();
+        Dictionary<string, System.Windows.Media.SolidColorBrush> ColorsDictionary=new Dictionary<string, SolidColorBrush>();
+        Dictionary<string, List<TextBox>> = new Dictionary<string, List<TextBox>>();
         public MainWindow()
         {
+
             InitializeComponent();
-            Models = new List<string>{"Adventure","City","Explorer"};
-            ModelList.ItemsSource = Models;
-            Products.Add("Explorer", new Product("Explrorer", 100));
-            Products.Add("City", new Product("City", 1000));
-            Products.Add("Adventure", new Product("Adventure", 500));
-            TextBoxes.Add(In_Size1Color1);
-            TextBoxes.Add(In_Size1Color2);
-            TextBoxes.Add(In_Size1Color3);
-            TextBoxes.Add(In_Size2Color1);
-            TextBoxes.Add(In_Size2Color2);
-            TextBoxes.Add(In_Size2Color3);
-            total = 0;
+
+            Console.WriteLine("heeeho");
+            
+            ColorsDictionary.Add("Blue",System.Windows.Media.Brushes.Blue);
+            ColorsDictionary.Add("Red", System.Windows.Media.Brushes.Red);
+            ColorsDictionary.Add("Black", System.Windows.Media.Brushes.Black);
+
+            // Create Columns
+
+
+            GridOrder.VerticalAlignment = VerticalAlignment.Top;
+            GridOrder.Background = Brushes.White;
+
+            //GridOrder.ShowGridLines = true;
+
+            GridOrder.ColumnDefinitions.Add(new ColumnDefinition());
+            foreach (String s in Colors)
+            {
+                GridOrder.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+
+            // Create Rows
+
+            RowDefinition NameRow = new RowDefinition();
+            NameRow.Height = new GridLength(45);
+            GridOrder.RowDefinitions.Add(NameRow);
+
+            foreach (Model s in Models)
+            {
+                foreach (int size in Sizes)
+                {
+                    RowDefinition gridRow1 = new RowDefinition();
+                    gridRow1.Height = new GridLength(45);
+                    GridOrder.RowDefinitions.Add(gridRow1);
+                }
+            }
+
+            TextBlock txt1 = new TextBlock();
+            txt1.Text = "2005 Products Shipped";
+            txt1.FontSize = 20;
+            txt1.FontWeight = FontWeights.Bold;
+
+            for (int i = 0; i< Colors.Length; i++)
+            {
+                TextBlock txtb = new TextBlock();
+                txtb.Text = Colors[i];
+                txtb.TextAlignment = TextAlignment.Center;
+                txtb.Foreground = Brushes.White;
+                txtb.Background = ColorsDictionary[Colors[i]];
+                txtb.FontSize = 20;
+                txtb.FontWeight = FontWeights.Bold;
+                Grid.SetColumn(txtb, i+1);
+                Grid.SetRow(txtb, 0);
+                GridOrder.Children.Add(txtb);
+
+                for (int j = 0; j <= Sizes.Length+Models.Length; j++)
+                {
+
+                    TextBox txt = new TextBox();
+                    
+                    txt.TextAlignment = TextAlignment.Center;
+                    txt.FontSize = 20;
+                    txt.Name = Models[j / Sizes.Length].ToString();
+                    Grid.SetColumn(txt, i+1);
+                    Grid.SetRow(txt, j+1);
+                    GridOrder.Children.Add(txt);
+
+                    CommandInputs.Append(txt);
+                }
+            }
+
+            int it = 0;
+
+            for (int j = 0; j < Models.Length; j++)
+            {
+                for (int k = 0; k< Sizes.Length; k++)
+                {
+                TextBlock txtb = new TextBlock();
+                txtb.Text = Models[j].ToString()+" "+Sizes[k];
+                txtb.FontSize = 20;
+                txtb.FontWeight = FontWeights.Bold;
+                Grid.SetColumn(txtb, 0);
+                Grid.SetRow(txtb, 1+it);
+                GridOrder.Children.Add(txtb);
+                it++;
+                }
+            }
+
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Comfirm_Click(object sender, RoutedEventArgs e)
         {
-            ModelIndex = ModelList.SelectedIndex;
-            CurrentModel.Content = Models[ModelIndex];
-            foreach (TextBox textbox in TextBoxes)
+            int Total = 0;
+            foreach (TextBox txt in CommandInputs)
             {
-                textbox.Text = "0";
+                //Console.WriteLine(txt.Name);
+                //Console.WriteLine(txt.Text);
+                //Total+= 
             }
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+
+        class Model
         {
-            string test;
-            int nb = 0;
-            foreach(TextBox textbox in TextBoxes)
+            public string Name { get; set; }
+            public int Price { get; set; }
+            public Model(string Name,int Price)
             {
-                test = textbox.Text;
-                nb =Int32.Parse(test);
-                total += Products[Models[ModelIndex]].getPrice(nb);
-                textbox.Text = "0";
+                this.Price = Price;
+                this.Name = Name;
             }
 
-            Display_Total.Content = total;
+            public override string ToString()
+            {
+                return Name;
+            }
         }
-
-        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-    }
-    class Order
-    {
-        Product product;
-        int nb;
-        public Order(Product product, int nb)
-        {
-            this.product = product;
-            this.nb = nb;
-        }
-
-        public override string ToString()
-        {
-            return product.name.ToString() + " " + nb.ToString();
-        }
-    }
-    class Product
-    {
-        //private string name;
-        private int price;
-        public Product(string name, int price)
-        {
-            this.name = name;
-            this.price = price;
-        }
-
-        public int getPrice(int nb)
-        {
-            return nb * price;
-        }
-        public string name { get; set; }
     }
 }
