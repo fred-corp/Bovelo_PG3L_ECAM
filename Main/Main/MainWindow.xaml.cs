@@ -24,11 +24,11 @@ namespace Main
         
         Model[] Models = { new Model("Explorer", 1000), new Model("Adventure", 500), new Model("City", 300) };
         //String[] Models = { "Explorer", "Adventure", "City"};
-        String[] Colors = { "Blue", "Red", "Black" };
+        string[] Colors = { "Blue", "Red", "Black" };
         int[] Sizes = { 26, 32 };
         List<TextBox> CommandInputs = new List<TextBox>();
         Dictionary<string, System.Windows.Media.SolidColorBrush> ColorsDictionary=new Dictionary<string, SolidColorBrush>();
-        Dictionary<string, List<TextBox>> = new Dictionary<string, List<TextBox>>();
+        Dictionary<string, List<TextBox>> Inputs=new Dictionary<string, List<TextBox>>();
         public MainWindow()
         {
 
@@ -40,18 +40,37 @@ namespace Main
             ColorsDictionary.Add("Red", System.Windows.Media.Brushes.Red);
             ColorsDictionary.Add("Black", System.Windows.Media.Brushes.Black);
 
-            // Create Columns
+            //foreach(Model model in Models)
+            //{
+            //    foreach(int size in Sizes)
+            //    {
+            //        foreach(string color in Colors)
+            //        {
+            //            string[] temp_textbox_info = { model.Name, size.ToString(), color };
+            //            Inputs.Add(temp_textbox_info, new List<TextBox>());
+            //        }
+            //    }
+            //}
+
+            foreach (Model model in Models)
+            {
+                Inputs.Add(model.Name, new List<TextBox>());
+            }
+                // Create Columns
 
 
-            GridOrder.VerticalAlignment = VerticalAlignment.Top;
+                GridOrder.VerticalAlignment = VerticalAlignment.Top;
             GridOrder.Background = Brushes.White;
+            GridOrder.HorizontalAlignment = HorizontalAlignment.Left;
 
             //GridOrder.ShowGridLines = true;
 
             GridOrder.ColumnDefinitions.Add(new ColumnDefinition());
             foreach (String s in Colors)
             {
-                GridOrder.ColumnDefinitions.Add(new ColumnDefinition());
+                ColumnDefinition cl = new ColumnDefinition();
+                cl.Width = new GridLength(200);
+                GridOrder.ColumnDefinitions.Add(cl);
             }
 
             // Create Rows
@@ -65,7 +84,7 @@ namespace Main
                 foreach (int size in Sizes)
                 {
                     RowDefinition gridRow1 = new RowDefinition();
-                    gridRow1.Height = new GridLength(45);
+                    gridRow1.Height = new GridLength(60);
                     GridOrder.RowDefinitions.Add(gridRow1);
                 }
             }
@@ -95,11 +114,11 @@ namespace Main
                     
                     txt.TextAlignment = TextAlignment.Center;
                     txt.FontSize = 20;
-                    txt.Name = Models[j / Sizes.Length].ToString();
+                    txt.Name = $"{Colors[i]}z{Sizes[j % 2]}";
                     Grid.SetColumn(txt, i+1);
                     Grid.SetRow(txt, j+1);
                     GridOrder.Children.Add(txt);
-
+                    Inputs[Models[j/Sizes.Length].Name].Add(txt);
                     CommandInputs.Append(txt);
                 }
             }
@@ -113,6 +132,7 @@ namespace Main
                 TextBlock txtb = new TextBlock();
                 txtb.Text = Models[j].ToString()+" "+Sizes[k];
                 txtb.FontSize = 20;
+                txtb.TextAlignment = TextAlignment.Center;
                 txtb.FontWeight = FontWeights.Bold;
                 Grid.SetColumn(txtb, 0);
                 Grid.SetRow(txtb, 1+it);
@@ -126,12 +146,22 @@ namespace Main
         private void Comfirm_Click(object sender, RoutedEventArgs e)
         {
             int Total = 0;
-            foreach (TextBox txt in CommandInputs)
+            string text = "";
+            foreach(Model model in Models)
             {
-                //Console.WriteLine(txt.Name);
-                //Console.WriteLine(txt.Text);
-                //Total+= 
+                foreach(TextBox txt in Inputs[model.Name])
+                {
+                    if(txt.Text.Length != 0)
+                    {
+                        Total += int.Parse(txt.Text)*model.Price;
+                        text+=model.Name+" "+txt.Name.Split("z")[0]+" "+txt.Name.Split("z")[1] + ": "+model.Price+" * "+txt.Text+" = "+ (int.Parse(txt.Text) * model.Price).ToString()+Environment.NewLine;
+                    }
+                    txt.Text = "";
+                }
             }
+            //Summary.TextWrapping = TextWrapping.Wrap;
+            text+="Total: "+Total.ToString()+Environment.NewLine;
+            Summary.Text = text;
         }
 
 
