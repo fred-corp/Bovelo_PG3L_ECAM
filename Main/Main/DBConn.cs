@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace Main
 {
-    internal class DBConn
+    class DBConn
     {
         public void testDB()
         {
@@ -28,12 +28,20 @@ namespace Main
 
                 myDbReader = cmd.ExecuteReader();
 
-                Console.WriteLine(myDbReader.ToString());
+
+                Console.WriteLine("got to read data !");
+
+                while (myDbReader.Read())
+                {
+                    var myString = myDbReader.GetString(0); //The 0 stands for "the 0'th column", so the first column of the result.
+                                                     // Do somthing with this rows string, for example to put them in to a list
+                    Console.WriteLine(myString);
+                }
 
             }
             catch (Exception ex)
             {
-            MessageBox.Show("Failed to connect to data source " + ex).ToString();
+                Console.WriteLine("Failed to connect to data source " + ex);
             }
         }
     }

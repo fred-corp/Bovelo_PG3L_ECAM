@@ -30,6 +30,9 @@ namespace Main
         public MainWindow()
         {
             InitializeComponent();
+            DBConn db = new DBConn();
+            Console.WriteLine("got to init!");
+            db.testDB();
             Models = new List<string>{"Adventure","City","Explorer"};
             ModelList.ItemsSource = Models;
             Products.Add("Explorer", new Product("Explrorer", 100));
