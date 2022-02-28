@@ -63,10 +63,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid x:Name="GridOrder" Background="#FFAEAEAE" Margin="181,10,459,175" Grid.Column="1">
+                    <Grid x:Name="GridOrder" Background="#FFAEAEAE" Margin="103,10,537,175" Grid.Column="1">
                         <Grid/>
                     </Grid>
-                    <Button x:Name="Comfirm" Content="Comfirm" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Click="Comfirm_Click"/>
+                    <Button x:Name="Comfirm" Content="Comfirm" HorizontalAlignment="Left" Margin="103,301,0,0" VerticalAlignment="Top" Click="Comfirm_Click" Grid.Column="1"/>
                     <TextBlock x:Name="Summary" Grid.Column="1" HorizontalAlignment="Left" Margin="306,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="205"/>
                     <Label x:Name="EstimationDate" Grid.Column="1" Content="" Margin="501,336,200,0" VerticalAlignment="Top"/>
                 </Grid>
