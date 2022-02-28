@@ -25,7 +25,7 @@ namespace Main
         Model[] Models = { new Model("Explorer", 1000), new Model("Adventure", 500), new Model("City", 300) };
         //String[] Models = { "Explorer", "Adventure", "City"};
         string[] Colors = { "Blue", "Red", "Black" };
-        int[] Sizes = { 26, 32 };
+        int[] Sizes = { 26, 28 };
         List<TextBox> CommandInputs = new List<TextBox>();
         Dictionary<string, System.Windows.Media.SolidColorBrush> ColorsDictionary=new Dictionary<string, SolidColorBrush>();
         Dictionary<string, List<TextBox>> Inputs=new Dictionary<string, List<TextBox>>();
@@ -127,7 +127,7 @@ namespace Main
                 for (int k = 0; k< Sizes.Length; k++)
                 {
                 TextBlock txtb = new TextBlock();
-                txtb.Text = Models[j].ToString()+" "+Sizes[k];
+                txtb.Text = Models[j].ToString()+" "+Sizes[k]+'"';
                 txtb.FontSize = 20;
                 txtb.TextAlignment = TextAlignment.Center;
                 txtb.FontWeight = FontWeights.Bold;
@@ -153,7 +153,7 @@ namespace Main
                     {
                         Total += int.Parse(txt.Text)*model.Price;
                         nb_velo+= int.Parse(txt.Text);
-                        text+=model.Name+" "+txt.Name.Split("z")[0]+" "+txt.Name.Split("z")[1] + ": "+model.Price+" * "+txt.Text+" = "+ (int.Parse(txt.Text) * model.Price).ToString()+"€"+Environment.NewLine;
+                        text+=model.Name+" "+txt.Name.Split("z")[0]+" "+txt.Name.Split("z")[1] +'"'+ ": "+model.Price+" * "+txt.Text+" = "+ (int.Parse(txt.Text) * model.Price).ToString()+"€"+Environment.NewLine;
                     }
                     txt.Text = "";
                 }
