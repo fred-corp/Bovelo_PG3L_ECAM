@@ -89,10 +89,7 @@ namespace Main
                 }
             }
 
-            TextBlock txt1 = new TextBlock();
-            txt1.Text = "2005 Products Shipped";
-            txt1.FontSize = 20;
-            txt1.FontWeight = FontWeights.Bold;
+            
 
             for (int i = 0; i< Colors.Length; i++)
             {
@@ -146,6 +143,7 @@ namespace Main
         private void Comfirm_Click(object sender, RoutedEventArgs e)
         {
             int Total = 0;
+            int nb_velo = 0;
             string text = "";
             foreach(Model model in Models)
             {
@@ -154,14 +152,17 @@ namespace Main
                     if(txt.Text.Length != 0)
                     {
                         Total += int.Parse(txt.Text)*model.Price;
-                        text+=model.Name+" "+txt.Name.Split("z")[0]+" "+txt.Name.Split("z")[1] + ": "+model.Price+" * "+txt.Text+" = "+ (int.Parse(txt.Text) * model.Price).ToString()+Environment.NewLine;
+                        nb_velo+= int.Parse(txt.Text);
+                        text+=model.Name+" "+txt.Name.Split("z")[0]+" "+txt.Name.Split("z")[1] + ": "+model.Price+" * "+txt.Text+" = "+ (int.Parse(txt.Text) * model.Price).ToString()+"€"+Environment.NewLine;
                     }
                     txt.Text = "";
                 }
             }
             //Summary.TextWrapping = TextWrapping.Wrap;
-            text+="Total: "+Total.ToString()+Environment.NewLine;
+            text+="Total: "+Total.ToString()+"€"+Environment.NewLine;
             Summary.Text = text;
+
+            EstimationDate.Content = "Livraison dans "+(nb_velo*2+3).ToString()+" jours ouvrables";
         }
 
 

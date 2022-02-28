@@ -63,11 +63,12 @@
                         <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="717*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid x:Name="GridOrder" Background="#FFAEAEAE" Margin="10,10,636,175" Grid.Column="1">
+                    <Grid x:Name="GridOrder" Background="#FFAEAEAE" Margin="10,10,713,175" Grid.ColumnSpan="2">
                         <Grid/>
                     </Grid>
-                    <Button x:Name="Comfirm" Grid.Column="1" Content="Comfirm" HorizontalAlignment="Left" Margin="21,376,0,0" VerticalAlignment="Top" Click="Comfirm_Click"/>
-                    <TextBlock x:Name="Summary" Grid.Column="1" HorizontalAlignment="Left" Margin="650,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="332" Width="205"/>
+                    <Button x:Name="Comfirm" Grid.Column="1" Content="Comfirm" HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Click="Comfirm_Click"/>
+                    <TextBlock x:Name="Summary" Grid.Column="1" HorizontalAlignment="Left" Margin="599,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="205"/>
+                    <Label x:Name="EstimationDate" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="701,373,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
