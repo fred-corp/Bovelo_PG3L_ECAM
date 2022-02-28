@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+
 
 namespace Main
 {
     internal class DBConn
     {
-        private void testDB()
+        public void testDB()
         {
-            MySqlConnection sqldb = new MySqlConnection(@"server=;user id=;pwd=;port=;database=");
+            MySqlConnection sqldb = new MySqlConnection(@"server=fredcorp.cc;user id=bovelo;pwd=bovelo2022;port=33006;database=bovelo");
             try
             {
                 sqldb.Open();
 
-                String sql = "SELECT * FROM invoices";
+                String sql = "SELECT * FROM Catalog";
                 MySqlCommand cmd = new MySqlCommand(sql, sqldb);
 
                 MySqlDataReader myDbReader = null;
@@ -25,6 +30,10 @@ namespace Main
 
                 Console.WriteLine(myDbReader.ToString());
 
+            }
+            catch (Exception ex)
+            {
+            MessageBox.Show("Failed to connect to data source " + ex).ToString();
             }
         }
     }
