@@ -21,7 +21,8 @@ CREATE TABLE Colors
 CREATE TABLE componentlink
 (
   part_number INTEGER NOT NULL,
-  ID          INTEGER NOT NULL
+  ID          INTEGER NOT NULL,
+  amount      INTEGER NULL    
 );
 
 CREATE TABLE Components
@@ -57,6 +58,7 @@ CREATE TABLE invoices
   invoice_number  INTEGER NOT NULL,
   customer_number INTEGER NOT NULL,
   date            DATE    NULL    ,
+  totalPrice      INTEGER NULL    ,
   PRIMARY KEY (invoice_number)
 );
 
