@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Main
+namespace Main.MWM.View
 {
     /// <summary>
-    /// Interaction logic for ProductionWindow.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class ProductionWindow : Window
+    public partial class HomeView : UserControl
     {
-        public ProductionWindow()
+        public HomeView()
         {
             InitializeComponent();
         }
