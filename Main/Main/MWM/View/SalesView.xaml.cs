@@ -97,13 +97,20 @@ namespace Main.MWM.View
             Grid.SetColumn(TextBlock, 0);
             CommandGrid.Children.Add(TextBlock);
 
-            StackPanel TextstackPanel = new StackPanel();
-            TextstackPanel.Orientation = Orientation.Horizontal;
+            Grid TextstackPanel = new Grid();
+            for (int i = 0; i < 4; i++)
+            {
+                TextstackPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            //TextstackPanel.Orientation = Orientation.Horizontal;
             string[] Texts = { "Color", "Size", "Number" };
-            foreach (string s in Texts)
+            for (int i = 0;i<Texts.Count();i++)
             {
                 Label text = new Label();
-                text.Content = s;
+                text.Content = Texts[i];
+                //TextstackPanel.Children.Add(text);
+                Grid.SetRow(text, 0);
+                Grid.SetColumn(text, i);
                 TextstackPanel.Children.Add(text);
             }
 
@@ -159,6 +166,10 @@ namespace Main.MWM.View
 
         private void ConfirmOrder(object sender, RoutedEventArgs e)
         {
+
+
+
+
             Button test2 = (Button)sender;
             StackPanel ParentStack = (StackPanel)test2.Parent;
             Grid ParentGrid = (Grid)ParentStack.Parent;
@@ -168,13 +179,15 @@ namespace Main.MWM.View
             Grid.SetColumn(text, 0);
             ParentGrid.Children.Add(text);
         }
-
-        //private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    TextBox dynamictextbox = new TextBox();
-        //    dynamictextbox.Text = "(Enter some text)";
-        //    dynamictextbox.Name = "dynamictextbox";
-        //    (TabControl)sender.Items.Add(dynamictextbox);
-        //}
     }
+
+
+    class Bike
+    {
+
+    }
+
+
+
+
 }
