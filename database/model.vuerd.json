@@ -139,6 +139,29 @@
             "id": "0a6509c3-2fac-492d-8b5f-c713b7d9b128"
           },
           {
+            "name": "price",
+            "comment": "",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "29f0d8b3-13a9-4f96-af8f-9d971d4c6cc9"
+          },
+          {
             "name": "description",
             "comment": "",
             "dataType": "VARCHAR(255)",
@@ -186,10 +209,10 @@
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 3,
+          "zIndex": 17,
           "widthName": 60,
           "widthComment": 60
         },
@@ -891,7 +914,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 936.2442328125,
-          "y": 857.3332,
+          "y": 877.8332,
           "direction": "bottom"
         },
         "end": {
@@ -943,7 +966,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 742.8331,
-          "y": 761.3332,
+          "y": 771.5832,
           "direction": "left"
         },
         "end": {

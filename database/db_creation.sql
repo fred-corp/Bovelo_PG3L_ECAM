@@ -6,6 +6,7 @@ CREATE TABLE Catalog
   model       VARCHAR(255) NOT NULL,
   color       INTEGER      NOT NULL,
   size        INTEGER      NOT NULL,
+  price       INTEGER      NULL    ,
   description VARCHAR(255) NULL    ,
   image       BLOB         NULL    ,
   PRIMARY KEY (ID)
