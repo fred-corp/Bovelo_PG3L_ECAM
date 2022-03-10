@@ -3,9 +3,9 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -471,
-    "scrollLeft": -450,
-    "zoomLevel": 0.9,
+    "scrollTop": -562,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -189,7 +189,7 @@
           "active": false,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 65,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -297,7 +297,7 @@
           "active": false,
           "left": 36.7497,
           "top": 669.8338,
-          "zIndex": 68,
+          "zIndex": 7,
           "widthName": 75.708984375,
           "widthComment": 60
         },
@@ -376,13 +376,36 @@
               "widthDefault": 60
             },
             "id": "f369eee4-3eaf-4b03-905a-f0f6b20f166f"
+          },
+          {
+            "name": "totalPrice",
+            "comment": "",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "d6f4488e-9805-44b6-9108-6ca53a65018f"
           }
         ],
         "ui": {
           "active": false,
           "left": 1356.2222,
           "top": 1057.139,
-          "zIndex": 2,
+          "zIndex": 20,
           "widthName": 60,
           "widthComment": 60
         },
@@ -536,7 +559,7 @@
           "active": false,
           "left": 1344,
           "top": 649,
-          "zIndex": 25,
+          "zIndex": 3,
           "widthName": 61.9599609375,
           "widthComment": 60
         },
@@ -644,7 +667,7 @@
           "active": false,
           "left": 741.4445,
           "top": 1045.1115,
-          "zIndex": 3,
+          "zIndex": 22,
           "widthName": 87.2744140625,
           "widthComment": 60
         },
@@ -706,7 +729,7 @@
           "active": false,
           "left": 746.7771,
           "top": 515.6666,
-          "zIndex": 55,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -762,13 +785,36 @@
               "widthDefault": 60
             },
             "id": "90a02ddf-0e37-4f18-9fef-9ea52328684d"
+          },
+          {
+            "name": "amount",
+            "comment": "",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "5792a8ee-f425-4749-b858-aede80936324"
           }
         ],
         "ui": {
           "active": false,
           "left": 283.444,
           "top": 914.7781,
-          "zIndex": 67,
+          "zIndex": 12,
           "widthName": 85.8271484375,
           "widthComment": 60
         },
@@ -819,7 +865,7 @@
             "acbccfdc-15b4-4c90-ace8-8cbef1785638"
           ],
           "x": 1356.2222,
-          "y": 1122.389,
+          "y": 1132.639,
           "direction": "left"
         },
         "end": {
@@ -880,7 +926,7 @@
             "fb32440c-48a6-43b1-b6de-42101af5e2fb"
           ],
           "x": 283.444,
-          "y": 969.7781,
+          "y": 980.0281,
           "direction": "left"
         },
         "constraintName": "fk_components_to_componentlink",
@@ -906,7 +952,7 @@
             "90a02ddf-0e37-4f18-9fef-9ea52328684d"
           ],
           "x": 646.152984375,
-          "y": 969.7781,
+          "y": 980.0281,
           "direction": "right"
         },
         "constraintName": "fk_catalog_to_componentlink",
