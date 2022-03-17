@@ -6,7 +6,9 @@ CREATE TABLE Catalog
   model       VARCHAR(255) NOT NULL,
   color       INTEGER      NOT NULL,
   size        INTEGER      NOT NULL,
-  description VARCHAR(255) NULL    ,
+  price       INTEGER      NULL    ,
+  description VARCHAR(512) NULL    ,
+  specs       VARCHAR(255) NULL    ,
   image       BLOB         NULL    ,
   PRIMARY KEY (ID)
 );
@@ -15,13 +17,15 @@ CREATE TABLE Colors
 (
   ID          INTEGER      NOT NULL,
   description VARCHAR(255) NULL    ,
+  hex         VARCHAR(255) NULL    ,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE componentlink
 (
   part_number INTEGER NOT NULL,
-  ID          INTEGER NOT NULL
+  ID          INTEGER NOT NULL,
+  amount      INTEGER NULL    
 );
 
 CREATE TABLE Components
@@ -57,6 +61,7 @@ CREATE TABLE invoices
   invoice_number  INTEGER NOT NULL,
   customer_number INTEGER NOT NULL,
   date            DATE    NULL    ,
+  totalPrice      INTEGER NULL    ,
   PRIMARY KEY (invoice_number)
 );
 
