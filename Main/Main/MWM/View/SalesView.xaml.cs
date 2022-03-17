@@ -237,6 +237,8 @@ namespace Main.MWM.View
             return grid;
         }
 
+        
+
         private void checkInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -275,12 +277,8 @@ namespace Main.MWM.View
 
 
         }
-    }
 
-
-    class Bike
-    {
-
+        
     }
 
     class Cart
@@ -308,12 +306,57 @@ namespace Main.MWM.View
             else
             {
                 BikeDict[ID] = nb;
+                RowDefinition row = new RowDefinition();
+                grid.RowDefinitions.Add(row);
+
+                Label label = new Label();
+
+                label.Content = ID;
+                Grid.SetColumn(label, 0);
+                Grid.SetRow(label, grid.RowDefinitions.IndexOf(row));
+                grid.Children.Add(label);
+
+                StackPanel stackHor = new StackPanel();
+                StackPanel stackVert = new StackPanel();
+
+                stackHor.Orientation = Orientation.Horizontal;
+                stackVert.Orientation = Orientation.Vertical;   
+
+                TextBlock text = new TextBlock();
+                text.Text = nb.ToString();
+                stackHor.Children.Add(text);
+
+
+                Button buttonUp = new Button();
+                buttonUp.Content = "+";
+                //buttonUp.Name = ID.ToString();
+                buttonUp.Click += PlusOne;
+                Button buttonDown = new Button();
+                buttonDown.Content = "-";
+                //buttonUp.Name = ID.ToString();
+                buttonUp.Click += MinusOne;
+                stackVert.Children.Add(buttonUp);
+                stackHor.Children.Add(buttonDown);
+
+
+
+                stackHor.Children.Add(stackVert);
+
+
 
             }
         }
 
-       
 
+        public void MinusOne(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void PlusOne(object sender, RoutedEventArgs e)
+        {
+
+        }
         public void removeFromCart(int ID, int nb)
         {
             if (BikeDict.ContainsKey(ID))
