@@ -3,9 +3,9 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -497,
-    "scrollLeft": -198,
-    "zoomLevel": 1,
+    "scrollTop": -488,
+    "scrollLeft": -217,
+    "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -209,10 +209,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 17,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -320,7 +320,7 @@
           "active": false,
           "left": 36.7497,
           "top": 669.8338,
-          "zIndex": 4,
+          "zIndex": 3,
           "widthName": 75.708984375,
           "widthComment": 60
         },
@@ -428,7 +428,7 @@
           "active": false,
           "left": 1356.2222,
           "top": 1057.139,
-          "zIndex": 6,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -690,7 +690,7 @@
           "active": false,
           "left": 741.4445,
           "top": 1045.1115,
-          "zIndex": 7,
+          "zIndex": 6,
           "widthName": 87.2744140625,
           "widthComment": 60
         },
@@ -746,13 +746,36 @@
               "widthDefault": 60
             },
             "id": "dba69cb8-e977-4c03-a958-debf05aa5bff"
+          },
+          {
+            "name": "hex",
+            "comment": "",
+            "dataType": "VARCHAR(255)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 94.955078125,
+              "widthDefault": 60
+            },
+            "id": "385191e1-04fe-4395-b06b-bf798d0a890e"
           }
         ],
         "ui": {
           "active": false,
-          "left": 746.7771,
-          "top": 515.6666,
-          "zIndex": 2,
+          "left": 742.7771,
+          "top": 470.6666,
+          "zIndex": 11,
           "widthName": 60,
           "widthComment": 60
         },
@@ -837,7 +860,7 @@
           "active": false,
           "left": 283.444,
           "top": 914.7781,
-          "zIndex": 5,
+          "zIndex": 4,
           "widthName": 85.8271484375,
           "widthComment": 60
         },
