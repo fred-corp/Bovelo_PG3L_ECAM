@@ -16,6 +16,7 @@ CREATE TABLE Colors
 (
   ID          INTEGER      NOT NULL,
   description VARCHAR(255) NULL    ,
+  hex         VARCHAR(255) NULL    ,
   PRIMARY KEY (ID)
 );
 
