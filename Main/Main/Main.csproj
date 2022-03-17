@@ -69,14 +69,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MWM\View\CityView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MWM\View\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MWM\View\ProductionTabsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,18 +95,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MWM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MWM\ViewModel\MainViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionViewModel.cs" />
-    <Compile Include="MWM\ViewModel\SalesTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\SalesViewModel.cs" />
-    <Compile Include="MWM\View\CityView.xaml.cs">
-      <DependentUpon>CityView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MWM\View\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MWM\View\ProductionTabsView.xaml.cs">
       <DependentUpon>ProductionTabsView.xaml</DependentUpon>
     </Compile>
