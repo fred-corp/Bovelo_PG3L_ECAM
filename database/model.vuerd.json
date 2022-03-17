@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -488,
-    "scrollLeft": -217,
+    "scrollTop": -512,
+    "scrollLeft": -286,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
@@ -164,7 +164,7 @@
           {
             "name": "description",
             "comment": "",
-            "dataType": "VARCHAR(255)",
+            "dataType": "VARCHAR(512)",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -183,6 +183,29 @@
               "widthDefault": 60
             },
             "id": "3a0a5a8e-2e3d-4f56-9dbe-d7f0e259a390"
+          },
+          {
+            "name": "specs",
+            "comment": "",
+            "dataType": "VARCHAR(255)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 94.955078125,
+              "widthDefault": 60
+            },
+            "id": "1fceffee-d283-48e2-b5d3-6eabcc6ea7f7"
           },
           {
             "name": "image",
@@ -212,7 +235,7 @@
           "active": false,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 7,
+          "zIndex": 9,
           "widthName": 60,
           "widthComment": 60
         },
@@ -320,7 +343,7 @@
           "active": false,
           "left": 36.7497,
           "top": 669.8338,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 75.708984375,
           "widthComment": 60
         },
@@ -428,7 +451,7 @@
           "active": false,
           "left": 1356.2222,
           "top": 1057.139,
-          "zIndex": 5,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -690,7 +713,7 @@
           "active": false,
           "left": 741.4445,
           "top": 1045.1115,
-          "zIndex": 6,
+          "zIndex": 5,
           "widthName": 87.2744140625,
           "widthComment": 60
         },
@@ -775,7 +798,7 @@
           "active": false,
           "left": 742.7771,
           "top": 470.6666,
-          "zIndex": 11,
+          "zIndex": 6,
           "widthName": 60,
           "widthComment": 60
         },
@@ -860,7 +883,7 @@
           "active": false,
           "left": 283.444,
           "top": 914.7781,
-          "zIndex": 4,
+          "zIndex": 3,
           "widthName": 85.8271484375,
           "widthComment": 60
         },
@@ -937,7 +960,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 936.2442328125,
-          "y": 877.8332,
+          "y": 898.3332,
           "direction": "bottom"
         },
         "end": {
@@ -989,7 +1012,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 742.8331,
-          "y": 771.5832,
+          "y": 781.8332,
           "direction": "left"
         },
         "end": {

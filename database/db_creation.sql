@@ -7,7 +7,8 @@ CREATE TABLE Catalog
   color       INTEGER      NOT NULL,
   size        INTEGER      NOT NULL,
   price       INTEGER      NULL    ,
-  description VARCHAR(255) NULL    ,
+  description VARCHAR(512) NULL    ,
+  specs       VARCHAR(255) NULL    ,
   image       BLOB         NULL    ,
   PRIMARY KEY (ID)
 );
