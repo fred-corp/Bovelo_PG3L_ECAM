@@ -102,13 +102,11 @@ namespace Main.MWM.View
             {
                 TextstackPanel.ColumnDefinitions.Add(new ColumnDefinition());
             }
-            //TextstackPanel.Orientation = Orientation.Horizontal;
             string[] Texts = { "Color", "Size", "Number" };
             for (int i = 0;i<Texts.Count();i++)
             {
                 Label text = new Label();
                 text.Content = Texts[i];
-                //TextstackPanel.Children.Add(text);
                 Grid.SetRow(text, 0);
                 Grid.SetColumn(text, i);
                 TextstackPanel.Children.Add(text);
@@ -120,8 +118,12 @@ namespace Main.MWM.View
 
 
 
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.Orientation = Orientation.Horizontal;
+            Grid stackPanel = new Grid();
+            for (int i = 0; i < 4; i++)
+            {
+                stackPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+
             ComboBox ColorcomboBox = new ComboBox();
             ComboBox SizecomboBox = new ComboBox();
             foreach (string color in _Colors)
@@ -136,15 +138,19 @@ namespace Main.MWM.View
                 item.Content = size;
                 SizecomboBox.Items.Add(item);
             }
+            Grid.SetColumn(ColorcomboBox, 0);
+            Grid.SetColumn(SizecomboBox, 1);
             stackPanel.Children.Add(ColorcomboBox);
             stackPanel.Children.Add(SizecomboBox);
             
             TextBox TextBox2 = new TextBox();
+            Grid.SetColumn(TextBox2, 2);
             //TextBox2.AddHandler(TextBox.PreviewTextInput, checkInput);
             TextBox2.PreviewTextInput += checkInput;
             stackPanel.Children.Add(TextBox2);
 
             Button Confirm = new Button();
+            Grid.SetColumn(Confirm, 3);
             Confirm.Content = "Confirm";
             Confirm.Name = model;
             Confirm.Click += ConfirmOrder;
