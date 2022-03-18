@@ -284,8 +284,11 @@ namespace Main.MWM.View
     class Cart
     {
         Dictionary<int, int> BikeDict;
+        Dictionary<int, RowDefinition> Rows;
         int price;
         Grid grid;
+        //int Current_ID;
+        //UIElement Current_Row;
         public Cart()
         {
             BikeDict = new Dictionary<int, int>();
@@ -299,6 +302,7 @@ namespace Main.MWM.View
 
         public void addToCart(int ID, int nb)
         {
+            //Current_ID = ID;
             if (BikeDict.ContainsKey(ID))
             {
                 BikeDict[ID] += nb;
@@ -307,6 +311,7 @@ namespace Main.MWM.View
             {
                 BikeDict[ID] = nb;
                 RowDefinition row = new RowDefinition();
+                Rows.Add(ID, row);
                 grid.RowDefinitions.Add(row);
 
                 Label label = new Label();
@@ -323,39 +328,74 @@ namespace Main.MWM.View
                 stackVert.Orientation = Orientation.Vertical;   
 
                 TextBlock text = new TextBlock();
+                text.Foreground = Brushes.White;
                 text.Text = nb.ToString();
                 stackHor.Children.Add(text);
 
+                
 
                 Button buttonUp = new Button();
                 buttonUp.Content = "+";
                 //buttonUp.Name = ID.ToString();
                 buttonUp.Click += PlusOne;
+                buttonUp.Uid = ID.ToString();
                 Button buttonDown = new Button();
                 buttonDown.Content = "-";
                 //buttonUp.Name = ID.ToString();
-                buttonUp.Click += MinusOne;
+                buttonDown.Click += MinusOne;
+                buttonDown.Uid = ID.ToString();
                 stackVert.Children.Add(buttonUp);
-                stackHor.Children.Add(buttonDown);
-
-
-
+                stackVert.Children.Add(buttonDown);
                 stackHor.Children.Add(stackVert);
 
+                Grid.SetColumn(stackHor, 1);
+                grid.Children.Add(stackHor);
 
+                Button Delete = new Button();
+                Delete.Content = "X";
+                Delete.Uid = ID.ToString();
+                //Current_Row = row;
+                Delete.Click += DeleteFromCart;
+
+                Grid.SetColumn(Delete, 2);
+                grid.Children.Add(Delete);
 
             }
         }
 
 
+        public void DeleteFromCart(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            removeFromCart(Int16.Parse(button.Uid));
+            grid.Children.Remove((UIElement)grid.FindName("A"+button.Uid));
+        }
+
         public void MinusOne(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
+            StackPanel parentStack = (StackPanel)button.Parent;
+            StackPanel horStack = (StackPanel)parentStack.Parent;
 
+            TextBlock text = (TextBlock)horStack.Children[0];
+
+            removeFromCart(Int16.Parse(button.Uid), 1);
+
+            text.Text = BikeDict[Int16.Parse(button.Uid)].ToString();
         }
 
         public void PlusOne(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
+            StackPanel parentStack = (StackPanel)button.Parent;
+            StackPanel horStack = (StackPanel)parentStack.Parent;
 
+            TextBlock text = (TextBlock)horStack.Children[0];
+
+            BikeDict[Int16.Parse(button.Uid)] += 1;
+           
+
+            text.Text = BikeDict[Int16.Parse(button.Uid)].ToString();
         }
         public void removeFromCart(int ID, int nb)
         {
