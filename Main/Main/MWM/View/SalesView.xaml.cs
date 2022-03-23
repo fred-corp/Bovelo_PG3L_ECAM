@@ -385,18 +385,21 @@ namespace Main.MWM.View
 
                 Children[ID].Add(stackVert);
                 Children[ID].Add(stackHor);
-
+                Grid.SetRow(stackHor, grid.RowDefinitions.IndexOf(row));
                 Grid.SetColumn(stackHor, 1);
                 grid.Children.Add(stackHor);
 
                 Button Delete = new Button();
                 Delete.Content = "X";
                 Delete.Uid = ID.ToString();
+                Delete.VerticalAlignment = VerticalAlignment.Top;
+                Delete.Height = 50;
                 //Current_Row = row;
                 Delete.Click += DeleteFromCart;
 
                 Children[ID].Add(Delete);
 
+                Grid.SetRow(Delete, grid.RowDefinitions.IndexOf(row));
                 Grid.SetColumn(Delete, 2);
                 grid.Children.Add(Delete);
 
