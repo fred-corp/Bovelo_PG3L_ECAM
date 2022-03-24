@@ -50,7 +50,7 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding HomeViewCommand}"/>
+                             Command="{Binding SalesViewCommand}"/>
 
                     <RadioButton Content="Production"
                              Height="50"

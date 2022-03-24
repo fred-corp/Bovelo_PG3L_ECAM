@@ -11,7 +11,7 @@ namespace Main.MWM.ViewModel
     internal class MainViewModel : ObservableObject
     {
         //Commandes menu
-        public RelayCommand HomeViewCommand { get; set; }
+        public RelayCommand SalesViewCommand { get; set; }
         public RelayCommand ProductionViewCommand { get; set; }
 
         //Vues
@@ -34,11 +34,18 @@ namespace Main.MWM.ViewModel
         {
             SalesVM = new SalesViewModel();
 
+            ProductionVM = new ProductionViewModel();
+
             CurrentView = SalesVM;
 
-            HomeViewCommand = new RelayCommand(o =>
+            SalesViewCommand = new RelayCommand(o =>
             {
                 CurrentView = SalesVM;
+            });
+
+            ProductionViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ProductionVM;
             });
         }
     }
