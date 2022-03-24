@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Main"
         xmlns:viewModel="clr-namespace:Main.MWM.ViewModel"
         mc:Ignorable="d"
-        Height="800" Width="1220"
+        Height="600" Width="920"
         WindowStyle= "None"
         ResizeMode="NoResize"
         Background="Transparent"
