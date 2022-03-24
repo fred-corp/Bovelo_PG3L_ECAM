@@ -24,5 +24,14 @@ namespace Main.MWM.View
         {
             InitializeComponent();
         }
+
+        private void AddPart(object sender, RoutedEventArgs e)
+        {
+            testPopup.IsOpen = true;
+        }
+        private void CancelPart(object sender, RoutedEventArgs e)
+        {
+            testPopup.IsOpen = false;
+        }
     }
 }
