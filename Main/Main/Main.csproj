@@ -85,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MWM\View\StockView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\MenuButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +99,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MWM\ViewModel\StockViewModel.cs" />
+    <Compile Include="MWM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MWM\ViewModel\MainViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionViewModel.cs" />
@@ -110,6 +116,9 @@
     </Compile>
     <Compile Include="MWM\View\SalesView.xaml.cs">
       <DependentUpon>SalesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MWM\View\StockView.xaml.cs">
+      <DependentUpon>StockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -57,6 +57,12 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ProductionViewCommand}"/>
+                    <RadioButton Content="Stock"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding StockViewCommand}"/>
                 </StackPanel>
 
             </Grid>
