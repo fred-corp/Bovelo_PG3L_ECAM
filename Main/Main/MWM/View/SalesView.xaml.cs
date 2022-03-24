@@ -250,7 +250,8 @@ namespace Main.MWM.View
 
         private void ComfirmCart(object sender, RoutedEventArgs e)
         {
-
+            //envoiyer tout a la db
+            cart.ClearCart();
         }
         private void ConfirmOrder(object sender, RoutedEventArgs e)
         {
@@ -412,6 +413,20 @@ namespace Main.MWM.View
             Button button = (Button)sender;
             removeFromCart(Int16.Parse(button.Uid));
             DeleteRow(Int16.Parse(button.Uid));
+        }
+
+        public void ClearCart()
+        {
+            List<int> IDs = new List<int>();
+            foreach(int ID in Rows.Keys)
+            {
+                IDs.Add(ID);
+            }
+            foreach(int ID in IDs)
+            {
+                removeFromCart(ID);
+                DeleteRow(ID);
+            }
         }
 
         public void DeleteRow(int id)
