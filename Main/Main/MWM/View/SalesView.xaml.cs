@@ -60,7 +60,10 @@ namespace Main.MWM.View
                 tab.Name = model;
                 tab.Header = model;
                 tab.Height = 75;
+                tab.Background = Brushes.Transparent;
                 tab.Content = GetGrid(model);
+                //tab.GotFocus += OnGotFocusHandler;
+                //tab.LostFocus += OnLostFocusHandler;
                 _ModelsTab.Add(tab);
                 MainTabControl.Items.Add(tab);
                 size_grid =(Grid) tab.Content;
@@ -69,9 +72,25 @@ namespace Main.MWM.View
             carttab.Name = "Cart";
             carttab.Header = "Cart";
             carttab.Height = 75;
+            carttab.Background = Brushes.Transparent;
+            //carttab.GotFocus += OnGotFocusHandler;
+            //carttab.LostFocus += OnLostFocusHandler;
             carttab.Content = GetCartGrid(size_grid.ActualHeight,size_grid.ActualWidth);
             MainTabControl.Items.Add(carttab);
         }
+
+        //private void OnGotFocusHandler(object sender, RoutedEventArgs e)
+        //{
+        //    TabItem tab = (TabItem)sender;
+        //    tab.Background = Brushes.Red;
+        //}
+        //// Raised when Button losses focus.
+        //// Changes the color of the Button back to white.
+        //private void OnLostFocusHandler(object sender, RoutedEventArgs e)
+        //{
+        //    TabItem tab = (TabItem)sender;
+        //    tab.Background = Brushes.Blue;
+        //}
 
         private Grid GetGrid(string model)
         {
@@ -89,12 +108,18 @@ namespace Main.MWM.View
             grid.RowDefinitions.Add(Row2);
 
             Image image = new Image();
+            
+            image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
             Grid.SetRow(image, 0);
             Grid.SetColumn(image, 0);
             grid.Children.Add(image);
 
             TextBox textBox = new TextBox();
-            textBox.Text = model;
+            textBox.Text = model+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis sit amet nisl eu aliquet. Mauris rutrum bibendum ligula, vel imperdiet nunc ultrices at. Nullam luctus a enim vel sagittis. Fusce tempor dignissim urna, non elementum lorem ultrices et. Phasellus ac nisl convallis, gravida ante ac, bibendum ligula. Proin efficitur scelerisque magna vel scelerisque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ut tincidunt elit, at congue leo. Nullam id leo ante. Phasellus nec mauris a dui pretium fringilla eu sed dui. Nam auctor sed purus eget dignissim. Nam purus diam, vulputate ac lorem vitae, viverra euismod elit. Quisque scelerisque ultrices dapibus. Sed hendrerit nibh mattis libero viverra placerat. Duis quis lorem consequat, finibus erat ut, rutrum nisi.";
+            textBox.TextWrapping = TextWrapping.Wrap;
+            textBox.Background = Brushes.Transparent;
+            textBox.Foreground = Brushes.White;
+            textBox.BorderThickness = new Thickness(0);
             Grid.SetRow(textBox, 1);
             Grid.SetColumn(textBox, 0);
             grid.Children.Add(textBox);
@@ -116,7 +141,9 @@ namespace Main.MWM.View
             grid.Children.Add(CommandGrid);
 
             TextBlock TextBlock = new TextBlock();
-            TextBlock.Text = "Commande";
+            TextBlock.Foreground = Brushes.White;
+            TextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            TextBlock.Text = "Order";
 
             Grid.SetRow(TextBlock, 0);
             Grid.SetColumn(TextBlock, 0);
@@ -131,6 +158,7 @@ namespace Main.MWM.View
             for (int i = 0;i<Texts.Count();i++)
             {
                 Label text = new Label();
+                text.Foreground = Brushes.White;
                 text.Content = Texts[i];
                 Grid.SetRow(text, 0);
                 Grid.SetColumn(text, i);
@@ -151,16 +179,22 @@ namespace Main.MWM.View
 
             ComboBox ColorcomboBox = new ComboBox();
             ComboBox SizecomboBox = new ComboBox();
+
+            //ColorcomboBox.Background = Brushes.Red;
+            //SizecomboBox.Background = Brushes.Transparent;
+
             foreach (string color in _Colors)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = color;
+                //item.Background = Brushes.Bl;
                 ColorcomboBox.Items.Add(item);
             }
             foreach (int size in _Sizes)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = size;
+                //item.Background = Brushes.Transparent;
                 SizecomboBox.Items.Add(item);
             }
             ColorcomboBox.SelectedIndex = 0;

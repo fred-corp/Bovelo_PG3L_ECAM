@@ -100,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MWM\ViewModel\StockViewModel.cs" />
-    <Compile Include="MWM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MWM\ViewModel\MainViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionViewModel.cs" />
