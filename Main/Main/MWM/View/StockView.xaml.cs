@@ -27,11 +27,11 @@ namespace Main.MWM.View
 
         private void AddPart(object sender, RoutedEventArgs e)
         {
-            testPopup.IsOpen = true;
+            addPartPopup.IsOpen = true;
         }
         private void CancelPart(object sender, RoutedEventArgs e)
         {
-            testPopup.IsOpen = false;
+            addPartPopup.IsOpen = false;
         }
     }
 }

@@ -13,13 +13,14 @@
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
 
-        <DataGrid Height="100" Margin="0,0,10,10">
+        <DataGrid Height="200" Margin="0,0,10,10">
             
         </DataGrid>
         
-        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="AddPart">Add new part</Button>
+        <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="AddPart">Add new part</Button>
+        <Button HorizontalAlignment="Center" Width="200">Remove part</Button>
 
-        <Popup x:Name="testPopup" IsOpen="False" Placement="Center" Width="400" Height="200">
+        <Popup x:Name="addPartPopup" IsOpen="False" Placement="Center" Width="400" Height="200">
             <StackPanel Background="DarkBlue">
                 <TextBlock Foreground="White" FontSize="18" FontWeight="Bold">  
                     Please enter the new part:
@@ -28,8 +29,10 @@
                 <TextBox></TextBox>
                 <TextBlock Foreground="White">Quantity</TextBlock>
                 <TextBox></TextBox>
+                <TextBlock Foreground="White">Location</TextBlock>
+                <TextBox></TextBox>
                 <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
-                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0">
                         Confirm
                     </Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelPart">
