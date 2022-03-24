@@ -65,6 +65,14 @@ CREATE TABLE invoices
   PRIMARY KEY (invoice_number)
 );
 
+CREATE TABLE production
+(
+  invoice_number INTEGER      NOT NULL,
+  ID             INTEGER      NOT NULL,
+  amount         INTEGER      NULL    ,
+  date           VARCHAR(255) NULL    
+);
+
 ALTER TABLE invoices
   ADD CONSTRAINT FK_customers_TO_invoices
     FOREIGN KEY (customer_number)
@@ -87,6 +95,16 @@ ALTER TABLE componentlink
 
 ALTER TABLE componentlink
   ADD CONSTRAINT FK_Catalog_TO_componentlink
+    FOREIGN KEY (ID)
+    REFERENCES Catalog (ID);
+
+ALTER TABLE production
+  ADD CONSTRAINT FK_invoices_TO_production
+    FOREIGN KEY (invoice_number)
+    REFERENCES invoices (invoice_number);
+
+ALTER TABLE production
+  ADD CONSTRAINT FK_Catalog_TO_production
     FOREIGN KEY (ID)
     REFERENCES Catalog (ID);
 
