@@ -69,6 +69,7 @@ namespace Main.MWM.View
                 tab.Name = model;
                 tab.Header = model;
                 tab.Height = 75;
+                tab.Width = 100;
                 tab.Background = Brushes.Transparent;
                 tab.Content = GetGrid(model);
                 tab.BorderBrush = Brushes.Transparent;
@@ -83,6 +84,7 @@ namespace Main.MWM.View
             carttab.Name = "Cart";
             carttab.Header = "Cart";
             carttab.Height = 75;
+            carttab.Width = 100;
             carttab.BorderBrush = Brushes.Transparent;
             carttab.Foreground = Brushes.Gray;
             carttab.Background = Brushes.Transparent;
@@ -123,8 +125,9 @@ namespace Main.MWM.View
             grid.RowDefinitions.Add(Row2);
 
             Image image = new Image();
-            
-            image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
+
+
+            //image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
             //image.Source = new BitmapImage(new Uri(@"https://github.com/fred-corp/Bovelo_PG3L_ECAM/blob/8d5c59f8b8f26f053af3004e018d842c842c9449/database/images/Adventure.jpg", UriKind.Absolute));
 
             Grid.SetRow(image, 0);
