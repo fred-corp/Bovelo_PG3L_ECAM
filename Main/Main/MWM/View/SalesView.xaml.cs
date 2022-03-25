@@ -92,6 +92,7 @@ namespace Main.MWM.View
             //carttab.LostFocus += OnLostFocusHandler;
             carttab.Content = GetCartGrid(size_grid.ActualHeight,size_grid.ActualWidth);
             MainTabControl.Items.Add(carttab);
+            MainTabControl.BorderBrush = Brushes.Transparent;
         }
 
         //private void OnGotFocusHandler(object sender, RoutedEventArgs e)
