@@ -13,8 +13,13 @@
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
 
-        <DataGrid Height="200" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="True" ItemsSource="{Binding Path=LoadDataBinding}">
-
+        <DataGrid Height="200" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=LoadDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=description}" Header="Description" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=location}" Header="Location" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=in_stock}" Header="Stock Amount" IsReadOnly="True"/>
+            </DataGrid.Columns>
         </DataGrid>
         
         <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="AddPart">Add new part</Button>
