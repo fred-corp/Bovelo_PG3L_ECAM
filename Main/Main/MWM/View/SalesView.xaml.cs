@@ -165,11 +165,64 @@ namespace Main.MWM.View
             Grid.SetColumn(image, 0);
             grid.Children.Add(image);
 
-            TextBox textBox = new TextBox();
 
-            MySqlCommand cmd = new MySqlCommand("SELECT description FROM Catalog WHERE model=@model LIMIT 1", conn);
+
+
+
+
+            StackPanel stackSpecs = new StackPanel();
+            stackSpecs.Orientation = Orientation.Vertical;
+            Label titleSpecs = new Label();
+            titleSpecs.Content = "Spesification";
+            titleSpecs.Foreground = Brushes.White;
+            titleSpecs.Background = Brushes.Transparent;
+            titleSpecs.HorizontalAlignment = HorizontalAlignment.Center;
+            
+            
+            stackSpecs.Children.Add(titleSpecs);
+
+
+            
+
+
+            TextBox specs = new TextBox();
+            
+            specs.Foreground = Brushes.White;
+            specs.Background = Brushes.Transparent;
+            specs.HorizontalAlignment = HorizontalAlignment.Center;
+
+
+            MySqlCommand cmd = new MySqlCommand("SELECT specs FROM Catalog WHERE model=@model LIMIT 1", conn);
             cmd.Parameters.Add(new MySqlParameter("model", model));
             MySqlDataReader reader = cmd.ExecuteReader();
+            string sSpecs = "";
+            while (reader.Read())
+            {
+                sSpecs = reader[0].ToString();
+                
+            }
+            reader.Close();
+
+            string[] specsTable = sSpecs.Split(',');
+
+            foreach(string s in specsTable)
+            {
+                specs.Text +=s+"\n";
+            }
+            
+
+            stackSpecs.Children.Add(specs);
+
+            Grid.SetRow(stackSpecs, 0);
+            Grid.SetColumn(stackSpecs, 1);
+            grid.Children.Add(stackSpecs);
+
+
+            TextBox textBox = new TextBox();
+
+            cmd = new MySqlCommand("SELECT description FROM Catalog WHERE model=@model LIMIT 1", conn);
+            cmd.Parameters.Add(new MySqlParameter("model", model));
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 textBox.Text = reader[0].ToString();
