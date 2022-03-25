@@ -363,7 +363,7 @@ namespace Main.MWM.View
 
         private void ComfirmCart(object sender, RoutedEventArgs e)
         {
-            //envoiyer tout a la db
+            //ouvrir popup pour avoir connées client puis envoyer le tout a la db
             cart.ClearCart();
         }
         private void ConfirmOrder(object sender, RoutedEventArgs e)
