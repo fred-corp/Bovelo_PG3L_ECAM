@@ -3,6 +3,7 @@
 CREATE TABLE Catalog
 (
   ID          INTEGER      NOT NULL,
+  stock       INTEGER      NULL    ,
   model       VARCHAR(255) NOT NULL,
   color       INTEGER      NOT NULL,
   size        INTEGER      NOT NULL,
@@ -30,10 +31,11 @@ CREATE TABLE componentlink
 
 CREATE TABLE Components
 (
-  part_number INTEGER      NOT NULL,
-  in_stock    INTEGER      NULL    ,
-  description VARCHAR(255) NULL    ,
-  location    VARCHAR(255) NULL    ,
+  part_number   INTEGER      NOT NULL,
+  in_stock      INTEGER      NULL    ,
+  minimum_stock INTEGER      NULL    ,
+  description   VARCHAR(255) NULL    ,
+  location      VARCHAR(255) NULL    ,
   PRIMARY KEY (part_number)
 );
 

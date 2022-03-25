@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -600,
-    "scrollLeft": -136,
+    "scrollTop": -490,
+    "scrollLeft": -125,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
@@ -71,7 +71,7 @@
           },
           {
             "name": "stock",
-            "comment": "To ADD",
+            "comment": "",
             "dataType": "INTEGER",
             "default": "",
             "option": {
@@ -258,7 +258,7 @@
           "active": false,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 26,
+          "zIndex": 34,
           "widthName": 60,
           "widthComment": 60
         },
@@ -317,7 +317,7 @@
           },
           {
             "name": "minimum_stock",
-            "comment": "To ADD",
+            "comment": "",
             "dataType": "INTEGER",
             "default": "",
             "option": {
@@ -389,7 +389,7 @@
           "active": false,
           "left": 31.7497,
           "top": 687.3338,
-          "zIndex": 27,
+          "zIndex": 32,
           "widthName": 75.708984375,
           "widthComment": 60
         },
