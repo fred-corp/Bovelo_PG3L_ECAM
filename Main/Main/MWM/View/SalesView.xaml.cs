@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Main.MWM.View
 {
@@ -30,20 +32,48 @@ namespace Main.MWM.View
 
         Dictionary<string, int> _ID_creator = new Dictionary<string, int>();
 
-        
+
+        MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
 
         public SalesView()
         {
+
+            try
+            {
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Failed to connect to data source " + ex.ToString());
+            }
             InitializeComponent();
             _Sizes.Add(26);
             _Sizes.Add(28);
-            _Colors.Add("Red");
-            _Colors.Add("Blue");
-            _Colors.Add("Black");
+
+            MySqlCommand cmd = new MySqlCommand("SELECT description FROM Colors", conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _Colors.Add(reader[0].ToString());
+            }
+            reader.Close();
+            //_Colors.Add("Red");
+            //_Colors.Add("Blue");
+            //_Colors.Add("Black");
+
+
+            //cmd = new MySqlCommand("SELECT description FROM Catalog WHERE model=@model LIMIT 1", conn);
+            //reader = cmd.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    textBox.Text = reader[0].ToString();
+            //}
+            //reader.Close();
             _Models.Add("City");
             _Models.Add("Explorer");
             _Models.Add("Adventure");
+
 
             _ID_creator.Add("City", 1);
             _ID_creator.Add("Explorer", 2);
@@ -136,7 +166,17 @@ namespace Main.MWM.View
             grid.Children.Add(image);
 
             TextBox textBox = new TextBox();
-            textBox.Text = model+" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis sit amet nisl eu aliquet. Mauris rutrum bibendum ligula, vel imperdiet nunc ultrices at. Nullam luctus a enim vel sagittis. Fusce tempor dignissim urna, non elementum lorem ultrices et. Phasellus ac nisl convallis, gravida ante ac, bibendum ligula. Proin efficitur scelerisque magna vel scelerisque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ut tincidunt elit, at congue leo. Nullam id leo ante. Phasellus nec mauris a dui pretium fringilla eu sed dui. Nam auctor sed purus eget dignissim. Nam purus diam, vulputate ac lorem vitae, viverra euismod elit. Quisque scelerisque ultrices dapibus. Sed hendrerit nibh mattis libero viverra placerat. Duis quis lorem consequat, finibus erat ut, rutrum nisi.";
+
+            MySqlCommand cmd = new MySqlCommand("SELECT description FROM Catalog WHERE model=@model LIMIT 1", conn);
+            cmd.Parameters.Add(new MySqlParameter("model", model));
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                textBox.Text = reader[0].ToString();
+            }
+            reader.Close();
+
+
             textBox.TextWrapping = TextWrapping.Wrap;
             textBox.Background = Brushes.Transparent;
             textBox.Foreground = Brushes.White;
