@@ -29,7 +29,9 @@ namespace Main.MWM.View
         Cart cart;
 
         Dictionary<string, int> _ID_creator = new Dictionary<string, int>();
+
         
+
 
         public SalesView()
         {
@@ -46,11 +48,18 @@ namespace Main.MWM.View
             _ID_creator.Add("City", 1);
             _ID_creator.Add("Explorer", 2);
             _ID_creator.Add("Adventure", 3);
+
+            
+
             _ID_creator.Add("26", 0);
             _ID_creator.Add("28", 1);
+
+            
             _ID_creator.Add("Blue", 1);
             _ID_creator.Add("Red", 2);
             _ID_creator.Add("Black", 3);
+
+            
 
             cart = new Cart();
 
@@ -60,8 +69,11 @@ namespace Main.MWM.View
                 tab.Name = model;
                 tab.Header = model;
                 tab.Height = 75;
+                tab.Width = 100;
                 tab.Background = Brushes.Transparent;
                 tab.Content = GetGrid(model);
+                tab.BorderBrush = Brushes.Transparent;
+                tab.Foreground = Brushes.Gray;
                 //tab.GotFocus += OnGotFocusHandler;
                 //tab.LostFocus += OnLostFocusHandler;
                 _ModelsTab.Add(tab);
@@ -72,11 +84,15 @@ namespace Main.MWM.View
             carttab.Name = "Cart";
             carttab.Header = "Cart";
             carttab.Height = 75;
+            carttab.Width = 100;
+            carttab.BorderBrush = Brushes.Transparent;
+            carttab.Foreground = Brushes.Gray;
             carttab.Background = Brushes.Transparent;
             //carttab.GotFocus += OnGotFocusHandler;
             //carttab.LostFocus += OnLostFocusHandler;
             carttab.Content = GetCartGrid(size_grid.ActualHeight,size_grid.ActualWidth);
             MainTabControl.Items.Add(carttab);
+            MainTabControl.BorderBrush = Brushes.Transparent;
         }
 
         //private void OnGotFocusHandler(object sender, RoutedEventArgs e)
@@ -101,6 +117,8 @@ namespace Main.MWM.View
             RowDefinition Row1 = new RowDefinition();
             RowDefinition Row2 = new RowDefinition();
 
+            
+
             grid.ColumnDefinitions.Add(Column1);
             grid.ColumnDefinitions.Add(Column2);
 
@@ -108,8 +126,11 @@ namespace Main.MWM.View
             grid.RowDefinitions.Add(Row2);
 
             Image image = new Image();
-            
-            image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
+
+
+            //image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
+            //image.Source = new BitmapImage(new Uri(@"https://github.com/fred-corp/Bovelo_PG3L_ECAM/blob/8d5c59f8b8f26f053af3004e018d842c842c9449/database/images/Adventure.jpg", UriKind.Absolute));
+
             Grid.SetRow(image, 0);
             Grid.SetColumn(image, 0);
             grid.Children.Add(image);
@@ -197,6 +218,10 @@ namespace Main.MWM.View
                 //item.Background = Brushes.Transparent;
                 SizecomboBox.Items.Add(item);
             }
+
+            ColorcomboBox.Height = 30;
+            SizecomboBox.Height = 30;
+
             ColorcomboBox.SelectedIndex = 0;
             SizecomboBox.SelectedIndex = 0;
             Grid.SetColumn(ColorcomboBox, 0);
@@ -205,12 +230,14 @@ namespace Main.MWM.View
             stackPanel.Children.Add(SizecomboBox);
             
             TextBox TextBox2 = new TextBox();
+            TextBox2.Height = 30;
             Grid.SetColumn(TextBox2, 2);
             //TextBox2.AddHandler(TextBox.PreviewTextInput, checkInput);
             TextBox2.PreviewTextInput += checkInput;
             stackPanel.Children.Add(TextBox2);
 
             Button Confirm = new Button();
+            Confirm.Height = 30;
             Grid.SetColumn(Confirm, 3);
             Confirm.Content = "Confirm";
             Confirm.Name = model;
@@ -247,6 +274,9 @@ namespace Main.MWM.View
 
             Grid cartgrid = new Grid();
             ColumnDefinition CartColumn1 = new ColumnDefinition();
+
+            CartColumn1.Width = new GridLength(500);
+
             ColumnDefinition CartColumn2 = new ColumnDefinition();
             ColumnDefinition CartColumn3 = new ColumnDefinition();
 
@@ -254,8 +284,12 @@ namespace Main.MWM.View
             cartgrid.ColumnDefinitions.Add(CartColumn2);
             cartgrid.ColumnDefinitions.Add(CartColumn3);
 
+
+
             Grid.SetRow(scrollViewer, 0);
             Grid.SetColumn(scrollViewer, 0);
+
+            //scrollViewer.Background = Brushes.Red;
 
             scrollViewer.Content = cartgrid;
 
@@ -266,6 +300,11 @@ namespace Main.MWM.View
             Button Comfirm = new Button();
             Comfirm.Content = "Comfirm";
             Comfirm.Click += ComfirmCart;
+            Comfirm.Background = new SolidColorBrush(Color.FromArgb(0x22, 0x20, 0, 2));
+            Comfirm.Foreground = Brushes.White;
+            Comfirm.BorderBrush = Brushes.Transparent;
+            Comfirm.Height = 40;
+            Comfirm.Width = 50;
             //Comfirm.Width = 50;
             Grid.SetRow(Comfirm, 1);
             Grid.SetColumn(Comfirm, 1);
@@ -310,7 +349,8 @@ namespace Main.MWM.View
                 cart.addToCart(Int16.Parse(ID), Int16.Parse(textBox.Text));
 
 
-                text.Content = ID;
+                text.Content = "Added to cart!";
+                text.Foreground = Brushes.White;
                 Grid.SetRow(text, 3);
                 Grid.SetColumn(text, 0);
                 ParentGrid2.Children.Add(text);
@@ -329,6 +369,9 @@ namespace Main.MWM.View
         Dictionary<int, int> BikeDict;
         Dictionary<int, RowDefinition> Rows = new Dictionary<int, RowDefinition>();
         Dictionary<int, List<UIElement>> Children = new Dictionary<int, List<UIElement>>();
+        Dictionary<int, string> _ID_Model = new Dictionary<int, string>();
+        Dictionary<int, string> _ID_Size = new Dictionary<int, string>();
+        Dictionary<int, string> _ID_Color = new Dictionary<int, string>();
         Grid grid;
         int price;
         //int Current_ID;
@@ -337,6 +380,18 @@ namespace Main.MWM.View
         {
             BikeDict = new Dictionary<int, int>();
             price = 0;
+
+            _ID_Color.Add(1, "Blue");
+            _ID_Color.Add(2, "Red");
+            _ID_Color.Add(3, "Black");
+
+            _ID_Model.Add(1, "City");
+            _ID_Model.Add(2, "Explorer");
+            _ID_Model.Add(3, "Adventure");
+
+            _ID_Size.Add(0, "26");
+            _ID_Size.Add(1, "28");
+
         }
 
         public void GetConatiner(Grid grid)
@@ -378,7 +433,14 @@ namespace Main.MWM.View
 
                 Label label = new Label();
 
-                label.Content = ID;
+                //label.Content = ID;
+                //string[] ID_s = ID.ToString().Split();
+                //string[] digits = ID.ToString().Select(x => int.Parse(x.ToString()));
+                int a = ID / 100;
+                int b = (ID%100) / 10;
+                int c = ID % 10;
+                label.Content = _ID_Model[ID/100] + " " + _ID_Size[ID%100/10] + " " + _ID_Color[ID%10];
+                label.Foreground = Brushes.White;
                 Grid.SetColumn(label, 0);
                 Grid.SetRow(label, grid.RowDefinitions.IndexOf(row));
                 grid.Children.Add(label);
@@ -412,6 +474,14 @@ namespace Main.MWM.View
                 buttonDown.Click += MinusOne;
                 buttonDown.Uid = ID.ToString();
 
+                buttonDown.Background = new SolidColorBrush(Color.FromArgb(0x22, 0x20, 0, 2));
+                buttonDown.Foreground = Brushes.White;
+                buttonDown.BorderBrush = Brushes.Transparent;
+
+                buttonUp.Background = new SolidColorBrush(Color.FromArgb(0x22, 0x20, 0, 2));
+                buttonUp.Foreground = Brushes.White;
+                buttonUp.BorderBrush = Brushes.Transparent;
+
                 Children[ID].Add(buttonDown);
 
                 stackVert.Children.Add(buttonUp);
@@ -425,6 +495,10 @@ namespace Main.MWM.View
                 grid.Children.Add(stackHor);
 
                 Button Delete = new Button();
+                Delete.Width = 40;
+                Delete.Background = new SolidColorBrush(Color.FromArgb(0x22, 0x20, 0, 2));
+                Delete.Foreground = Brushes.White;
+                Delete.BorderBrush = Brushes.Transparent;
                 Delete.Content = "X";
                 Delete.Uid = ID.ToString();
                 Delete.VerticalAlignment = VerticalAlignment.Top;
