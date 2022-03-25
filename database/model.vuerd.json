@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -581,
-    "scrollLeft": -82,
+    "scrollTop": -600,
+    "scrollLeft": -136,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
@@ -68,6 +68,29 @@
               "widthDefault": 60
             },
             "id": "e19ba33e-e569-43ae-95a2-a2b46021be48"
+          },
+          {
+            "name": "stock",
+            "comment": "To ADD",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "ea49ffcb-cf48-4c2a-a5e4-9121f8a3bdf8"
           },
           {
             "name": "model",
@@ -235,7 +258,7 @@
           "active": false,
           "left": 742.8331,
           "top": 665.3332,
-          "zIndex": 40,
+          "zIndex": 26,
           "widthName": 60,
           "widthComment": 60
         },
@@ -293,6 +316,29 @@
             "id": "0606a3f9-1059-4344-b65c-4ff8b4e0e86f"
           },
           {
+            "name": "minimum_stock",
+            "comment": "To ADD",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 92.29541015625,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "e3529a25-1476-400d-b4f8-8e1ef006f8d1"
+          },
+          {
             "name": "description",
             "comment": "",
             "dataType": "VARCHAR(255)",
@@ -343,7 +389,7 @@
           "active": false,
           "left": 31.7497,
           "top": 687.3338,
-          "zIndex": 36,
+          "zIndex": 27,
           "widthName": 75.708984375,
           "widthComment": 60
         },
@@ -451,7 +497,7 @@
           "active": false,
           "left": 1356.2222,
           "top": 1057.139,
-          "zIndex": 12,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -713,7 +759,7 @@
           "active": false,
           "left": 908.1123,
           "top": 976.2237,
-          "zIndex": 20,
+          "zIndex": 5,
           "widthName": 87.2744140625,
           "widthComment": 60
         },
@@ -798,7 +844,7 @@
           "active": false,
           "left": 742.7771,
           "top": 470.6666,
-          "zIndex": 6,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -883,7 +929,7 @@
           "active": false,
           "left": 283.444,
           "top": 914.7781,
-          "zIndex": 3,
+          "zIndex": 2,
           "widthName": 85.8271484375,
           "widthComment": 60
         },
@@ -991,7 +1037,7 @@
           "active": false,
           "left": 831.8874,
           "top": 1229.0005,
-          "zIndex": 35,
+          "zIndex": 6,
           "widthName": 62.708984375,
           "widthComment": 60
         },
@@ -1068,7 +1114,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 839.53866640625,
-          "y": 898.3332,
+          "y": 918.8332,
           "direction": "bottom"
         },
         "end": {
@@ -1093,8 +1139,8 @@
           "columnIds": [
             "30de12f0-040a-4b8c-bf54-34a4b20ed673"
           ],
-          "x": 230.58173125,
-          "y": 838.3338,
+          "x": 238.874944140625,
+          "y": 858.8338,
           "direction": "bottom"
         },
         "end": {
@@ -1120,7 +1166,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 742.8331,
-          "y": 781.8332,
+          "y": 792.0832,
           "direction": "left"
         },
         "end": {
@@ -1172,7 +1218,7 @@
             "e19ba33e-e569-43ae-95a2-a2b46021be48"
           ],
           "x": 1032.9497992187498,
-          "y": 898.3332,
+          "y": 918.8332,
           "direction": "bottom"
         },
         "end": {
