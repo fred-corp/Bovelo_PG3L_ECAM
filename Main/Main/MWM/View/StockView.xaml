@@ -13,8 +13,8 @@
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
 
-        <DataGrid Height="200" Margin="0,0,10,10">
-            
+        <DataGrid Height="200" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="True" ItemsSource="{Binding Path=LoadDataBinding}">
+
         </DataGrid>
         
         <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="AddPart">Add new part</Button>
