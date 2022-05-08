@@ -27,6 +27,9 @@ namespace Main.MWM.View
         List<string> _Models = new List<string>();
         List<string> _Colors = new List<string>();
         List<TabItem> _ModelsTab = new List<TabItem>();
+        Dictionary<int, string> _ID_Color = new Dictionary<int,string>();
+        Dictionary<int, string> _ID_Model = new Dictionary<int, string>();
+        Dictionary<int, string> _ID_Size = new Dictionary<int, string>();
         Grid size_grid;
         Cart cart;
 
@@ -48,8 +51,8 @@ namespace Main.MWM.View
                 MessageBox.Show("Failed to connect to data source " + ex.ToString());
             }
             InitializeComponent();
-            _Sizes.Add(26);
-            _Sizes.Add(28);
+
+
 
             MySqlCommand cmd = new MySqlCommand("SELECT description FROM Colors", conn);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -70,28 +73,105 @@ namespace Main.MWM.View
             //    textBox.Text = reader[0].ToString();
             //}
             //reader.Close();
-            _Models.Add("City");
-            _Models.Add("Explorer");
-            _Models.Add("Adventure");
+            cmd = new MySqlCommand("select size, min(id) from Catalog group by size", conn);
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _Sizes.Add((int)reader[0]);
+            }
+            reader.Close();
+
+            cmd = new MySqlCommand("select model, min(id) from Catalog group by model", conn);
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _Models.Add(reader[0].ToString());
+            }
+            reader.Close();
+
+            //_Sizes.Add(26);
+            //_Sizes.Add(28);
 
 
-            _ID_creator.Add("City", 1);
-            _ID_creator.Add("Explorer", 2);
-            _ID_creator.Add("Adventure", 3);
+            //_Models.Add("City");
+            //_Models.Add("Explorer");
+            //_Models.Add("Adventure");
 
-            
+            //for (int i = 0; i < _Models.Count; i++)
+            //{
+            //    _ID_creator.Add(_Models[i], i + 1);
+            //}
 
-            _ID_creator.Add("26", 0);
-            _ID_creator.Add("28", 1);
+            //for (int i = 0; i < _Sizes.Count; i++)
+            //{
+            //    _ID_creator.Add(_Sizes[i].ToString(), i);
+            //}
 
-            
-            _ID_creator.Add("Blue", 1);
-            _ID_creator.Add("Red", 2);
-            _ID_creator.Add("Black", 3);
+            //for (int i = 0; i < _Colors.Count; i++)
+            //{
+            //    _ID_creator.Add(_Colors[i], i + 1);
+            //}
 
-            
 
-            cart = new Cart();
+            foreach(string model in _Models)
+            {
+                cmd = new MySqlCommand("select id from Catalog where model = @model limit 1", conn);
+                cmd.Parameters.Add(new MySqlParameter("model", model));
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string id = reader[0].ToString();
+                    _ID_creator.Add(model, Int16.Parse(id[0].ToString()));
+                    _ID_Model.Add(Int16.Parse(id[0].ToString()), model);
+                }
+                reader.Close();
+            }
+
+            foreach (string color in _Colors)
+            {
+                cmd = new MySqlCommand("select id from Colors where description = @color limit 1", conn);
+                cmd.Parameters.Add(new MySqlParameter("color", color));
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    _ID_creator.Add(color, Int16.Parse(reader[0].ToString()));
+                    _ID_Color.Add(Int16.Parse(reader[0].ToString()), color);
+                }
+                reader.Close();
+            }
+
+            foreach (int size in _Sizes)
+            {
+                cmd = new MySqlCommand("select id from Catalog where size = @size limit 1", conn);
+                cmd.Parameters.Add(new MySqlParameter("size", size));
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string id = reader[0].ToString();
+                    _ID_creator.Add(size.ToString(), Int16.Parse(id[1].ToString()));
+                    _ID_Size.Add(Int16.Parse(id[1].ToString()), size.ToString());
+                }
+                reader.Close();
+            }
+
+
+            //_ID_creator.Add("City", 1);
+            //_ID_creator.Add("Explorer", 2);
+            //_ID_creator.Add("Adventure", 3);
+
+
+
+            //_ID_creator.Add("26", 0);
+            //_ID_creator.Add("28", 1);
+
+
+            //_ID_creator.Add("Blue", 1);
+            //_ID_creator.Add("Red", 2);
+            //_ID_creator.Add("Black", 3);
+
+
+
+            cart = new Cart(conn, _ID_Model, _ID_Size, _ID_Color);
 
             foreach (var model in _Models)
             {
@@ -158,8 +238,25 @@ namespace Main.MWM.View
             Image image = new Image();
 
 
-            //image.Source = new BitmapImage(new Uri(@"C:\Users\engel\Downloads\9729122d-pure-flux-one-un-velo-electrique-leger-et-epure__1200_675__126-351-3093-2024_wtmk.jpeg", UriKind.Absolute));
-            //image.Source = new BitmapImage(new Uri(@"https://github.com/fred-corp/Bovelo_PG3L_ECAM/blob/8d5c59f8b8f26f053af3004e018d842c842c9449/database/images/Adventure.jpg", UriKind.Absolute));
+            var fullFilePath = @"";
+
+            MySqlCommand cmd = new MySqlCommand("select image, min(id) from Catalog where model=@model group by image", conn);
+            cmd.Parameters.Add(new MySqlParameter("model", model));
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                fullFilePath = reader[0].ToString();
+                //fullFilePath = @"http://www.americanlayout.com/wp/wp-content/uploads/2012/08/C-To-Go-300x300.png";
+            }
+            reader.Close();
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+            bitmap.EndInit();
+
+            image.Source = bitmap;
+
 
             Grid.SetRow(image, 0);
             Grid.SetColumn(image, 0);
@@ -192,9 +289,9 @@ namespace Main.MWM.View
             specs.HorizontalAlignment = HorizontalAlignment.Center;
 
 
-            MySqlCommand cmd = new MySqlCommand("SELECT specs FROM Catalog WHERE model=@model LIMIT 1", conn);
+            cmd = new MySqlCommand("SELECT specs FROM Catalog WHERE model=@model LIMIT 1", conn);
             cmd.Parameters.Add(new MySqlParameter("model", model));
-            MySqlDataReader reader = cmd.ExecuteReader();
+            reader = cmd.ExecuteReader();
             string sSpecs = "";
             while (reader.Read())
             {
@@ -417,6 +514,7 @@ namespace Main.MWM.View
         private void ComfirmCart(object sender, RoutedEventArgs e)
         {
             //ouvrir popup pour avoir connées client puis envoyer le tout a la db
+
             cart.ClearCart();
         }
         private void ConfirmOrder(object sender, RoutedEventArgs e)
@@ -462,28 +560,35 @@ namespace Main.MWM.View
         Dictionary<int, int> BikeDict;
         Dictionary<int, RowDefinition> Rows = new Dictionary<int, RowDefinition>();
         Dictionary<int, List<UIElement>> Children = new Dictionary<int, List<UIElement>>();
-        Dictionary<int, string> _ID_Model = new Dictionary<int, string>();
-        Dictionary<int, string> _ID_Size = new Dictionary<int, string>();
-        Dictionary<int, string> _ID_Color = new Dictionary<int, string>();
+        Dictionary<int, string> _ID_Model;
+        Dictionary<int, string> _ID_Size;
+        Dictionary<int, string> _ID_Color;
         Grid grid;
         int price;
+        MySqlConnection conn;
         //int Current_ID;
         //UIElement Current_Row;
-        public Cart()
+        public Cart(MySqlConnection _conn, Dictionary<int, string> ID_Model, Dictionary<int, string>ID_Size, Dictionary<int, string>ID_Color)
         {
+            conn = _conn;
+
+            _ID_Color = ID_Color;
+            _ID_Model = ID_Model;
+            _ID_Size = ID_Size;
+
             BikeDict = new Dictionary<int, int>();
             price = 0;
 
-            _ID_Color.Add(1, "Blue");
-            _ID_Color.Add(2, "Red");
-            _ID_Color.Add(3, "Black");
+            //_ID_Color.Add(1, "Blue");
+            //_ID_Color.Add(2, "Red");
+            //_ID_Color.Add(3, "Black");
 
-            _ID_Model.Add(1, "City");
-            _ID_Model.Add(2, "Explorer");
-            _ID_Model.Add(3, "Adventure");
+            //_ID_Model.Add(1, "City");
+            //_ID_Model.Add(2, "Explorer");
+            //_ID_Model.Add(3, "Adventure");
 
-            _ID_Size.Add(0, "26");
-            _ID_Size.Add(1, "28");
+            //_ID_Size.Add(0, "26");
+            //_ID_Size.Add(1, "28");
 
         }
 
