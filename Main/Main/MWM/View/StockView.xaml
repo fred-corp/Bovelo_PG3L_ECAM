@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:Main.MWM.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:PartColorConverter x:Key="PartColorConverter" />
+    </UserControl.Resources>
     <StackPanel>
         <TextBlock Text="Stock"
                    Foreground="White"
@@ -13,39 +16,145 @@
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
 
-        <DataGrid Height="200" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=LoadDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Height="300" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=stockDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource PartColorConverter}">
+                                <Binding Path="in_stock"/>
+                                <Binding Path="minimum_stock"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=description}" Header="Description" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=location}" Header="Location" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Path=in_stock}" Header="Stock Amount" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=minimum_stock}" Header="Min. Amount" IsReadOnly="True"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Use Part" Height="20" Width="100" Click="UseButton"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Order" Height="20" Width="100" Click="OrderButton"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Parameters" Height="20" Width="100" Click="ParametersButton"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="AddPart">Add new part</Button>
-        <Button HorizontalAlignment="Center" Width="200">Remove part</Button>
 
-        <Popup x:Name="addPartPopup" IsOpen="False" Placement="Center" Width="400" Height="200">
-            <StackPanel Background="DarkBlue">
-                <TextBlock Foreground="White" FontSize="18" FontWeight="Bold">  
-                    Please enter the new part:
-                </TextBlock>
-                <TextBlock Foreground="White">Name</TextBlock>
-                <TextBox></TextBox>
-                <TextBlock Foreground="White">Quantity</TextBlock>
-                <TextBox></TextBox>
-                <TextBlock Foreground="White">Location</TextBlock>
-                <TextBox></TextBox>
-                <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
-                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0">
-                        Confirm
-                    </Button>
-                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelPart">
-                        Cancel
-                    </Button>
+        <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="AddPartButton">Add new part</Button>
+
+        <Popup x:Name="UsePopup" IsOpen="False" Placement="Center" Width="200" Height="120">
+            <Grid Background="DarkBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Use part</Label>
+                <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
+                <TextBox x:Name="SetUseAmountTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmUseButton">Confirm</Button>
+                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelUseButton">Cancel</Button>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
+        </Popup>
+
+        <Popup x:Name="OrderPopup" IsOpen="False" Placement="Center" Width="200" Height="120">
+            <Grid Background="DarkBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Order part</Label>
+                <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0">Confirm</Button>
+                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelOrderButton">Cancel</Button>
+                </StackPanel>
+            </Grid>
+        </Popup>
+
+        <Popup x:Name="ParametersPopup" IsOpen="False" Placement="Center" Width="200" Height="120">
+            <Grid Background="DarkBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Part parameters</Label>
+                <Label Grid.Row="1" Grid.Column="0" Foreground="White">Set new location:</Label>
+                <TextBox x:Name="SetNewLocationTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" Grid.Column="0" Foreground="White">Set new minimal amount:</Label>
+                <TextBox x:Name="SetNewMinimumAmountTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmParametersButton">Confirm</Button>
+                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelParametersButton">Cancel</Button>
+                </StackPanel>
+            </Grid>
+        </Popup>
+
+        <Popup x:Name="AddPartPopup" IsOpen="False" Placement="Center" Width="300" Height="200">
+            <Grid Background="DarkBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Add new part</Label>
+                <Label Grid.Row="1" Grid.Column="0" Foreground="White">Part name:</Label>
+                <TextBox x:Name="SetNewPartNameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" Grid.Column="0" Foreground="White">Location:</Label>
+                <TextBox x:Name="SetNewPartLocationTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <Label Grid.Row="3" Grid.Column="0" Foreground="White">Quantity in stock:</Label>
+                <TextBox x:Name="SetNewPartStockTextBox" Grid.Row="3" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <Label Grid.Row="4" Grid.Column="0" Foreground="White">Minimal required amount:</Label>
+                <TextBox x:Name="SetNewPartMinimumAmountTextBox" Grid.Row="4" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <StackPanel Grid.ColumnSpan="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0">Confirm</Button>
+                    <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelAddPartButton">Cancel</Button>
+                </StackPanel>
+            </Grid>
         </Popup>
     </StackPanel>
-
 </UserControl>
