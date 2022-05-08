@@ -7,6 +7,7 @@ using System.Data;
 using System.Configuration;
 using System.Globalization;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace Main.MWM.View
 {
@@ -31,7 +32,7 @@ namespace Main.MWM.View
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM Components", connection);
                 MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
-                adp.Fill(ds, "orderDataBinding");
+                adp.Fill(ds, "stockDataBinding");
                 stockDataGrid.DataContext = ds;
             }
             catch (MySqlException ex)
@@ -161,28 +162,45 @@ namespace Main.MWM.View
         }
     }
 
-    public class PartColorConverter : IValueConverter
+    public class PartColorConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
         {
-            int amount = System.Convert.ToInt32(value);
-            int minimumAmount = System.Convert.ToInt32(parameter);
-            if (amount - minimumAmount > 10)
+            int amount;
+            int minimumAmount;
+            if (value[0] is int)
             {
-                return "Green";
-            }
-
-            else if (amount - minimumAmount > 5)
-            {
-                return "Yellow";
+                amount = (int)value[0];
             }
             else
             {
-                return "Red";
+                return Brushes.White;
+            }
+            if (value[1] is int)
+            {
+                minimumAmount = (int)value[1];
+            }
+            else
+            {
+                return Brushes.White;
+            }
+
+            if (amount - minimumAmount > 10)
+            {
+                return Brushes.Green;
+            }
+
+             else if (amount - minimumAmount > 5)
+            {
+                return Brushes.Yellow;
+            }
+            else
+            {
+                return Brushes.Red;
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

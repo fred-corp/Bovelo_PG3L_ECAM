@@ -16,20 +16,17 @@
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
 
-        <DataGrid Height="300" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=orderDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Height="300" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=stockDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding in_stock, Converter={StaticResource PartColorConverter}, ConverterParameter = 5}" Value="Green">
-                            <Setter Property="Background" Value="Green"></Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding in_stock, Converter={StaticResource PartColorConverter}, ConverterParameter = 5}" Value="Yellow">
-                            <Setter Property="Background" Value="Yellow"></Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding in_stock, Converter={StaticResource PartColorConverter}, ConverterParameter = 5}" Value="Red">
-                            <Setter Property="Background" Value="Red"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource PartColorConverter}">
+                                <Binding Path="in_stock"/>
+                                <Binding Path="minimum_stock"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
