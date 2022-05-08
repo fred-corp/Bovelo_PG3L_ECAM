@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Main.MWM.ViewModel
 {
-    internal class SalesTabsViewModel
+    internal class ProductionTabsViewModel
     {
     }
 }

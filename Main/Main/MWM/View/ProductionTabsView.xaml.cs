@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Main.MWM.View
 {
     /// <summary>
-    /// Interaction logic for CityView.xaml
+    /// Interaction logic for ProductionTabsView.xaml
     /// </summary>
-    public partial class CityView : UserControl
+    public partial class ProductionTabsView : UserControl
     {
-        public CityView()
+        public ProductionTabsView()
         {
             InitializeComponent();
         }

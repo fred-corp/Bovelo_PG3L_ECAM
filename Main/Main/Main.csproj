@@ -35,7 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.28.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,7 +71,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MWM\View\CityView.xaml">
+    <Page Include="MWM\View\ProductionTabsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MWM\View\StockView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\MenuButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,12 +101,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MWM\ViewModel\StockViewModel.cs" />
     <Compile Include="MWM\ViewModel\MainViewModel.cs" />
+    <Compile Include="MWM\ViewModel\ProductionTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionViewModel.cs" />
-    <Compile Include="MWM\ViewModel\SalesTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\SalesViewModel.cs" />
-    <Compile Include="MWM\View\CityView.xaml.cs">
-      <DependentUpon>CityView.xaml</DependentUpon>
+    <Compile Include="MWM\View\ProductionTabsView.xaml.cs">
+      <DependentUpon>ProductionTabsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MWM\View\ProductionView.xaml.cs">
       <DependentUpon>ProductionView.xaml</DependentUpon>
@@ -110,6 +117,9 @@
     </Compile>
     <Compile Include="MWM\View\SalesView.xaml.cs">
       <DependentUpon>SalesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MWM\View\StockView.xaml.cs">
+      <DependentUpon>StockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

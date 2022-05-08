@@ -30,5 +30,15 @@ namespace Main
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

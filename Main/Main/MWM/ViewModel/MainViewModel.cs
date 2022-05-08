@@ -13,10 +13,12 @@ namespace Main.MWM.ViewModel
         //Commandes menu
         public RelayCommand SalesViewCommand { get; set; }
         public RelayCommand ProductionViewCommand { get; set; }
+        public RelayCommand StockViewCommand { get; set; }
 
         //Vues
         public SalesViewModel SalesVM { get; set; }
         public ProductionViewModel ProductionVM { get; set; }
+        public StockViewModel StockVM { get; set; }
 
         private object _currentView;
 
@@ -36,6 +38,8 @@ namespace Main.MWM.ViewModel
 
             ProductionVM = new ProductionViewModel();
 
+            StockVM = new StockViewModel();
+
             CurrentView = SalesVM;
 
             SalesViewCommand = new RelayCommand(o =>
@@ -46,6 +50,11 @@ namespace Main.MWM.ViewModel
             ProductionViewCommand = new RelayCommand(o =>
             {
                 CurrentView = ProductionVM;
+            });
+
+            StockViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = StockVM;
             });
         }
     }
