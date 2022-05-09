@@ -75,7 +75,7 @@
                 <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Use part</Label>
                 <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
                 <TextBox x:Name="SetUseAmountTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
                     <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmUseButton">Confirm</Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelUseButton">Cancel</Button>
                 </StackPanel>
@@ -96,7 +96,7 @@
                 <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Order part</Label>
                 <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
                     <Button  HorizontalAlignment="Left" Margin="0,0,5,0">Confirm</Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelOrderButton">Cancel</Button>
                 </StackPanel>
@@ -123,7 +123,7 @@
                 <TextBox x:Name="SetNewStockAmountTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                 <Label Grid.Row="3" Grid.Column="0" Foreground="White">Set new minimal quantity:</Label>
                 <TextBox x:Name="SetNewMinimumAmountTextBox" Grid.Row="3" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
                     <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmParametersButton">Confirm</Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelParametersButton">Cancel</Button>
                 </StackPanel>
@@ -146,15 +146,15 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Add new part</Label>
                 <Label Grid.Row="1" Grid.Column="0" Foreground="White">Part name:</Label>
-                <TextBox x:Name="SetNewPartNameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <TextBox x:Name="SetNewPartNameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="100" HorizontalAlignment="Left"/>
                 <Label Grid.Row="2" Grid.Column="0" Foreground="White">Location:</Label>
                 <TextBox x:Name="SetNewPartLocationTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                 <Label Grid.Row="3" Grid.Column="0" Foreground="White">Quantity in stock:</Label>
                 <TextBox x:Name="SetNewPartStockTextBox" Grid.Row="3" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                 <Label Grid.Row="4" Grid.Column="0" Foreground="White">Minimal required amount:</Label>
                 <TextBox x:Name="SetNewPartMinimumAmountTextBox" Grid.Row="4" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <StackPanel Grid.ColumnSpan="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0">Confirm</Button>
+                <StackPanel Grid.ColumnSpan="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
+                    <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmAddPartButton">Confirm</Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelAddPartButton">Cancel</Button>
                 </StackPanel>
             </Grid>

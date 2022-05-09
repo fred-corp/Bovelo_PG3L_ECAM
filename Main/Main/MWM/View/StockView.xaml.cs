@@ -73,12 +73,21 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(minimumQuantity.Text) ? 0 : int.Parse(minimumQuantity.Text);
         }
 
+        private int GetLastPartNumber()
+        {
+            int index = stockDataGrid.Items.Count - 2;
+
+            TextBlock part = stockDataGrid.Columns[0].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
+
+            return string.IsNullOrEmpty(part.Text) ? 0 : int.Parse(part.Text);
+        }
+
         private void UseButton(object sender, RoutedEventArgs e)
         {
             UsePopup.IsOpen = true;
         }
 
-        private void UpdatePartQuantity(int part, int amount)
+        private void UpdatePartQuantityDb(int part, int amount)
         {
             string query = "UPDATE Components SET in_stock = @quantity WHERE part_number = @part";
             connection.Open();
@@ -95,7 +104,7 @@ namespace Main.MWM.View
             int part = GetPartNumber(stockDataGrid.SelectedIndex);
             int currentAmount = GetPartQuantity(stockDataGrid.SelectedIndex);
             int newAmount = currentAmount - int.Parse(SetUseAmountTextBox.Text);
-            UpdatePartQuantity(part, newAmount);
+            UpdatePartQuantityDb(part, newAmount);
             UsePopup.IsOpen = false;
         }
 
@@ -123,7 +132,7 @@ namespace Main.MWM.View
             SetNewMinimumAmountTextBox.Text = GetPartMinimumQuantity(stockDataGrid.SelectedIndex).ToString();
         }
 
-        private void UpdatePartParameters(int part, string location,int amount, int MinAmount)
+        private void UpdatePartParametersDb(int part, string location,int amount, int MinAmount)
         {
             string query = "UPDATE Components SET in_stock = @amount, minimum_stock = @MinAmount, location = @location WHERE part_number = @part";
             connection.Open();
@@ -143,7 +152,7 @@ namespace Main.MWM.View
             int amount = int.Parse(SetNewStockAmountTextBox.Text);
             int MinAmount = int.Parse(SetNewMinimumAmountTextBox.Text);
             int part = GetPartNumber(stockDataGrid.SelectedIndex);
-            UpdatePartParameters(part, location, amount, MinAmount);
+            UpdatePartParametersDb(part, location, amount, MinAmount);
             ParametersPopup.IsOpen = false;
         }
 
@@ -154,8 +163,33 @@ namespace Main.MWM.View
 
         private void AddPartButton(object sender, RoutedEventArgs e)
         {
-            // todo
             AddPartPopup.IsOpen = true;
+        }
+
+        private void AddPartButtonDb(int PartNumber, string description, string location, int amount, int MinAmount)
+        {
+            string query = "INSERT INTO Components (part_number, in_stock, minimum_stock, description, location) VALUES (@PartNumber, @amount, @MinAmount, @description, @location)";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@PartNumber", PartNumber);
+            cmd.Parameters.AddWithValue("@amount", amount);
+            cmd.Parameters.AddWithValue("@MinAmount", MinAmount);
+            cmd.Parameters.AddWithValue("@location", location);
+            cmd.Parameters.AddWithValue("@description", description);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            FillGrid();
+        }
+
+        private void ConfirmAddPartButton(object sender, RoutedEventArgs e)
+        {
+            int PartNumber = GetLastPartNumber() + 1;
+            string description = SetNewPartNameTextBox.Text;
+            string location = SetNewPartLocationTextBox.Text;
+            int amount = int.Parse(SetNewPartStockTextBox.Text);
+            int MinAmount = int.Parse(SetNewPartMinimumAmountTextBox.Text);
+            AddPartButtonDb(PartNumber, description, location, amount, MinAmount);
+            AddPartPopup.IsOpen = false;
         }
 
         private void CancelAddPartButton(object sender, RoutedEventArgs e)
