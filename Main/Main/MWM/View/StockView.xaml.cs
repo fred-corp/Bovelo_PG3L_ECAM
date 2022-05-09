@@ -117,18 +117,19 @@ namespace Main.MWM.View
 
         private void ParametersButton(object sender, RoutedEventArgs e)
         {
-            // todo: stock quantity modification
             ParametersPopup.IsOpen = true;
             SetNewLocationTextBox.Text = GetPartLocation(stockDataGrid.SelectedIndex);
+            SetNewStockAmountTextBox.Text = GetPartQuantity(stockDataGrid.SelectedIndex).ToString();
             SetNewMinimumAmountTextBox.Text = GetPartMinimumQuantity(stockDataGrid.SelectedIndex).ToString();
         }
 
-        private void UpdatePartParameters(int part, string location, int amount)
+        private void UpdatePartParameters(int part, string location,int amount, int MinAmount)
         {
-            string query = "UPDATE Components SET minimum_stock = @amount, location = @location WHERE part_number = @part";
+            string query = "UPDATE Components SET in_stock = @amount, minimum_stock = @MinAmount, location = @location WHERE part_number = @part";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@amount", amount);
+            cmd.Parameters.AddWithValue("@MinAmount", MinAmount);
             cmd.Parameters.AddWithValue("@location", location);
             cmd.Parameters.AddWithValue("@part", part);
             cmd.ExecuteNonQuery();
@@ -139,9 +140,10 @@ namespace Main.MWM.View
         private void ConfirmParametersButton(object sender, RoutedEventArgs e)
         {
             string location = SetNewLocationTextBox.Text;
-            int amount = int.Parse(SetNewMinimumAmountTextBox.Text);
+            int amount = int.Parse(SetNewStockAmountTextBox.Text);
+            int MinAmount = int.Parse(SetNewMinimumAmountTextBox.Text);
             int part = GetPartNumber(stockDataGrid.SelectedIndex);
-            UpdatePartParameters(part, location, amount);
+            UpdatePartParameters(part, location, amount, MinAmount);
             ParametersPopup.IsOpen = false;
         }
 
