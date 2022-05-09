@@ -103,7 +103,7 @@
             </Grid>
         </Popup>
 
-        <Popup x:Name="ParametersPopup" IsOpen="False" Placement="Center" Width="200" Height="120">
+        <Popup x:Name="ParametersPopup" IsOpen="False" Placement="Center" Width="200" Height="150">
             <Grid Background="DarkBlue">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -113,14 +113,17 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Part parameters</Label>
                 <Label Grid.Row="1" Grid.Column="0" Foreground="White">Set new location:</Label>
                 <TextBox x:Name="SetNewLocationTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <Label Grid.Row="2" Grid.Column="0" Foreground="White">Set new minimal amount:</Label>
-                <TextBox x:Name="SetNewMinimumAmountTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
-                <StackPanel Grid.ColumnSpan="4" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Label Grid.Row="2" Grid.Column="0" Foreground="White">Set new stock quantity:</Label>
+                <TextBox x:Name="SetNewStockAmountTextBox" Grid.Row="2" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <Label Grid.Row="3" Grid.Column="0" Foreground="White">Set new minimal quantity:</Label>
+                <TextBox x:Name="SetNewMinimumAmountTextBox" Grid.Row="3" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
                     <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmParametersButton">Confirm</Button>
                     <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelParametersButton">Cancel</Button>
                 </StackPanel>
