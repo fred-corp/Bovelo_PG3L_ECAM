@@ -196,6 +196,23 @@ namespace Main.MWM.View
         {
             AddPartPopup.IsOpen = false;
         }
+
+        private void ShowOrdersButton(object sender, RoutedEventArgs e)
+        {
+            StockStackPanel.Visibility = Visibility.Collapsed;
+            OrderStackPanel.Visibility = Visibility.Visible;
+        }
+
+        private void ShowStockButton(object sender, RoutedEventArgs e)
+        {
+            OrderStackPanel.Visibility = Visibility.Collapsed;
+            StockStackPanel.Visibility = Visibility.Visible;
+        }
+
+        //private void CreateOrderDb(int PartNumber, string description, int quantity)
+        //{
+
+        //}
     }
 
     public class PartColorConverter : IMultiValueConverter
