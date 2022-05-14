@@ -49,6 +49,14 @@ CREATE TABLE invoices
   PRIMARY KEY (invoice_number)
 );
 
+CREATE TABLE part_orders (
+  order_number int NOT NULL AUTO_INCREMENT,
+  part_number int NOT NULL,
+  amount decimal(10, 0) NOT NULL,
+  status varchar(255) DEFAULT NULL,
+  PRIMARY KEY (order_number)
+);
+
 ALTER TABLE Components
   ADD CONSTRAINT FK_Catalog_TO_Components
     FOREIGN KEY (ID)
@@ -69,5 +77,9 @@ ALTER TABLE invoice_details
     FOREIGN KEY (ID)
     REFERENCES Catalog (ID);
 
+ALTER TABLE part_orders
+  ADD CONSTRAINT FK_components_TO_orders
+    FOREIGN KEY (part_number)
+    REFERENCES Components (part_number);
         
       
