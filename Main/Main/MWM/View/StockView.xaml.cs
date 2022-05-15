@@ -16,21 +16,25 @@ namespace Main.MWM.View
     /// </summary>
     public partial class StockView : UserControl
     {
+        private MySqlDataAdapter adp = new MySqlDataAdapter();
+        MySqlCommandBuilder cmbl;
+
         readonly MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
         public StockView()
         {
             InitializeComponent();
-            FillGrid();
+            FillStockGrid();
+            FillOrderGrid();
         }
 
-        private void FillGrid()
+        private void FillStockGrid()
         {
             try
             {
                 connection.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM Components", connection);
-                MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                adp.SelectCommand = new MySqlCommand("SELECT * FROM Components", connection);
+                cmbl = new MySqlCommandBuilder(adp);
                 DataSet ds = new DataSet();
                 adp.Fill(ds, "stockDataBinding");
                 stockDataGrid.DataContext = ds;
@@ -43,6 +47,29 @@ namespace Main.MWM.View
             {
                 connection.Close();
             }
+        }
+
+        private void FillOrderGrid()
+        {
+            try
+            {
+                connection.Open();
+                adp.SelectCommand = new MySqlCommand("SELECT DISTINCT part_orders.*, (SELECT description FROM Components WHERE Components.part_number = part_orders.part_number) AS Description FROM part_orders INNER JOIN Components ON part_orders.part_number = Components.part_number", connection);
+                cmbl = new MySqlCommandBuilder(adp);
+                DataSet ds = new DataSet();
+                adp.Fill(ds, "orderDataBinding");
+                orderDataGrid.DataContext = ds;
+                connection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Failed to connect to data source " + ex).ToString();
+            }
+            finally
+            {
+                connection.Close();
+            }
+
         }
 
         private int GetPartNumber(int index)
@@ -82,6 +109,13 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(part.Text) ? 0 : int.Parse(part.Text);
         }
 
+        private int GetOrderNumber(int index)
+        {
+            TextBlock order = orderDataGrid.Columns[0].GetCellContent(orderDataGrid.Items[index]) as TextBlock;
+
+            return string.IsNullOrEmpty(order.Text) ? 0 : int.Parse(order.Text);
+        }
+
         private void UseButton(object sender, RoutedEventArgs e)
         {
             UsePopup.IsOpen = true;
@@ -96,14 +130,14 @@ namespace Main.MWM.View
             cmd.Parameters.AddWithValue("@part", part);
             cmd.ExecuteNonQuery();
             connection.Close();
-            FillGrid();
+            FillStockGrid();
         }
 
         private void ConfirmUseButton(object sender, RoutedEventArgs e)
         {
             int part = GetPartNumber(stockDataGrid.SelectedIndex);
-            int currentAmount = GetPartQuantity(stockDataGrid.SelectedIndex);
-            int newAmount = currentAmount - int.Parse(SetUseAmountTextBox.Text);
+            int amount = GetPartQuantity(stockDataGrid.SelectedIndex);
+            int newAmount = amount - int.Parse(SetUseAmountTextBox.Text);
             UpdatePartQuantityDb(part, newAmount);
             UsePopup.IsOpen = false;
         }
@@ -115,8 +149,35 @@ namespace Main.MWM.View
 
         private void OrderButton(object sender, RoutedEventArgs e)
         {
-            // todo
             OrderPopup.IsOpen = true;
+        }
+
+        private void CreateOrderDb(int PartNumber, int quantity)
+        {
+            string query = "INSERT INTO part_orders (part_number, amount, status) VALUES (@PartNumber, @amount, @status)";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@PartNumber", PartNumber);
+            cmd.Parameters.AddWithValue("@amount", quantity);
+            cmd.Parameters.AddWithValue("@status", "unpaid");
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            FillStockGrid();
+        }
+
+        private void UpdateOrderDb()
+        {
+            adp.Update((DataSet)orderDataGrid.DataContext, "orderDataBinding");
+
+        }
+
+        private void ConfirmOrderButton(object sender, RoutedEventArgs e)
+        {
+            int part = GetPartNumber(stockDataGrid.SelectedIndex);
+            int quantity = int.Parse(SetOrderAmountTextBox.Text);
+            CreateOrderDb(part, quantity);
+            OrderPopup.IsOpen = false;
+            FillOrderGrid();
         }
 
         private void CancelOrderButton(object sender, RoutedEventArgs e)
@@ -143,7 +204,7 @@ namespace Main.MWM.View
             cmd.Parameters.AddWithValue("@part", part);
             cmd.ExecuteNonQuery();
             connection.Close();
-            FillGrid();
+            FillStockGrid();
         }
 
         private void ConfirmParametersButton(object sender, RoutedEventArgs e)
@@ -178,7 +239,7 @@ namespace Main.MWM.View
             cmd.Parameters.AddWithValue("@description", description);
             cmd.ExecuteNonQuery();
             connection.Close();
-            FillGrid();
+            FillStockGrid();
         }
 
         private void ConfirmAddPartButton(object sender, RoutedEventArgs e)
@@ -209,10 +270,28 @@ namespace Main.MWM.View
             StockStackPanel.Visibility = Visibility.Visible;
         }
 
-        //private void CreateOrderDb(int PartNumber, string description, int quantity)
-        //{
+        private void SaveModificationsButton(object sender, RoutedEventArgs e)
+        {
+            UpdateOrderDb();
+        }
 
-        //}
+        private void DeleteOrderDb(int order)
+        {
+            string query = "UPDATE Components, part_orders SET Components.in_stock = Components.in_stock + part_orders.amount WHERE Components.part_number = part_orders.part_number AND part_orders.order_number = @order; DELETE FROM part_orders WHERE order_number = @order";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@order", order);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            FillOrderGrid();
+            FillStockGrid();
+        }
+
+        private void AddToStockButton(object sender, RoutedEventArgs e)
+        {
+            int order = GetOrderNumber(orderDataGrid.SelectedIndex);
+            DeleteOrderDb(order);
+        }
     }
 
     public class PartColorConverter : IMultiValueConverter

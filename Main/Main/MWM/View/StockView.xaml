@@ -78,8 +78,8 @@
                     <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
                     <TextBox x:Name="SetUseAmountTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                     <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
-                        <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmUseButton">Confirm</Button>
-                        <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelUseButton">Cancel</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmUseButton">Confirm</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelUseButton">Cancel</Button>
                     </StackPanel>
                 </Grid>
             </Popup>
@@ -97,10 +97,10 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.ColumnSpan="4" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Order part</Label>
                     <Label Grid.Row="1" Grid.Column="0" Foreground="White">Quantity:</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="SetOrderAmountTextBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                     <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
-                        <Button  HorizontalAlignment="Left" Margin="0,0,5,0">Confirm</Button>
-                        <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelOrderButton">Cancel</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmOrderButton">Confirm</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelOrderButton">Cancel</Button>
                     </StackPanel>
                 </Grid>
             </Popup>
@@ -126,8 +126,8 @@
                     <Label Grid.Row="3" Grid.Column="0" Foreground="White">Set new minimal quantity:</Label>
                     <TextBox x:Name="SetNewMinimumAmountTextBox" Grid.Row="3" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                     <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
-                        <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmParametersButton">Confirm</Button>
-                        <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelParametersButton">Cancel</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmParametersButton">Confirm</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelParametersButton">Cancel</Button>
                     </StackPanel>
                 </Grid>
             </Popup>
@@ -156,8 +156,8 @@
                     <Label Grid.Row="4" Grid.Column="0" Foreground="White">Minimal required amount:</Label>
                     <TextBox x:Name="SetNewPartMinimumAmountTextBox" Grid.Row="4" Grid.Column="1" Margin="0,5" Width="50" HorizontalAlignment="Left"/>
                     <StackPanel Grid.ColumnSpan="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
-                        <Button  HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmAddPartButton">Confirm</Button>
-                        <Button  HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelAddPartButton">Cancel</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmAddPartButton">Confirm</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelAddPartButton">Cancel</Button>
                     </StackPanel>
                 </Grid>
             </Popup>
@@ -170,13 +170,24 @@
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
 
-            <DataGrid Name="orderDataGrid" Margin="0,0,10,10" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Height="450">
-                <DataGridTextColumn Header="Part Number" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Description" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Quantity" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" IsReadOnly="True"></DataGridTextColumn>
+            <DataGrid Name="orderDataGrid" Margin="0,0,10,10" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Height="450" ItemsSource="{Binding Path=orderDataBinding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=order_number}" Header="Order Number" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=Description}" Header="Description" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=amount}" Header="Quantity" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=status}" Header="Status" IsReadOnly="False"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Add to stock" Height="20" Width="100" Click="AddToStockButton"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
             </DataGrid>
 
+            <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="SaveModificationsButton">Save modifications</Button>
             <Button HorizontalAlignment="Center" Width="200" Margin="0,0,0,10" Click="ShowStockButton">Show part stock</Button>
 
         </StackPanel>
