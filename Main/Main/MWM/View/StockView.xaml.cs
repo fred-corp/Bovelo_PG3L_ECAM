@@ -33,7 +33,13 @@ namespace Main.MWM.View
             try
             {
                 connection.Open();
-                adp.SelectCommand = new MySqlCommand("SELECT * FROM Components", connection);
+                adp.SelectCommand = new MySqlCommand(@"SELECT * FROM Components
+                LEFT JOIN (SELECT part_number, CAST(SUM(componentlink.amount * production.amount) AS SIGNED) AS production_need
+                    FROM componentlink
+                    INNER JOIN production
+                    ON componentlink.ID = production.ID
+                    GROUP BY part_number) AS prod
+                ON Components.part_number = prod.part_number", connection);
                 cmbl = new MySqlCommandBuilder(adp);
                 DataSet ds = new DataSet();
                 adp.Fill(ds, "stockDataBinding");
@@ -54,7 +60,11 @@ namespace Main.MWM.View
             try
             {
                 connection.Open();
-                adp.SelectCommand = new MySqlCommand("SELECT DISTINCT part_orders.*, (SELECT description FROM Components WHERE Components.part_number = part_orders.part_number) AS Description FROM part_orders INNER JOIN Components ON part_orders.part_number = Components.part_number", connection);
+                adp.SelectCommand = new MySqlCommand(@"SELECT DISTINCT part_orders.*, 
+                (SELECT description FROM Components WHERE Components.part_number = part_orders.part_number)
+                AS Description FROM part_orders
+                INNER JOIN Components
+                ON part_orders.part_number = Components.part_number", connection);
                 cmbl = new MySqlCommandBuilder(adp);
                 DataSet ds = new DataSet();
                 adp.Fill(ds, "orderDataBinding");
@@ -195,7 +205,8 @@ namespace Main.MWM.View
 
         private void UpdatePartParametersDb(int part, string location,int amount, int MinAmount)
         {
-            string query = "UPDATE Components SET in_stock = @amount, minimum_stock = @MinAmount, location = @location WHERE part_number = @part";
+            string query = @"UPDATE Components 
+            SET in_stock = @amount, minimum_stock = @MinAmount, location = @location WHERE part_number = @part";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@amount", amount);
@@ -229,7 +240,8 @@ namespace Main.MWM.View
 
         private void AddPartButtonDb(int PartNumber, string description, string location, int amount, int MinAmount)
         {
-            string query = "INSERT INTO Components (part_number, in_stock, minimum_stock, description, location) VALUES (@PartNumber, @amount, @MinAmount, @description, @location)";
+            string query = @"INSERT INTO Components (part_number, in_stock, minimum_stock, description, location) 
+            VALUES (@PartNumber, @amount, @MinAmount, @description, @location)";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@PartNumber", PartNumber);
@@ -277,7 +289,11 @@ namespace Main.MWM.View
 
         private void DeleteOrderDb(int order)
         {
-            string query = "UPDATE Components, part_orders SET Components.in_stock = Components.in_stock + part_orders.amount WHERE Components.part_number = part_orders.part_number AND part_orders.order_number = @order; DELETE FROM part_orders WHERE order_number = @order";
+            string query = @"UPDATE Components, part_orders 
+            SET Components.in_stock = Components.in_stock + part_orders.amount 
+            WHERE Components.part_number = part_orders.part_number 
+            AND part_orders.order_number = @order; DELETE FROM part_orders 
+            WHERE order_number = @order";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@order", order);
@@ -311,6 +327,10 @@ namespace Main.MWM.View
             if (value[1] is int)
             {
                 minimumAmount = (int)value[1];
+            }
+            else if (value[1] is long)
+            {
+                minimumAmount = System.Convert.ToInt32(value[1]);
             }
             else
             {

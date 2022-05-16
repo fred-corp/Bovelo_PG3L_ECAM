@@ -49,12 +49,23 @@ CREATE TABLE invoices
   PRIMARY KEY (invoice_number)
 );
 
-CREATE TABLE part_orders (
-  order_number int NOT NULL AUTO_INCREMENT,
-  part_number int NOT NULL,
-  amount decimal(10, 0) NOT NULL,
-  status varchar(255) DEFAULT NULL,
+CREATE TABLE part_orders 
+(
+  order_number INTEGER NOT NULL IDENTITY,
+  part_number INTEGER NOT NULL          ,
+  amount DECIMAL(10, 0) NOT NULL        ,
+  status VARCHAR(255) DEFAULT NULL      ,
   PRIMARY KEY (order_number)
+);
+
+CREATE TABLE production 
+(
+  invoice_number INTEGER NOT NULL        ,
+  ID INTEGER NOT NULL                    ,
+  amount INTEGER DEFAULT NULL            ,
+  date VARCHAR(255) DEFAULT NULL         ,
+  production_ID INTEGER NOT NULL IDENTITY,
+  PRIMARY KEY (production_ID)            ,
 );
 
 ALTER TABLE Components
@@ -81,5 +92,13 @@ ALTER TABLE part_orders
   ADD CONSTRAINT FK_components_TO_orders
     FOREIGN KEY (part_number)
     REFERENCES Components (part_number);
+
+ALTER TABLE production
+  ADD CONSTRAINT FK_Catalog_TO_production
+    FOREIGN KEY (ID)
+    REFERENCES Catalog (ID),
+  CONSTRAINT FK_invoices_TO_production
+    FOREIGN KEY (invoice_number)
+    REFERENCES invoices (invoice_number);
         
       

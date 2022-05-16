@@ -18,35 +18,50 @@
                        Margin="0,0,0,20"/>
 
             <DataGrid Height="450" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=stockDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
-                <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <MultiBinding Converter="{StaticResource PartColorConverter}">
-                                    <Binding Path="in_stock"/>
-                                    <Binding Path="minimum_stock"/>
-                                </MultiBinding>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=description}" Header="Description" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=location}" Header="Location" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=in_stock}" Header="Stock Amount" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=minimum_stock}" Header="Min. Amount" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=minimum_stock}" Header="Minimum" IsReadOnly="True">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource PartColorConverter}">
+                                            <Binding Path="in_stock"/>
+                                            <Binding Path="minimum_stock"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=production_need}" Header="Production" IsReadOnly="True">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource PartColorConverter}">
+                                            <Binding Path="in_stock"/>
+                                            <Binding Path="production_need"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Use Part" Height="20" Width="100" Click="UseButton"/>
+                                <Button Content="Use" Height="20" Width="75" Click="UseButton" FontWeight="Bold"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Order" Height="20" Width="100" Click="OrderButton"/>
+                                <Button Content="Order" Height="20" Width="75" Click="OrderButton"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
