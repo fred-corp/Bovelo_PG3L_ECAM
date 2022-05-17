@@ -483,7 +483,7 @@ namespace Main.MWM.View
 
             scrollViewer.Content = cartgrid;
 
-            cart.GetConatiner(cartgrid);
+            cart.SetContainer(cartgrid);
 
             grid.Children.Add(scrollViewer);
             
@@ -592,7 +592,7 @@ namespace Main.MWM.View
 
         }
 
-        public void GetConatiner(Grid grid)
+        public void SetContainer(Grid grid)
         {
             this.grid = grid;
         }
@@ -622,6 +622,7 @@ namespace Main.MWM.View
 
                 BikeDict[ID] = nb;
                 RowDefinition row = new RowDefinition();
+                row.Height = new GridLength(50);
                 
                 if (!Rows.ContainsKey(ID)) {
                     Rows.Add(ID, row);
@@ -798,7 +799,44 @@ namespace Main.MWM.View
                 BikeDict.Remove(ID);
             }
         }
+
+        public void RegisterCustomer(Customer customer)
+        {
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO customers (`firstname`, `lastname`, `address`, `phone`, `email`) VALUES (@first, @last, @add, @phone, @mail);", conn);
+            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
+            cmd.Parameters.Add(new MySqlParameter("last", customer.Last_Name));
+            cmd.Parameters.Add(new MySqlParameter("add", customer.Address));
+            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
+            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                
+            }
+            reader.Close();
+
+        }
+
     }
 
+    class Customer
+    {
+        public string First_Name { get; set; }
+        public string Last_Name { get; set; }
+        public string Address { get; set; }
+        public string phone { get; set; }
+        public string mail { get; set; }
 
+
+        public Customer(string _First_Name, string _Last_Name, string _Adress, string _phone, string _mail)
+        {
+            this.First_Name = _First_Name;
+            this.Last_Name = _Last_Name;
+            this.Address = _Adress;
+            this.mail = _mail;
+            this.phone = _phone;
+        }
+
+
+    }
 }
