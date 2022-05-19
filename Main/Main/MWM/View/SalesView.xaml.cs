@@ -514,10 +514,6 @@ namespace Main.MWM.View
         private void ComfirmCart(object sender, RoutedEventArgs e)
         {
             //ouvrir popup pour avoir connées client puis envoyer le tout a la db
-
-            cart.ClearCart();
-            Window1 secondWindow = new Window1();
-            secondWindow.Show();
         }
         private void ConfirmOrder(object sender, RoutedEventArgs e)
         {
