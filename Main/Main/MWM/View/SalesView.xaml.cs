@@ -30,6 +30,7 @@ namespace Main.MWM.View
         Dictionary<int, string> _ID_Color = new Dictionary<int,string>();
         Dictionary<int, string> _ID_Model = new Dictionary<int, string>();
         Dictionary<int, string> _ID_Size = new Dictionary<int, string>();
+        Dictionary<int, int> BikePriceByID = new Dictionary<int, int>();
         Grid size_grid;
         Cart cart;
 
@@ -89,6 +90,14 @@ namespace Main.MWM.View
             }
             reader.Close();
 
+            cmd = new MySqlCommand("select ID,price from Catalog", conn);
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                BikePriceByID.Add(Int16.Parse(reader[0].ToString()), Int16.Parse(reader[1].ToString()));
+            }
+            reader.Close();
+
             //_Sizes.Add(26);
             //_Sizes.Add(28);
 
@@ -113,7 +122,7 @@ namespace Main.MWM.View
             //}
 
 
-            foreach(string model in _Models)
+            foreach (string model in _Models)
             {
                 cmd = new MySqlCommand("select id from Catalog where model = @model limit 1", conn);
                 cmd.Parameters.Add(new MySqlParameter("model", model));
@@ -171,7 +180,7 @@ namespace Main.MWM.View
 
 
 
-            cart = new Cart(conn, _ID_Model, _ID_Size, _ID_Color);
+            cart = new Cart(conn, _ID_Model, _ID_Size, _ID_Color, BikePriceByID);
 
             foreach (var model in _Models)
             {
@@ -444,6 +453,18 @@ namespace Main.MWM.View
 
         private Grid GetCartGrid(double Height, double Width)
         {
+            Grid maingrid =new Grid();
+            ColumnDefinition mainColumn = new ColumnDefinition();
+            RowDefinition mainRow1 = new RowDefinition();
+            RowDefinition mainRow2 = new RowDefinition();
+
+            mainRow2.Height = new GridLength(120);
+
+            maingrid.ColumnDefinitions.Add(mainColumn);
+            maingrid.RowDefinitions.Add(mainRow1);
+            maingrid.RowDefinitions.Add(mainRow2);
+
+
             Grid grid = new Grid();
             grid.Name = "Cart";
             ColumnDefinition Column1 = new ColumnDefinition();
@@ -454,7 +475,7 @@ namespace Main.MWM.View
             Row1.Height = new GridLength(7, GridUnitType.Star);
 
             grid.ColumnDefinitions.Add(Column1);
-            grid.ColumnDefinitions.Add(Column2);
+            //grid.ColumnDefinitions.Add(Column2);
 
             grid.RowDefinitions.Add(Row1);
             grid.RowDefinitions.Add(Row2);
@@ -487,6 +508,116 @@ namespace Main.MWM.View
 
             grid.Children.Add(scrollViewer);
             
+            
+
+
+            Grid.SetRow(grid, 0);
+            Grid.SetColumn(grid, 0);
+            maingrid.Children.Add(grid);
+
+            Grid CustomerInfo = new Grid();
+
+            ColumnDefinition CustomerColumn1 = new ColumnDefinition();
+            ColumnDefinition CustomerColumn2 = new ColumnDefinition();
+            ColumnDefinition CustomerColumn3 = new ColumnDefinition();
+            RowDefinition CustomerRow1 = new RowDefinition();
+            RowDefinition CustomerRow2 = new RowDefinition();
+
+
+            CustomerInfo.RowDefinitions.Add(CustomerRow1);
+            CustomerInfo.RowDefinitions.Add(CustomerRow2);
+            
+            CustomerInfo.ColumnDefinitions.Add(CustomerColumn1);
+            CustomerInfo.ColumnDefinitions.Add(CustomerColumn2);
+            CustomerInfo.ColumnDefinitions.Add(CustomerColumn3);
+
+            StackPanel FirstNamePanel = new StackPanel();
+            FirstNamePanel.Orientation  = Orientation.Vertical;
+            FirstNamePanel.HorizontalAlignment = HorizontalAlignment.Left;
+
+            Label FirstNameLabel = new Label();
+            FirstNameLabel.Foreground = Brushes.White;
+            FirstNameLabel.Content = "First Name:";
+            FirstNamePanel.Children.Add(FirstNameLabel);
+
+            TextBox FirstNameTextBox = new TextBox();
+            FirstNameTextBox.Width = 200;
+            FirstNamePanel.Children.Add(FirstNameTextBox);
+
+            Grid.SetRow(FirstNamePanel, 0);
+            Grid.SetColumn(FirstNamePanel, 0);
+            CustomerInfo.Children.Add(FirstNamePanel);
+
+            StackPanel LastNamePanel = new StackPanel();
+            LastNamePanel.Orientation = Orientation.Vertical;
+            LastNamePanel.HorizontalAlignment = HorizontalAlignment.Left;
+
+            Label LastNameLabel = new Label();
+            LastNameLabel.Foreground = Brushes.White;
+            LastNameLabel.Content = "Last Name:";
+            LastNamePanel.Children.Add(LastNameLabel);
+
+            TextBox LastNameTextBox = new TextBox();
+            LastNamePanel.Children.Add(LastNameTextBox);
+            LastNameTextBox.Width = 200;
+
+            Grid.SetRow(LastNamePanel, 1);
+            Grid.SetColumn(LastNamePanel, 0);
+            CustomerInfo.Children.Add(LastNamePanel);
+
+            StackPanel AddressPanel = new StackPanel();
+            AddressPanel.Orientation = Orientation.Vertical;
+            AddressPanel.HorizontalAlignment = HorizontalAlignment.Left;
+
+            Label AddressLabel = new Label();
+            AddressLabel.Foreground = Brushes.White;
+            AddressLabel.Content = "Address:";
+            AddressPanel.Children.Add(AddressLabel);
+
+            TextBox AddressTextBox = new TextBox();
+            AddressPanel.Children.Add(AddressTextBox);
+            AddressTextBox.Width = 200;
+
+            Grid.SetRow(AddressPanel, 0);
+            Grid.SetColumn(AddressPanel, 1);
+            CustomerInfo.Children.Add(AddressPanel);
+
+            StackPanel MailPanel = new StackPanel();
+            MailPanel.Orientation = Orientation.Vertical;
+            MailPanel.HorizontalAlignment = HorizontalAlignment.Left;
+
+            Label MailLabel = new Label();
+            MailLabel.Foreground = Brushes.White;
+            MailLabel.Content = "Mail address:";
+            MailPanel.Children.Add(MailLabel);
+
+            TextBox MailTextBox = new TextBox();
+            MailPanel.Children.Add(MailTextBox);
+            MailTextBox.Width = 200;
+
+            Grid.SetRow(MailPanel, 1);
+            Grid.SetColumn(MailPanel, 1);
+            CustomerInfo.Children.Add(MailPanel);
+
+            StackPanel PhonePanel = new StackPanel();
+            PhonePanel.Orientation = Orientation.Vertical;
+            PhonePanel.HorizontalAlignment = HorizontalAlignment.Left;
+
+            Label PhoneLabel = new Label();
+            PhoneLabel.Foreground = Brushes.White;
+            PhoneLabel.Content = "Phone number:";
+            PhonePanel.Children.Add(PhoneLabel);
+
+            TextBox PhoneTextBox = new TextBox();
+            PhonePanel.Children.Add(PhoneTextBox);
+            PhoneTextBox.PreviewTextInput += checkInput;
+            PhoneTextBox.Width = 200;
+
+            Grid.SetRow(PhonePanel, 0);
+            Grid.SetColumn(PhonePanel, 2);
+            CustomerInfo.Children.Add(PhonePanel);
+
+
             Button Comfirm = new Button();
             Comfirm.Content = "Comfirm";
             Comfirm.Click += ComfirmCart;
@@ -497,10 +628,15 @@ namespace Main.MWM.View
             Comfirm.Width = 50;
             //Comfirm.Width = 50;
             Grid.SetRow(Comfirm, 1);
-            Grid.SetColumn(Comfirm, 1);
-            grid.Children.Add(Comfirm);
+            Grid.SetColumn(Comfirm, 2);
+            CustomerInfo.Children.Add(Comfirm);
 
-            return grid;
+
+            Grid.SetRow(CustomerInfo, 1);
+            Grid.SetColumn(CustomerInfo, 0);
+            maingrid.Children.Add(CustomerInfo);
+
+            return maingrid;
         }
 
         
@@ -514,6 +650,98 @@ namespace Main.MWM.View
         private void ComfirmCart(object sender, RoutedEventArgs e)
         {
             //ouvrir popup pour avoir connées client puis envoyer le tout a la db
+            Button source = (Button)sender;
+            Grid sourcegrid = (Grid)source.Parent;
+
+            StackPanel FirstNamePanel = (StackPanel) sourcegrid.Children[0];
+            TextBox FirstNameTextBox = (TextBox)FirstNamePanel.Children[1];
+
+            StackPanel LastNamePanel = (StackPanel)sourcegrid.Children[1];
+            TextBox LastNameTextBox = (TextBox)LastNamePanel.Children[1];
+
+            StackPanel AddressPanel = (StackPanel)sourcegrid.Children[2];
+            TextBox AddressTextBox = (TextBox)AddressPanel.Children[1];
+
+            StackPanel MailPanel = (StackPanel)sourcegrid.Children[3];
+            TextBox MailTextBox = (TextBox)MailPanel.Children[1];
+
+            StackPanel PhonePanel = (StackPanel)sourcegrid.Children[4];
+            TextBox PhoneTextBox = (TextBox)PhonePanel.Children[1];
+
+
+
+            if (FirstNameTextBox.Text != "" & LastNameTextBox.Text != "" & AddressTextBox.Text != "" & MailTextBox.Text != "" & PhoneTextBox.Text != "")
+            {
+                Customer client = new Customer(FirstNameTextBox.Text, LastNameTextBox.Text, AddressTextBox.Text, MailTextBox.Text, PhoneTextBox.Text);
+
+                MySqlCommand cmd = new MySqlCommand("select * from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone", conn);
+                cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
+                cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
+                cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
+                cmd.Parameters.Add(new MySqlParameter("mail", client.mail));
+                cmd.Parameters.Add(new MySqlParameter("phone", client.phone));
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    cart.RegisterCustomer(client);
+                }
+                reader.Close();
+
+                cmd = new MySqlCommand("select customer_number from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone", conn);
+                cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
+                cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
+                cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
+                cmd.Parameters.Add(new MySqlParameter("mail", client.mail));
+                cmd.Parameters.Add(new MySqlParameter("phone", client.phone));
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    client.customer_number = Int16.Parse(reader[0].ToString());
+                }
+                reader.Close();
+
+                cmd = new MySqlCommand("INSERT INTO invoices (`customer_number`, `date`, `totalPrice`) VALUES (@customernumber, @date, @price);", conn);
+                cmd.Parameters.Add(new MySqlParameter("customernumber", client.customer_number));
+                cmd.Parameters.Add(new MySqlParameter("date", DateTime.Now.ToString("yyyy-MM-dd")));
+                cmd.Parameters.Add(new MySqlParameter("price", cart.getPrice()));
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                }
+                reader.Close();
+
+                foreach(int key in cart.BikeDict.Keys)
+                {
+                    cmd = new MySqlCommand("INSERT INTO invoice_details ('invoice_number','ID','amount','price') VALUES (@invoicenumber,@ID,@amount,@price",conn);
+                    cmd.Parameters.Add(new MySqlParameter("invoicenumber", getInvoiceNumber(client)));
+                    cmd.Parameters.Add(new MySqlParameter("ID", key));
+                    cmd.Parameters.Add(new MySqlParameter("amount", cart.BikeDict[key]));
+                    cmd.Parameters.Add(new MySqlParameter("price", BikePriceByID[key]* cart.BikeDict[key]));
+                }
+                cart.ClearCart();
+
+                FirstNameTextBox.Text = "";
+                LastNameTextBox.Text = "";
+                AddressTextBox.Text = "";
+                MailTextBox.Text = "";
+                PhoneTextBox.Text = "";
+            }
+
+        }
+
+        private int getInvoiceNumber(Customer client)
+        {
+            int InvoiceNumber = 0;
+            MySqlCommand cmd = new MySqlCommand("select invoice_number from invoices where customer_number=@customernumber and totalPrice=@price", conn);
+            cmd.Parameters.Add(new MySqlParameter("customernumber", client.customer_number));
+            cmd.Parameters.Add(new MySqlParameter("price", cart.getPrice()));
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                InvoiceNumber = Int16.Parse(reader[0].ToString()); 
+            }
+            reader.Close();
+            return InvoiceNumber;
         }
         private void ConfirmOrder(object sender, RoutedEventArgs e)
         {
@@ -555,7 +783,8 @@ namespace Main.MWM.View
 
     class Cart
     {
-        Dictionary<int, int> BikeDict;
+        public Dictionary<int, int> BikeDict;
+        Dictionary<int, int> _BikePricebyID;
         Dictionary<int, RowDefinition> Rows = new Dictionary<int, RowDefinition>();
         Dictionary<int, List<UIElement>> Children = new Dictionary<int, List<UIElement>>();
         Dictionary<int, string> _ID_Model;
@@ -566,27 +795,17 @@ namespace Main.MWM.View
         MySqlConnection conn;
         //int Current_ID;
         //UIElement Current_Row;
-        public Cart(MySqlConnection _conn, Dictionary<int, string> ID_Model, Dictionary<int, string>ID_Size, Dictionary<int, string>ID_Color)
+        public Cart(MySqlConnection _conn, Dictionary<int, string> ID_Model, Dictionary<int, string>ID_Size, Dictionary<int, string>ID_Color, Dictionary<int, int> BikePricebyID)
         {
             conn = _conn;
 
             _ID_Color = ID_Color;
             _ID_Model = ID_Model;
             _ID_Size = ID_Size;
+            _BikePricebyID = BikePricebyID;
 
             BikeDict = new Dictionary<int, int>();
             price = 0;
-
-            //_ID_Color.Add(1, "Blue");
-            //_ID_Color.Add(2, "Red");
-            //_ID_Color.Add(3, "Black");
-
-            //_ID_Model.Add(1, "City");
-            //_ID_Model.Add(2, "Explorer");
-            //_ID_Model.Add(3, "Adventure");
-
-            //_ID_Size.Add(0, "26");
-            //_ID_Size.Add(1, "28");
 
         }
 
@@ -815,6 +1034,15 @@ namespace Main.MWM.View
 
         }
 
+        public int getPrice()
+        {
+            foreach (int key in BikeDict.Keys)
+            {
+                price += BikeDict[key] * _BikePricebyID[key];
+            }
+            return price;
+        }
+
     }
 
     class Customer
@@ -824,15 +1052,17 @@ namespace Main.MWM.View
         public string Address { get; set; }
         public string phone { get; set; }
         public string mail { get; set; }
+        public int customer_number { get; set; }
 
 
-        public Customer(string _First_Name, string _Last_Name, string _Adress, string _phone, string _mail)
+        public Customer(string _First_Name, string _Last_Name, string _Adress, string _mail, string _phone)
         {
             this.First_Name = _First_Name;
             this.Last_Name = _Last_Name;
             this.Address = _Adress;
             this.mail = _mail;
             this.phone = _phone;
+            
         }
 
 
