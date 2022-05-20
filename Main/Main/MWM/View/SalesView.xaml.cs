@@ -35,7 +35,7 @@ namespace Main.MWM.View
         Cart cart;
 
         Dictionary<string, int> _ID_creator = new Dictionary<string, int>();
-
+        Label estimatedDateLabel = new Label();
 
         MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
@@ -62,18 +62,7 @@ namespace Main.MWM.View
                 _Colors.Add(reader[0].ToString());
             }
             reader.Close();
-            //_Colors.Add("Red");
-            //_Colors.Add("Blue");
-            //_Colors.Add("Black");
 
-
-            //cmd = new MySqlCommand("SELECT description FROM Catalog WHERE model=@model LIMIT 1", conn);
-            //reader = cmd.ExecuteReader();
-            //while (reader.Read())
-            //{
-            //    textBox.Text = reader[0].ToString();
-            //}
-            //reader.Close();
             cmd = new MySqlCommand("select size, min(id) from Catalog group by size", conn);
             reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -97,29 +86,6 @@ namespace Main.MWM.View
                 BikePriceByID.Add(Int16.Parse(reader[0].ToString()), Int16.Parse(reader[1].ToString()));
             }
             reader.Close();
-
-            //_Sizes.Add(26);
-            //_Sizes.Add(28);
-
-
-            //_Models.Add("City");
-            //_Models.Add("Explorer");
-            //_Models.Add("Adventure");
-
-            //for (int i = 0; i < _Models.Count; i++)
-            //{
-            //    _ID_creator.Add(_Models[i], i + 1);
-            //}
-
-            //for (int i = 0; i < _Sizes.Count; i++)
-            //{
-            //    _ID_creator.Add(_Sizes[i].ToString(), i);
-            //}
-
-            //for (int i = 0; i < _Colors.Count; i++)
-            //{
-            //    _ID_creator.Add(_Colors[i], i + 1);
-            //}
 
 
             foreach (string model in _Models)
@@ -164,23 +130,8 @@ namespace Main.MWM.View
             }
 
 
-            //_ID_creator.Add("City", 1);
-            //_ID_creator.Add("Explorer", 2);
-            //_ID_creator.Add("Adventure", 3);
 
-
-
-            //_ID_creator.Add("26", 0);
-            //_ID_creator.Add("28", 1);
-
-
-            //_ID_creator.Add("Blue", 1);
-            //_ID_creator.Add("Red", 2);
-            //_ID_creator.Add("Black", 3);
-
-
-
-            cart = new Cart(conn, _ID_Model, _ID_Size, _ID_Color, BikePriceByID);
+            cart = new Cart(conn, _ID_Model, _ID_Size, _ID_Color, BikePriceByID, estimatedDateLabel);
 
             foreach (var model in _Models)
             {
@@ -214,18 +165,6 @@ namespace Main.MWM.View
             MainTabControl.BorderBrush = Brushes.Transparent;
         }
 
-        //private void OnGotFocusHandler(object sender, RoutedEventArgs e)
-        //{
-        //    TabItem tab = (TabItem)sender;
-        //    tab.Background = Brushes.Red;
-        //}
-        //// Raised when Button losses focus.
-        //// Changes the color of the Button back to white.
-        //private void OnLostFocusHandler(object sender, RoutedEventArgs e)
-        //{
-        //    TabItem tab = (TabItem)sender;
-        //    tab.Background = Brushes.Blue;
-        //}
 
         private Grid GetGrid(string model)
         {
@@ -340,6 +279,8 @@ namespace Main.MWM.View
             textBox.Background = Brushes.Transparent;
             textBox.Foreground = Brushes.White;
             textBox.BorderThickness = new Thickness(0);
+            textBox.HorizontalAlignment = HorizontalAlignment.Center;
+            textBox.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetRow(textBox, 1);
             Grid.SetColumn(textBox, 0);
             grid.Children.Add(textBox);
@@ -451,17 +392,22 @@ namespace Main.MWM.View
             return grid;
         }
 
+       
+
         private Grid GetCartGrid(double Height, double Width)
         {
             Grid maingrid =new Grid();
             ColumnDefinition mainColumn = new ColumnDefinition();
             RowDefinition mainRow1 = new RowDefinition();
             RowDefinition mainRow2 = new RowDefinition();
+            RowDefinition mainRowdate = new RowDefinition();
 
             mainRow2.Height = new GridLength(120);
+            mainRowdate.Height = new GridLength(40);
 
             maingrid.ColumnDefinitions.Add(mainColumn);
             maingrid.RowDefinitions.Add(mainRow1);
+            maingrid.RowDefinitions.Add(mainRowdate);
             maingrid.RowDefinitions.Add(mainRow2);
 
 
@@ -632,14 +578,26 @@ namespace Main.MWM.View
             CustomerInfo.Children.Add(Comfirm);
 
 
-            Grid.SetRow(CustomerInfo, 1);
+            Grid.SetRow(CustomerInfo, 2);
             Grid.SetColumn(CustomerInfo, 0);
             maingrid.Children.Add(CustomerInfo);
+
+
+            
+
+            
+
+            estimatedDateLabel.Content = $"Estimated delivery date : {DateTime.Now.ToString("dd-MM-yyyy")}";
+            estimatedDateLabel.Foreground = Brushes.White;
+
+            Grid.SetColumn(estimatedDateLabel, 0);
+            Grid.SetRow(estimatedDateLabel, 1);
+            maingrid.Children.Add(estimatedDateLabel);
 
             return maingrid;
         }
 
-        
+
 
         private void checkInput(object sender, TextCompositionEventArgs e)
         {
@@ -674,7 +632,7 @@ namespace Main.MWM.View
             {
                 Customer client = new Customer(FirstNameTextBox.Text, LastNameTextBox.Text, AddressTextBox.Text, MailTextBox.Text, PhoneTextBox.Text);
 
-                MySqlCommand cmd = new MySqlCommand("select * from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
                 cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
                 cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
@@ -687,7 +645,7 @@ namespace Main.MWM.View
                 }
                 reader.Close();
 
-                cmd = new MySqlCommand("select customer_number from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone", conn);
+                cmd = new MySqlCommand("select customer_number from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
                 cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
                 cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
@@ -712,7 +670,7 @@ namespace Main.MWM.View
 
                 foreach(int key in cart.BikeDict.Keys)
                 {
-                    cmd = new MySqlCommand("INSERT INTO invoice_details ('invoice_number','ID','amount','price') VALUES (@invoicenumber,@ID,@amount,@price",conn);
+                    cmd = new MySqlCommand("INSERT INTO invoice_details ('invoice_number','ID','amount','price') VALUES (@invoicenumber,@ID,@amount,@price);",conn);
                     cmd.Parameters.Add(new MySqlParameter("invoicenumber", getInvoiceNumber(client)));
                     cmd.Parameters.Add(new MySqlParameter("ID", key));
                     cmd.Parameters.Add(new MySqlParameter("amount", cart.BikeDict[key]));
@@ -725,6 +683,10 @@ namespace Main.MWM.View
                 AddressTextBox.Text = "";
                 MailTextBox.Text = "";
                 PhoneTextBox.Text = "";
+
+
+               
+
             }
 
         }
@@ -790,12 +752,13 @@ namespace Main.MWM.View
         Dictionary<int, string> _ID_Model;
         Dictionary<int, string> _ID_Size;
         Dictionary<int, string> _ID_Color;
+        Label _estimatedDateLabel;
         Grid grid;
         int price;
         MySqlConnection conn;
         //int Current_ID;
         //UIElement Current_Row;
-        public Cart(MySqlConnection _conn, Dictionary<int, string> ID_Model, Dictionary<int, string>ID_Size, Dictionary<int, string>ID_Color, Dictionary<int, int> BikePricebyID)
+        public Cart(MySqlConnection _conn, Dictionary<int, string> ID_Model, Dictionary<int, string>ID_Size, Dictionary<int, string>ID_Color, Dictionary<int, int> BikePricebyID, Label estimatedDateLabel)
         {
             conn = _conn;
 
@@ -803,6 +766,7 @@ namespace Main.MWM.View
             _ID_Model = ID_Model;
             _ID_Size = ID_Size;
             _BikePricebyID = BikePricebyID;
+            _estimatedDateLabel = estimatedDateLabel;
 
             BikeDict = new Dictionary<int, int>();
             price = 0;
@@ -929,6 +893,7 @@ namespace Main.MWM.View
                 grid.Children.Add(Delete);
 
             }
+            updateEstimatedDate();
         }
 
 
@@ -937,6 +902,7 @@ namespace Main.MWM.View
             Button button = (Button)sender;
             removeFromCart(Int16.Parse(button.Uid));
             DeleteRow(Int16.Parse(button.Uid));
+            updateEstimatedDate();
         }
 
         public void ClearCart()
@@ -951,6 +917,7 @@ namespace Main.MWM.View
                 removeFromCart(ID);
                 DeleteRow(ID);
             }
+            updateEstimatedDate();
         }
 
         public void DeleteRow(int id)
@@ -964,6 +931,7 @@ namespace Main.MWM.View
             Children.Remove(id);
             grid.RowDefinitions.Remove(row);
             Rows.Remove(id);
+            updateEstimatedDate();
         }
 
         public void MinusOne(object sender, RoutedEventArgs e)
@@ -983,6 +951,7 @@ namespace Main.MWM.View
             {
                 
             }
+            updateEstimatedDate();
         }
 
         public void PlusOne(object sender, RoutedEventArgs e)
@@ -996,6 +965,7 @@ namespace Main.MWM.View
             BikeDict[Int16.Parse(button.Uid)] += 1;
            
             text.Text = BikeDict[Int16.Parse(button.Uid)].ToString();
+            updateEstimatedDate();
         }
         public void removeFromCart(int ID, int nb)
         {
@@ -1006,6 +976,7 @@ namespace Main.MWM.View
                     BikeDict.Remove(ID);
                     DeleteRow(ID);
                 }
+                updateEstimatedDate();
             }
         }
 
@@ -1014,6 +985,7 @@ namespace Main.MWM.View
             if (BikeDict.ContainsKey(ID))
             {
                 BikeDict.Remove(ID);
+                updateEstimatedDate();
             }
         }
 
@@ -1041,6 +1013,42 @@ namespace Main.MWM.View
                 price += BikeDict[key] * _BikePricebyID[key];
             }
             return price;
+        }
+
+        public DateTime getEstimatedDate()
+        {
+            DateTime estimatedDate = DateTime.Today;
+            double BookedDays = 0;
+
+            MySqlCommand cmd = new MySqlCommand("SELECT SUM(amount) from invoice_details;", conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                object a = reader[0];
+                BookedDays = Int16.Parse(reader[0].ToString()) / 12;
+            }
+            reader.Close();
+
+            int roundedbookeddays = (int)Math.Round(BookedDays);
+
+            int orderedBikes = 0;
+            foreach (int key in BikeDict.Keys)
+            {
+                orderedBikes += BikeDict[key];
+            }
+
+            roundedbookeddays += (int)Math.Round((double)orderedBikes / 12);
+
+            roundedbookeddays += ((int)roundedbookeddays / 7) * 2;
+
+            estimatedDate = estimatedDate.AddDays(roundedbookeddays);
+
+            return estimatedDate;
+        }
+
+        public void updateEstimatedDate()
+        {
+            _estimatedDateLabel.Content = $"Estimated delivery date : {getEstimatedDate().ToString("dd-MM-yyyy")}";
         }
 
     }
