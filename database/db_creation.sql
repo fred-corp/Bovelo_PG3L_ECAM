@@ -46,6 +46,8 @@ CREATE TABLE invoices
   invoice_number  INTEGER NOT NULL,
   customer_number INTEGER NOT NULL,
   date            DATE    NULL    ,
+  totalPrice int DEFAULT NULL,
+  status varchar(255) DEFAULT 'waiting',
   PRIMARY KEY (invoice_number)
 );
 
@@ -60,12 +62,21 @@ CREATE TABLE part_orders
 
 CREATE TABLE production 
 (
+  production_ID INTEGER NOT NULL IDENTITY,
   invoice_number INTEGER NOT NULL        ,
   ID INTEGER NOT NULL                    ,
   amount INTEGER DEFAULT NULL            ,
-  date VARCHAR(255) DEFAULT NULL         ,
-  production_ID INTEGER NOT NULL IDENTITY,
+  amount_scheduled INT DEFAULT NULL      ,
+  amount_completed INT DEFAULT NULL      ,
   PRIMARY KEY (production_ID)            ,
+);
+
+CREATE TABLE week_schedule (
+  bike_id INT NOT NULL IDENTITY          ,
+  ID INT NOT NULL                        ,
+  production_id INT NOT NULL             ,
+  day VARCHAR(255) NOT NULL              ,
+  PRIMARY KEY (bike_id)
 );
 
 ALTER TABLE Components
@@ -100,5 +111,14 @@ ALTER TABLE production
   CONSTRAINT FK_invoices_TO_production
     FOREIGN KEY (invoice_number)
     REFERENCES invoices (invoice_number);
-        
+
+ALTER TABLE bovelo.week_schedule
+  ADD CONSTRAINT FK_Catalog_week_schedule_ID 
+    FOREIGN KEY (ID)
+    REFERENCES bovelo.Catalog (ID);
+
+ALTER TABLE bovelo.week_schedule
+  ADD CONSTRAINT FK_production_TO_week_schedule
+    FOREIGN KEY (production_id)
+    REFERENCES bovelo.production (production_ID);
       
