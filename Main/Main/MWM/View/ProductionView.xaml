@@ -15,7 +15,7 @@
                        HorizontalAlignment="Left"
                        Margin="0,0,0,150"/>
             <Button Width="200" Margin="5" Content="View this week's schedule" Click="ShowScheduleButton"></Button>
-            <Button Width="200" Margin="5" Content="View invoices" Click="ShowInvoicesButton"></Button>
+            <Button Width="200" Margin="5" Content="View pending invoices" Click="ShowInvoicesButton"></Button>
             <Button Width="200" Margin="5" Content="View production backlog" Click="ShowProductionButton"></Button>
         </StackPanel>
 
@@ -25,7 +25,7 @@
                        FontSize="28"
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
-            <DataGrid  Height="250" Margin="0,0,10,10" Name="ScheduleDataGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid  Height="250" Margin="0,0,10,10" Name="ScheduleDataGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Monday" IsReadOnly="True" Width="110"/>
                     <DataGridTextColumn Header="Tuesday" IsReadOnly="True" Width="110"/>
@@ -40,20 +40,24 @@
         </StackPanel>
 
         <StackPanel x:Name="InvoicesStackPanel" Orientation="Vertical" VerticalAlignment="Center" Visibility="Collapsed">
-            <TextBlock Text="Invoices"
+            <TextBlock Text="Pending invoices"
                        Foreground="White"
                        FontSize="28"
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
-            <DataGrid  Height="450" Margin="0,0,10,10" Name="InvoicesDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=invoicesDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid  Height="450" Margin="0,0,10,10" Name="InvoicesDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=invoicesDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=invoice_number}" Header="Invoice Nr" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=customer_number}" Header="Customer name" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=customer_number}" Header="Amount of bikes" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Detail Nr" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=name}" Header="Customer" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=model}" Header="Model" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=color}" Header="Color" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=size}" Header="Size" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=amount}" Header="Amount" IsReadOnly="True"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Send to production" Height="20" FontWeight="Bold" Width="200"/>
+                                <Button Content="Send to production" Height="20" FontWeight="Bold" Width="200" Click="SendProductionButton"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -68,13 +72,15 @@
                        FontSize="28"
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
-            <DataGrid  Height="450" Margin="0,0,10,10" Name="ProductionDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=productionDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid  Height="450" Margin="0,0,10,10" Name="ProductionDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=productionDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=invoice_number}" Header="Invoice Nr" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=ID}" Header="Bike type" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=amount}" Header="Amount of bikes" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="bikes scheduled" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Completed bikes" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Nr" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=model}" Header="Model" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=color}" Header="Color" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=size}" Header="Size" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=amount}" Header="Amount" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Scheduled" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Completed" IsReadOnly="True"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

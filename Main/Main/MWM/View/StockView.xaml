@@ -17,7 +17,7 @@
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
 
-            <DataGrid Height="450" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=stockDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid Height="450" Margin="0,0,10,10" Name="stockDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=stockDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=description}" Header="Description" IsReadOnly="True"/>
@@ -185,7 +185,7 @@
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
 
-            <DataGrid Name="orderDataGrid" Margin="0,0,10,10" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Height="450" ItemsSource="{Binding Path=orderDataBinding}">
+            <DataGrid Name="orderDataGrid" Margin="0,0,10,10" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Height="450" ItemsSource="{Binding Path=orderDataBinding}" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=order_number}" Header="Order Number" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=part_number}" Header="Part Number" IsReadOnly="True"/>
