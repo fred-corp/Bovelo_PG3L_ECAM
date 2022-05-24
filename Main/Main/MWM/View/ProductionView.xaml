@@ -25,17 +25,59 @@
                        FontSize="28"
                        HorizontalAlignment="Left"
                        Margin="0,0,0,20"/>
-            <DataGrid  Height="250" Margin="0,0,10,10" Name="ScheduleDataGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Monday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Tuesday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Wednesday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Thursday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Friday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Saturday" IsReadOnly="True" Width="110"/>
-                    <DataGridTextColumn Header="Sunday" IsReadOnly="True" Width="110"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="BorderThickness" Value="2" />
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Monday</Label>
+                </Border>
+                <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=mondayDataBinding}" Name="MondayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding ID}" Width="80"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Tuesday</Label>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="2">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Wednesday</Label>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="3" >
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Thursday</Label>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="4">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Friday</Label>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="5">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Saturday</Label>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="6">
+                    <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Sunday</Label>
+                </Border>
+            </Grid>
             <Button Content="Back" Click="BackButton" Width="200"></Button>
         </StackPanel>
 
@@ -74,7 +116,7 @@
                        Margin="0,0,0,20"/>
             <DataGrid  Height="450" Margin="0,0,10,10" Name="ProductionDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=productionDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Nr" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Detail Nr" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=model}" Header="Model" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=color}" Header="Color" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=size}" Header="Size" IsReadOnly="True"/>
@@ -89,6 +131,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
+                
             </DataGrid>
             <Button Content="Back" Click="BackButton" Width="200"></Button>
         </StackPanel>

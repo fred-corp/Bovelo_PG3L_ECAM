@@ -30,6 +30,7 @@ namespace Main.MWM.View
         {
             MenuStackPanel.Visibility = Visibility.Collapsed;
             ScheduleStackPanel.Visibility = Visibility.Visible;
+            GetScheduleDb();
         }
 
         private void ShowInvoicesButton(object sender, RoutedEventArgs e)
@@ -150,6 +151,18 @@ namespace Main.MWM.View
             UpdateInvoiceStatusDb(InvoiceDetailNumber, "production");
             AddToProductionDb(InvoiceDetailNumber);
             FillInvoicesGrid();
+        }
+
+        private void GetScheduleDb()
+        {
+            connection.Open();
+            adp.SelectCommand = new MySqlCommand("SELECT * FROM week_schedule", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            adp.Fill(ds, "mondayDataBinding");
+            MondayListView.DataContext = ds;
+            connection.Close();
         }
     }
 }
