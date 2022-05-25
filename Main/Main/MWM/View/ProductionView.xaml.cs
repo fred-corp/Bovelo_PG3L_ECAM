@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Data;
+using System;
 
 namespace Main.MWM.View
 {
@@ -22,6 +23,13 @@ namespace Main.MWM.View
         private int GetInvoiceDetailNumber(int index)
         {
             TextBlock order = InvoicesDataGrid.Columns[1].GetCellContent(InvoicesDataGrid.Items[index]) as TextBlock;
+
+            return string.IsNullOrEmpty(order.Text) ? 0 : int.Parse(order.Text);
+        }
+
+        private int GetProductionIdNumber(int index)
+        {
+            TextBlock order = ProductionDataGrid.Columns[0].GetCellContent(ProductionDataGrid.Items[index]) as TextBlock;
 
             return string.IsNullOrEmpty(order.Text) ? 0 : int.Parse(order.Text);
         }
@@ -98,6 +106,7 @@ namespace Main.MWM.View
             {
                 connection.Open();
                 adp.SelectCommand = new MySqlCommand(@"SELECT
+                  production.production_id,
                   production.invoice_detail_id,
                   production.ID,
                   production.amount,
@@ -137,7 +146,7 @@ namespace Main.MWM.View
 
         private void AddToProductionDb(int invoice)
         {
-            string query = @"INSERT INTO production (invoice_detail_id, ID, amount) SELECT invoice_detail_id, ID, amount FROM invoice_details WHERE invoice_detail_id = @invoice";
+            string query = "INSERT INTO production (invoice_detail_id, ID, amount) SELECT invoice_detail_id, ID, amount FROM invoice_details WHERE invoice_detail_id = @invoice";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@invoice", invoice);
@@ -153,10 +162,46 @@ namespace Main.MWM.View
             FillInvoicesGrid();
         }
 
+        private void ScheduleButton(object sender, RoutedEventArgs e)
+        {
+            SchedulePopup.IsOpen = true;
+        }
+
+        private void AddToScheduleDb(int ProductionId, string date)
+        {
+            string query = "INSERT INTO schedule (production_id, ID, date) VALUES (@production_id, (SELECT ID FROM production WHERE production_id = @production_id), @date)";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@production_id", ProductionId);
+            cmd.Parameters.AddWithValue("@date", date);
+            cmd.ExecuteNonQuery();
+
+            string query2 = "UPDATE production SET amount_scheduled = amount_scheduled + 1 WHERE production_id = @production_id";
+            MySqlCommand cmd2 = new MySqlCommand(query2, connection);
+            cmd2.Parameters.AddWithValue("@production_id", ProductionId);
+            cmd2.ExecuteNonQuery();
+            connection.Close();
+            FillProductionGrid();
+        }
+
+        private void ConfirmScheduleButton(object sender, RoutedEventArgs e)
+        {
+            DateTime SelectedDate = (DateTime)ScheduleDatePicker.SelectedDate;
+            string FormattedDate = SelectedDate.ToString("yyyy-MM-dd");
+            int ProductionId = GetProductionIdNumber(ProductionDataGrid.SelectedIndex);
+            AddToScheduleDb(ProductionId, FormattedDate);
+            SchedulePopup.IsOpen = false;
+        }
+
+        private void CancelScheduleButton(object sender, RoutedEventArgs e)
+        {
+            SchedulePopup.IsOpen = false;
+        }
+
         private void GetScheduleDb()
         {
             connection.Open();
-            adp.SelectCommand = new MySqlCommand("SELECT * FROM week_schedule", connection);
+            adp.SelectCommand = new MySqlCommand("SELECT * FROM schedule", connection);
             cmbl = new MySqlCommandBuilder(adp);
             DataSet ds = new DataSet();
             adp.Fill(ds);

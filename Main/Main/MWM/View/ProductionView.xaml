@@ -90,7 +90,7 @@
             <DataGrid  Height="450" Margin="0,0,10,10" Name="InvoicesDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=invoicesDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=invoice_number}" Header="Invoice Nr" IsReadOnly="True"/>
-                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Detail Nr" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Sub-Invoice Nr" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=name}" Header="Customer" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=model}" Header="Model" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=color}" Header="Color" IsReadOnly="True"/>
@@ -116,23 +116,44 @@
                        Margin="0,0,0,20"/>
             <DataGrid  Height="450" Margin="0,0,10,10" Name="ProductionDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path=productionDataBinding}" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Invoice Detail Nr" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=production_id}" Header="Production ID" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=invoice_detail_id}" Header="Sub-Invoice Nr" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=model}" Header="Model" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=color}" Header="Color" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=size}" Header="Size" IsReadOnly="True"/>
                     <DataGridTextColumn Binding="{Binding Path=amount}" Header="Amount" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Scheduled" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Completed" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=amount_scheduled}" Header="Scheduled" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path=amount_completed}" Header="Completed" IsReadOnly="True"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Add to schedule" Height="20" FontWeight="Bold" Width="200"/>
+                                <Button Content="Add to schedule" Height="20" FontWeight="Bold" Width="200" Click="ScheduleButton"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-                
             </DataGrid>
+            <Popup x:Name="SchedulePopup" IsOpen="False" Placement="Center" Width="200" Height="120">
+                <Grid Background="DarkBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.ColumnSpan="2" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Schedule a bike</Label>
+                    <Label Grid.Row="1" Grid.Column="0" Foreground="White">Pick a date:</Label>
+                    <DatePicker x:Name="ScheduleDatePicker" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,20"></DatePicker>
+                    <StackPanel Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ConfirmScheduleButton">Confirm</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CancelScheduleButton">Cancel</Button>
+                    </StackPanel>
+                </Grid>
+            </Popup>
             <Button Content="Back" Click="BackButton" Width="200"></Button>
         </StackPanel>
 

@@ -66,17 +66,17 @@ CREATE TABLE production
   production_ID INTEGER NOT NULL IDENTITY,
   invoice_detail_id INTEGER NOT NULL     ,
   ID INTEGER NOT NULL                    ,
-  amount INTEGER DEFAULT NULL            ,
-  amount_scheduled INT DEFAULT NULL      ,
-  amount_completed INT DEFAULT NULL      ,
+  amount INTEGER DEFAULT 0               ,
+  amount_scheduled INT DEFAULT 0         ,
+  amount_completed INT DEFAULT 0         ,
   PRIMARY KEY (production_ID)            ,
 );
 
-CREATE TABLE week_schedule (
+CREATE TABLE schedule (
   bike_id INT NOT NULL IDENTITY          ,
   ID INT NOT NULL                        ,
   production_id INT NOT NULL             ,
-  day VARCHAR(255) NOT NULL              ,
+  date DATE DEFAULT NULL                 ,
   PRIMARY KEY (bike_id)
 );
 
