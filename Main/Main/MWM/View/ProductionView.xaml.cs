@@ -201,13 +201,93 @@ namespace Main.MWM.View
         private void GetScheduleDb()
         {
             connection.Open();
-            adp.SelectCommand = new MySqlCommand("SELECT * FROM schedule", connection);
+            // todo: refactor
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=1;", connection);
             cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            adp.Fill(ds, "mondayDataBinding");
-            MondayListView.DataContext = ds;
+            DataSet ds1 = new DataSet();
+            adp.Fill(ds1, "sundayDataBinding");
+            SundayListView.DataContext = ds1;
             connection.Close();
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=2;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds2 = new DataSet();
+            adp.Fill(ds2, "mondayDataBinding");
+            MondayListView.DataContext = ds2;
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=3;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds3 = new DataSet();
+            adp.Fill(ds3, "tuesdayDataBinding");
+            TuesdayListView.DataContext = ds3;
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=4;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds4 = new DataSet();
+            adp.Fill(ds4, "wednesdayDataBinding");
+            WednesdayListView.DataContext = ds4;
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=5;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds5 = new DataSet();
+            adp.Fill(ds5, "thursdayDataBinding");
+            ThursdayListView.DataContext = ds5;
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=6;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds6 = new DataSet();
+            adp.Fill(ds6, "fridayDataBinding");
+            FridayListView.DataContext = ds6;
+
+            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=7;", connection);
+            cmbl = new MySqlCommandBuilder(adp);
+            DataSet ds7 = new DataSet();
+            adp.Fill(ds7, "saturdayDataBinding");
+            SaturdayListView.DataContext = ds7;
+            connection.Close();
+        }
+
+        private void BikeInformationDb(int BikeId)
+        {
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(@"SELECT
+              Catalog.model,
+              Catalog.color,
+              Catalog.size
+            FROM schedule
+              INNER JOIN Catalog
+                ON schedule.ID = Catalog.ID
+            WHERE schedule.bike_id = @id", connection);
+            cmd.Parameters.AddWithValue("@id", BikeId);
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                BikeModel.Content = dr[0].ToString();
+                BikeColor.Content = dr[1].ToString();
+                BikeSize.Content = dr[2].ToString();
+            }
+            connection.Close();
+        }
+
+        private void BikeInfoButton(object sender, RoutedEventArgs e)
+        {
+            string content = (e.Source as Button).Content.ToString();
+            int BikeId = int.Parse(content);
+            ValidateBikePopup.IsOpen = true;
+            BikeInformationDb(BikeId);
+
+
+        }
+
+        private void ValidateBikeButton(object sender, RoutedEventArgs e)
+        {
+            ValidateBikePopup.IsOpen = false;
+            //GetScheduleDb();
+        }
+
+        private void CloseValidatePopupButton(object sender, RoutedEventArgs e)
+        {
+            ValidateBikePopup.IsOpen = false;
         }
     }
 }

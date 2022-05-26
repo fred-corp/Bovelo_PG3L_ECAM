@@ -55,30 +55,99 @@
                 <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=mondayDataBinding}" Name="MondayListView" HorizontalAlignment="Center">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding ID}" Width="80"></Button>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <Border Grid.Row="0" Grid.Column="1">
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Tuesday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=tuesdayDataBinding}" Name="TuesdayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Border Grid.Row="0" Grid.Column="2">
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Wednesday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Path=wednesdayDataBinding}" Name="WednesdayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Border Grid.Row="0" Grid.Column="3" >
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Thursday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Path=thursdayDataBinding}" Name="ThursdayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Border Grid.Row="0" Grid.Column="4">
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Friday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="4" ItemsSource="{Binding Path=fridayDataBinding}" Name="FridayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Border Grid.Row="0" Grid.Column="5">
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Saturday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="5" ItemsSource="{Binding Path=saturdayDataBinding}" Name="SaturdayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Border Grid.Row="0" Grid.Column="6">
                     <Label FontWeight="Bold" Foreground="White" HorizontalAlignment="Center">Sunday</Label>
                 </Border>
+                <ListView Grid.Row="1" Grid.Column="6" ItemsSource="{Binding Path=sundayDataBinding}" Name="SundayListView" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding bike_id}" Width="80" Click="BikeInfoButton"></Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
-            <Button Content="Back" Click="BackButton" Width="200"></Button>
+            <Button Content="Back" Click="BackButton" Width="200" Margin="0,250,0,0"></Button>
+            
+            <Popup x:Name="ValidateBikePopup" IsOpen="False" Placement="Center" Width="200" Height="150">
+                <Grid Background="DarkBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.ColumnSpan="2" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Bike specifications:</Label>
+                    <Label Grid.Row="1" Grid.Column="0" Foreground="White">Model:</Label>
+                    <Label Grid.Row="1" Grid.Column="1" Foreground="White" x:Name="BikeModel"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" Foreground="White">Color:</Label>
+                    <Label Grid.Row="2" Grid.Column="1" Foreground="White" x:Name="BikeColor"></Label>
+                    <Label Grid.Row="3" Grid.Column="0" Foreground="White">Size:</Label>
+                    <Label Grid.Row="3" Grid.Column="1" Foreground="White" x:Name="BikeSize"></Label>
+                    <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
+                        <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ValidateBikeButton">Validate Production</Button>
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CloseValidatePopupButton">Close</Button>
+                    </StackPanel>
+                </Grid>
+            </Popup>
         </StackPanel>
 
         <StackPanel x:Name="InvoicesStackPanel" Orientation="Vertical" VerticalAlignment="Center" Visibility="Collapsed">
