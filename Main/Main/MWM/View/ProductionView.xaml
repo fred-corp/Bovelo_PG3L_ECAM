@@ -122,7 +122,7 @@
             </Grid>
             <Button Content="Back" Click="BackButton" Width="200" Margin="0,250,0,0"></Button>
             
-            <Popup x:Name="ValidateBikePopup" IsOpen="False" Placement="Center" Width="200" Height="150">
+            <Popup x:Name="ValidateBikePopup" IsOpen="False" Placement="Center" Width="200" Height="200">
                 <Grid Background="DarkBlue">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -133,16 +133,22 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.ColumnSpan="2" Foreground="White" Margin="10,5,10,0" HorizontalAlignment="Center" FontWeight="Bold">Bike specifications:</Label>
                     <Label Grid.Row="1" Grid.Column="0" Foreground="White">Model:</Label>
-                    <Label Grid.Row="1" Grid.Column="1" Foreground="White" x:Name="BikeModel"></Label>
+                    <Label Grid.Row="1" Grid.Column="1" Foreground="White" x:Name="BikeModelLabel"></Label>
                     <Label Grid.Row="2" Grid.Column="0" Foreground="White">Color:</Label>
-                    <Label Grid.Row="2" Grid.Column="1" Foreground="White" x:Name="BikeColor"></Label>
+                    <Label Grid.Row="2" Grid.Column="1" Foreground="White" x:Name="BikeColorLabel"></Label>
                     <Label Grid.Row="3" Grid.Column="0" Foreground="White">Size:</Label>
-                    <Label Grid.Row="3" Grid.Column="1" Foreground="White" x:Name="BikeSize"></Label>
-                    <StackPanel Grid.ColumnSpan="4" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
+                    <Label Grid.Row="3" Grid.Column="1" Foreground="White" x:Name="BikeSizeLabel"></Label>
+                    <Label Grid.Row="4" Grid.Column="0" Foreground="White">Production id:</Label>
+                    <Label Grid.Row="4" Grid.Column="1" Foreground="White" x:Name="ProductionIdLabel"></Label>
+                    <Label Grid.Row="5" Grid.Column="0" Foreground="White">Bike id:</Label>
+                    <Label Grid.Row="5" Grid.Column="1" Foreground="White" x:Name="BikeIdLabel"></Label>
+                    <StackPanel Grid.ColumnSpan="4" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,5">
                         <Button HorizontalAlignment="Left" Margin="0,0,5,0" Click="ValidateBikeButton">Validate Production</Button>
                         <Button HorizontalAlignment="Left" Margin="0,0,0,0" Click="CloseValidatePopupButton">Close</Button>
                     </StackPanel>

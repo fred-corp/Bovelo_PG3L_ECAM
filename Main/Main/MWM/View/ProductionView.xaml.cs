@@ -253,7 +253,9 @@ namespace Main.MWM.View
             MySqlCommand cmd = new MySqlCommand(@"SELECT
               Catalog.model,
               Catalog.color,
-              Catalog.size
+              Catalog.size,
+              production_ID,
+              schedule.bike_id
             FROM schedule
               INNER JOIN Catalog
                 ON schedule.ID = Catalog.ID
@@ -262,9 +264,11 @@ namespace Main.MWM.View
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                BikeModel.Content = dr[0].ToString();
-                BikeColor.Content = dr[1].ToString();
-                BikeSize.Content = dr[2].ToString();
+                BikeModelLabel.Content = dr[0].ToString();
+                BikeColorLabel.Content = dr[1].ToString();
+                BikeSizeLabel.Content = dr[2].ToString();
+                ProductionIdLabel.Content = dr[3].ToString();
+                BikeIdLabel.Content = dr[4].ToString();
             }
             connection.Close();
         }
@@ -275,14 +279,46 @@ namespace Main.MWM.View
             int BikeId = int.Parse(content);
             ValidateBikePopup.IsOpen = true;
             BikeInformationDb(BikeId);
+        }
 
+        private void CompleteBikeDb(int BikeId)
+        {
+            string query = @"UPDATE production p 
+              SET 
+                p.amount_scheduled = p.amount_scheduled - 1,
+                p.amount_completed = p.amount_completed + 1 
+            WHERE p.production_ID = (SELECT production_id FROM schedule WHERE schedule.bike_id = @bike_id); 
+            DELETE FROM schedule WHERE bike_id = @bike_id";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@bike_id", BikeId);
+            cmd.ExecuteNonQuery();
 
+            MySqlCommand cmd2 = new MySqlCommand(@"SELECT amount, amount_completed 
+            FROM production WHERE production_ID = @production_ID", connection);
+            cmd2.Parameters.AddWithValue("@production_ID", ProductionIdLabel.Content);
+            MySqlDataReader dr = cmd2.ExecuteReader();
+            while (dr.Read())
+            {
+                if (Convert.ToInt32(dr[0]) == Convert.ToInt32(dr[1]))
+                {
+                    MySqlCommand cmd3 = new MySqlCommand(@"UPDATE invoice_details
+                    SET status = 'complete' 
+                    WHERE invoice_detail_id = (SELECT invoice_detail_id FROM production WHERE production.production_ID = @production_ID);
+                    DELETE FROM production WHERE production_id = @production_id", connection);
+                    cmd3.Parameters.AddWithValue("@production_ID", ProductionIdLabel.Content);
+                    cmd3.ExecuteNonQuery();
+                }
+            }
+
+            connection.Close();
         }
 
         private void ValidateBikeButton(object sender, RoutedEventArgs e)
         {
+            CompleteBikeDb(Convert.ToInt32(BikeIdLabel.Content));
+            GetScheduleDb();
             ValidateBikePopup.IsOpen = false;
-            //GetScheduleDb();
         }
 
         private void CloseValidatePopupButton(object sender, RoutedEventArgs e)
