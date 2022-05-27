@@ -201,49 +201,46 @@ namespace Main.MWM.View
         private void GetScheduleDb()
         {
             connection.Open();
-            // todo: refactor
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=1;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds1 = new DataSet();
-            adp.Fill(ds1, "sundayDataBinding");
-            SundayListView.DataContext = ds1;
-            connection.Close();
+            MySqlCommand cmd = new MySqlCommand("SELECT bike_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW())", connection);
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                Button btn = new Button();
+                btn.Content = dr[0].ToString();
+                btn.Height = 20;
+                btn.Width = 80;
+                btn.Click += new RoutedEventHandler(BikeInfoButton);
 
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=2;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds2 = new DataSet();
-            adp.Fill(ds2, "mondayDataBinding");
-            MondayListView.DataContext = ds2;
-
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=3;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds3 = new DataSet();
-            adp.Fill(ds3, "tuesdayDataBinding");
-            TuesdayListView.DataContext = ds3;
-
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=4;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds4 = new DataSet();
-            adp.Fill(ds4, "wednesdayDataBinding");
-            WednesdayListView.DataContext = ds4;
-
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=5;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds5 = new DataSet();
-            adp.Fill(ds5, "thursdayDataBinding");
-            ThursdayListView.DataContext = ds5;
-
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=6;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds6 = new DataSet();
-            adp.Fill(ds6, "fridayDataBinding");
-            FridayListView.DataContext = ds6;
-
-            adp.SelectCommand = new MySqlCommand(@"SELECT bike_id, ID, production_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW()) AND DAYOFWEEK(date)=7;", connection);
-            cmbl = new MySqlCommandBuilder(adp);
-            DataSet ds7 = new DataSet();
-            adp.Fill(ds7, "saturdayDataBinding");
-            SaturdayListView.DataContext = ds7;
+                if (dr[1].ToString() == "1")
+                {
+                    SundayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "2")
+                {
+                    
+                    MondayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "3")
+                {
+                    TuesdayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "4")
+                {
+                    WednesdayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "5")
+                {
+                    ThursdayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "6")
+                {
+                    FridayListView.Items.Add(btn);
+                }
+                else if (dr[1].ToString() == "7")
+                {
+                    SaturdayListView.Items.Add(btn);
+                }
+            }
             connection.Close();
         }
 
@@ -310,7 +307,6 @@ namespace Main.MWM.View
                     cmd3.ExecuteNonQuery();
                 }
             }
-
             connection.Close();
         }
 
