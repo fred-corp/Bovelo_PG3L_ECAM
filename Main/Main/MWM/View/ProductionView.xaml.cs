@@ -200,6 +200,14 @@ namespace Main.MWM.View
 
         private void GetScheduleDb()
         {
+            SundayListView.Items.Clear();
+            MondayListView.Items.Clear();
+            TuesdayListView.Items.Clear();
+            WednesdayListView.Items.Clear();
+            ThursdayListView.Items.Clear();
+            FridayListView.Items.Clear();
+            SaturdayListView.Items.Clear();
+
             connection.Open();
             MySqlCommand cmd = new MySqlCommand("SELECT bike_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW())", connection);
             MySqlDataReader dr = cmd.ExecuteReader();
@@ -280,6 +288,7 @@ namespace Main.MWM.View
 
         private void CompleteBikeDb(int BikeId)
         {
+            int ProductionId = Convert.ToInt32(ProductionIdLabel.Content);
             string query = @"UPDATE production p 
               SET 
                 p.amount_scheduled = p.amount_scheduled - 1,
@@ -293,19 +302,29 @@ namespace Main.MWM.View
 
             MySqlCommand cmd2 = new MySqlCommand(@"SELECT amount, amount_completed 
             FROM production WHERE production_ID = @production_ID", connection);
-            cmd2.Parameters.AddWithValue("@production_ID", ProductionIdLabel.Content);
+            cmd2.Parameters.AddWithValue("@production_ID", ProductionId);
             MySqlDataReader dr = cmd2.ExecuteReader();
+            bool CompletedOrder = false;
             while (dr.Read())
             {
                 if (Convert.ToInt32(dr[0]) == Convert.ToInt32(dr[1]))
                 {
-                    MySqlCommand cmd3 = new MySqlCommand(@"UPDATE invoice_details
-                    SET status = 'complete' 
-                    WHERE invoice_detail_id = (SELECT invoice_detail_id FROM production WHERE production.production_ID = @production_ID);
-                    DELETE FROM production WHERE production_id = @production_id", connection);
-                    cmd3.Parameters.AddWithValue("@production_ID", ProductionIdLabel.Content);
-                    cmd3.ExecuteNonQuery();
+                    CompletedOrder = true;
+                    dr.Close();
                 }
+                break;
+            }
+            if (CompletedOrder is true)
+            {
+                System.Diagnostics.Debug.WriteLine("test");
+                MySqlCommand cmd3 = new MySqlCommand(@"UPDATE invoice_details
+                  INNER JOIN
+                  production ON invoice_details.invoice_detail_id = production.invoice_detail_id
+                SET status = 'complete' 
+                  WHERE production.production_ID = @production_id;
+                DELETE FROM production WHERE production_ID = @production_id;", connection);
+                cmd3.Parameters.AddWithValue("@production_id", ProductionId);
+                cmd3.ExecuteNonQuery();
             }
             connection.Close();
         }
