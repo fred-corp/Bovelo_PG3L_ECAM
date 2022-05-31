@@ -209,7 +209,12 @@ namespace Main.MWM.View
             SaturdayListView.Items.Clear();
 
             connection.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT bike_id, DAYOFWEEK(date) from schedule where week(date)=week(NOW())", connection);
+            MySqlCommand cmd = new MySqlCommand(@"SELECT
+              bike_id,
+              DAYOFWEEK(date) 
+            FROM schedule
+            WHERE schedule.date >= date_sub(curdate(), interval weekday(curdate()) day)
+            AND schedule.date <= date_sub(curdate(), interval weekday(curdate()) - 7 day)", connection);
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -301,8 +306,8 @@ namespace Main.MWM.View
             cmd.ExecuteNonQuery();
 
             MySqlCommand cmd2 = new MySqlCommand(@"SELECT amount, amount_completed 
-            FROM production WHERE production_ID = @production_ID", connection);
-            cmd2.Parameters.AddWithValue("@production_ID", ProductionId);
+            FROM production WHERE production_ID = @production_id", connection);
+            cmd2.Parameters.AddWithValue("@production_id", ProductionId);
             MySqlDataReader dr = cmd2.ExecuteReader();
             bool CompletedOrder = false;
             while (dr.Read())
@@ -316,13 +321,14 @@ namespace Main.MWM.View
             }
             if (CompletedOrder is true)
             {
-                System.Diagnostics.Debug.WriteLine("test");
                 MySqlCommand cmd3 = new MySqlCommand(@"UPDATE invoice_details
                   INNER JOIN
                   production ON invoice_details.invoice_detail_id = production.invoice_detail_id
                 SET status = 'complete' 
                   WHERE production.production_ID = @production_id;
-                DELETE FROM production WHERE production_ID = @production_id;", connection);
+                SET FOREIGN_KEY_CHECKS=0;
+                DELETE FROM production WHERE production_ID = @production_id;
+                SET FOREIGN_KEY_CHECKS=1;", connection);
                 cmd3.Parameters.AddWithValue("@production_id", ProductionId);
                 cmd3.ExecuteNonQuery();
             }
