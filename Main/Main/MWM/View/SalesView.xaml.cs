@@ -634,7 +634,7 @@ namespace Main.MWM.View
             {
                 Customer client = new Customer(FirstNameTextBox.Text, LastNameTextBox.Text, AddressTextBox.Text, MailTextBox.Text, PhoneTextBox.Text);
 
-                MySqlCommand cmd = new MySqlCommand("select * from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
                 cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
                 cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
@@ -643,11 +643,16 @@ namespace Main.MWM.View
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (!reader.HasRows)
                 {
+                    reader.Close();
                     cart.RegisterCustomer(client);
                 }
-                reader.Close();
+                else
+                {
+                    reader.Close();
+                }
+                
 
-                cmd = new MySqlCommand("select customer_number from Customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
+                cmd = new MySqlCommand("select customer_number from customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", conn);
                 cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
                 cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
@@ -670,13 +675,24 @@ namespace Main.MWM.View
                 }
                 reader.Close();
 
-                foreach(int key in cart.BikeDict.Keys)
+
+                int invoice_number = getInvoiceNumber(client);
+
+                foreach (int key in cart.BikeDict.Keys)
                 {
-                    cmd = new MySqlCommand("INSERT INTO invoice_details ('invoice_number','ID','amount','price') VALUES (@invoicenumber,@ID,@amount,@price);",conn);
-                    cmd.Parameters.Add(new MySqlParameter("invoicenumber", getInvoiceNumber(client)));
+                    cmd = new MySqlCommand("INSERT INTO invoice_details (invoice_number,ID,amount,price) VALUES ((select invoice_number from invoices where customer_number=@customernumber and totalPrice=@pricet and date=@date),@ID,@amount,@price);", conn);
+                    //cmd.Parameters.Add(new MySqlParameter("invoicenumber", invoice_number));
                     cmd.Parameters.Add(new MySqlParameter("ID", key));
                     cmd.Parameters.Add(new MySqlParameter("amount", cart.BikeDict[key]));
                     cmd.Parameters.Add(new MySqlParameter("price", BikePriceByID[key]* cart.BikeDict[key]));
+                    cmd.Parameters.Add(new MySqlParameter("customernumber", client.customer_number));
+                    cmd.Parameters.Add(new MySqlParameter("pricet", cart.getPrice()));
+                    cmd.Parameters.Add(new MySqlParameter("date", DateTime.Now.ToString("yyyy-MM-dd")));
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                    }
+                    reader.Close();
                 }
                 cart.ClearCart();
 
@@ -696,9 +712,10 @@ namespace Main.MWM.View
         private int getInvoiceNumber(Customer client)
         {
             int InvoiceNumber = 0;
-            MySqlCommand cmd = new MySqlCommand("select invoice_number from invoices where customer_number=@customernumber and totalPrice=@price", conn);
+            MySqlCommand cmd = new MySqlCommand("select invoice_number from invoices where customer_number=@customernumber and totalPrice=@price and date=@date", conn);
             cmd.Parameters.Add(new MySqlParameter("customernumber", client.customer_number));
             cmd.Parameters.Add(new MySqlParameter("price", cart.getPrice()));
+            cmd.Parameters.Add(new MySqlParameter("date", DateTime.Now.ToString("yyyy-MM-dd")));
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -729,6 +746,7 @@ namespace Main.MWM.View
 
                 cart.addToCart(Int16.Parse(ID), Int16.Parse(textBox.Text));
 
+                textBox.Text = "";
 
                 text.Content = "Added to cart!";
                 text.Foreground = Brushes.White;
@@ -997,8 +1015,8 @@ namespace Main.MWM.View
             cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
             cmd.Parameters.Add(new MySqlParameter("last", customer.Last_Name));
             cmd.Parameters.Add(new MySqlParameter("add", customer.Address));
-            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
-            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
+            cmd.Parameters.Add(new MySqlParameter("phone", customer.phone));
+            cmd.Parameters.Add(new MySqlParameter("mail", customer.mail));
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -1010,6 +1028,7 @@ namespace Main.MWM.View
 
         public int getPrice()
         {
+            price = 0;
             foreach (int key in BikeDict.Keys)
             {
                 price += BikeDict[key] * _BikePricebyID[key];
