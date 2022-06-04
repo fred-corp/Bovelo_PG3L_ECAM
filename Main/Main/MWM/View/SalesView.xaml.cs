@@ -166,7 +166,7 @@ namespace Main.MWM.View
             carttab.BorderBrush = Brushes.Transparent;
             carttab.Foreground = Brushes.Gray;
             carttab.Background = Brushes.Transparent;
-            carttab.Content = GetCartGrid(SizeGrid.ActualHeight,SizeGrid.ActualWidth);
+            carttab.Content = GetCartGrid();
             MainTabControl.Items.Add(carttab);
             MainTabControl.BorderBrush = Brushes.Transparent;
         }
@@ -446,7 +446,7 @@ namespace Main.MWM.View
 
        
 
-        private Grid GetCartGrid(double Height, double Width)
+        private Grid GetCartGrid()
         {
             ///creates the cart grid displayed on the cart tab
             
