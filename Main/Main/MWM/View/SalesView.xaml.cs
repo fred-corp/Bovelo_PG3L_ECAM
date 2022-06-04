@@ -695,8 +695,8 @@ namespace Main.MWM.View
                 Customer client = new Customer(FirstNameTextBox.Text, LastNameTextBox.Text, AddressTextBox.Text, MailTextBox.Text, PhoneTextBox.Text);
 
                 MySqlCommand cmd = new MySqlCommand("select * from customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", Connection);
-                cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
-                cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
+                cmd.Parameters.Add(new MySqlParameter("firstname", client.FirstName));
+                cmd.Parameters.Add(new MySqlParameter("lastname", client.LastName));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
                 cmd.Parameters.Add(new MySqlParameter("mail", client.Mail));
                 cmd.Parameters.Add(new MySqlParameter("phone", client.Phone));
@@ -715,22 +715,22 @@ namespace Main.MWM.View
 
                 //gets the customer number from the DB
                 cmd = new MySqlCommand("select customer_number from customers where firstname=@firstname and lastname=@lastname and address=@address and email=@mail and phone=@phone;", Connection);
-                cmd.Parameters.Add(new MySqlParameter("firstname", client.First_Name));
-                cmd.Parameters.Add(new MySqlParameter("lastname", client.Last_Name));
+                cmd.Parameters.Add(new MySqlParameter("firstname", client.FirstName));
+                cmd.Parameters.Add(new MySqlParameter("lastname", client.LastName));
                 cmd.Parameters.Add(new MySqlParameter("Address", client.Address));
                 cmd.Parameters.Add(new MySqlParameter("mail", client.Mail));
                 cmd.Parameters.Add(new MySqlParameter("phone", client.Phone));
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    client.Customer_number = Int16.Parse(reader[0].ToString());
+                    client.CustomerNumber = Int16.Parse(reader[0].ToString());
                 }
                 reader.Close();
 
 
                 //sends the invoice to the DB
                 cmd = new MySqlCommand("INSERT INTO invoices (`customer_number`, `date`, `totalPrice`) VALUES (@customernumber, @date, @price);", Connection);
-                cmd.Parameters.Add(new MySqlParameter("customernumber", client.Customer_number));
+                cmd.Parameters.Add(new MySqlParameter("customernumber", client.CustomerNumber));
                 cmd.Parameters.Add(new MySqlParameter("date", DateTime.Now.ToString("yyyy-MM-dd")));
                 cmd.Parameters.Add(new MySqlParameter("price", Cart.GetPrice()));
                 reader = cmd.ExecuteReader();
@@ -748,7 +748,7 @@ namespace Main.MWM.View
                     cmd.Parameters.Add(new MySqlParameter("ID", key));
                     cmd.Parameters.Add(new MySqlParameter("amount", Cart.BikeDict[key]));
                     cmd.Parameters.Add(new MySqlParameter("price", BikePriceByID[key]* Cart.BikeDict[key]));
-                    cmd.Parameters.Add(new MySqlParameter("customernumber", client.Customer_number));
+                    cmd.Parameters.Add(new MySqlParameter("customernumber", client.CustomerNumber));
                     cmd.Parameters.Add(new MySqlParameter("pricet", Cart.GetPrice()));
                     cmd.Parameters.Add(new MySqlParameter("date", DateTime.Now.ToString("yyyy-MM-dd")));
                     reader = cmd.ExecuteReader();
@@ -1089,8 +1089,8 @@ namespace Main.MWM.View
             ///Inserts a new custommer in the DB based on the info in the custommer object
 
             MySqlCommand cmd = new MySqlCommand("INSERT INTO customers (`firstname`, `lastname`, `address`, `phone`, `email`) VALUES (@first, @last, @add, @phone, @mail);", Connection);
-            cmd.Parameters.Add(new MySqlParameter("first", customer.First_Name));
-            cmd.Parameters.Add(new MySqlParameter("last", customer.Last_Name));
+            cmd.Parameters.Add(new MySqlParameter("first", customer.FirstName));
+            cmd.Parameters.Add(new MySqlParameter("last", customer.LastName));
             cmd.Parameters.Add(new MySqlParameter("add", customer.Address));
             cmd.Parameters.Add(new MySqlParameter("phone", customer.Phone));
             cmd.Parameters.Add(new MySqlParameter("mail", customer.Mail));
@@ -1159,18 +1159,18 @@ namespace Main.MWM.View
         /// <summary>
         /// Class containing all the info of a customer
         /// </summary>
-        public string First_Name { get; set; }
-        public string Last_Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }
-        public int Customer_number { get; set; }
+        public int CustomerNumber { get; set; }
 
 
         public Customer(string _First_Name, string _Last_Name, string _Adress, string _mail, string _phone)
         {
-            this.First_Name = _First_Name;
-            this.Last_Name = _Last_Name;
+            this.FirstName = _First_Name;
+            this.LastName = _Last_Name;
             this.Address = _Adress;
             this.Mail = _mail;
             this.Phone = _phone;
