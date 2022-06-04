@@ -19,6 +19,7 @@ namespace Main.MWM.View
         private MySqlDataAdapter adp = new MySqlDataAdapter();
         MySqlCommandBuilder cmbl;
 
+        // connection used for database queries
         readonly MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
         public StockView()
@@ -28,6 +29,9 @@ namespace Main.MWM.View
             FillOrderGrid();
         }
 
+        /// <summary>
+        /// Fill the stock DataGrid from the database
+        /// </summary>
         private void FillStockGrid()
         {
             try
@@ -55,6 +59,9 @@ namespace Main.MWM.View
             }
         }
 
+        /// <summary>
+        /// Fill the part orders DataGrid from the database
+        /// </summary>
         private void FillOrderGrid()
         {
             try
@@ -79,9 +86,13 @@ namespace Main.MWM.View
             {
                 connection.Close();
             }
-
         }
 
+        /// <summary>
+        /// Returns a part id from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the part in the DataGrid</param>
+        /// <returns>An integerer representing the part id</returns>
         private int GetPartNumber(int index)
         {
             TextBlock part = stockDataGrid.Columns[0].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
@@ -89,6 +100,11 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(part.Text) ? 0 : int.Parse(part.Text);
         }
 
+        /// <summary>
+        /// Returns a part location from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the part in the DataGrid</param>
+        /// <returns>A string representing the part id</returns>
         private string GetPartLocation(int index)
         {
             TextBlock location = stockDataGrid.Columns[2].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
@@ -96,6 +112,11 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(location.Text) ? "" : location.Text;
         }
 
+        /// <summary>
+        /// Returns a part quantity from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the part in the DataGrid</param>
+        /// <returns>An integerer representing the part quantity</returns>
         private int GetPartQuantity(int index)
         {
             TextBlock quantity = stockDataGrid.Columns[3].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
@@ -103,6 +124,11 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(quantity.Text) ? 0 : int.Parse(quantity.Text);
         }
 
+        /// <summary>
+        /// Returns a part minimum quantity from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the part in the DataGrid</param>
+        /// <returns>An integerer representing the part minimum quantity</returns>
         private int GetPartMinimumQuantity(int index)
         {
             TextBlock minimumQuantity = stockDataGrid.Columns[4].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
@@ -110,15 +136,23 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(minimumQuantity.Text) ? 0 : int.Parse(minimumQuantity.Text);
         }
 
+        /// <summary>
+        /// Returns the last part id from the DataGrid
+        /// </summary>
+        /// <returns>An integerer representing the part id</returns>
         private int GetLastPartNumber()
         {
-            int index = stockDataGrid.Items.Count - 2;
-
+            int index = stockDataGrid.Items.Count - 1;
             TextBlock part = stockDataGrid.Columns[0].GetCellContent(stockDataGrid.Items[index]) as TextBlock;
 
             return string.IsNullOrEmpty(part.Text) ? 0 : int.Parse(part.Text);
         }
 
+        /// <summary>
+        /// Returns a part id from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the part in the DataGrid</param>
+        /// <returns>An integerer representing the part id</returns>
         private int GetOrderNumber(int index)
         {
             TextBlock order = orderDataGrid.Columns[0].GetCellContent(orderDataGrid.Items[index]) as TextBlock;
@@ -177,8 +211,8 @@ namespace Main.MWM.View
 
         private void UpdateOrderDb()
         {
+            // update the modified information on the DataGrid to the database
             adp.Update((DataSet)orderDataGrid.DataContext, "orderDataBinding");
-
         }
 
         private void ConfirmOrderButton(object sender, RoutedEventArgs e)
@@ -238,7 +272,7 @@ namespace Main.MWM.View
             AddPartPopup.IsOpen = true;
         }
 
-        private void AddPartButtonDb(int PartNumber, string description, string location, int amount, int MinAmount)
+        private void AddPartDb(int PartNumber, string description, string location, int amount, int MinAmount)
         {
             string query = @"INSERT INTO Components (part_number, in_stock, minimum_stock, description, location) 
             VALUES (@PartNumber, @amount, @MinAmount, @description, @location)";
@@ -261,7 +295,7 @@ namespace Main.MWM.View
             string location = SetNewPartLocationTextBox.Text;
             int amount = int.Parse(SetNewPartStockTextBox.Text);
             int MinAmount = int.Parse(SetNewPartMinimumAmountTextBox.Text);
-            AddPartButtonDb(PartNumber, description, location, amount, MinAmount);
+            AddPartDb(PartNumber, description, location, amount, MinAmount);
             AddPartPopup.IsOpen = false;
         }
 
@@ -299,6 +333,7 @@ namespace Main.MWM.View
             cmd.Parameters.AddWithValue("@order", order);
             cmd.ExecuteNonQuery();
             connection.Close();
+            // update the DataGrids
             FillOrderGrid();
             FillStockGrid();
         }
@@ -310,6 +345,9 @@ namespace Main.MWM.View
         }
     }
 
+    /// <summary>
+    ///  Interface <c>PartColorConverter</c> returns a color based on the difference between 2 quantities
+    /// </summary>
     public class PartColorConverter : IMultiValueConverter
     {
         public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
