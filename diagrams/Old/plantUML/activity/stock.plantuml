@@ -1,0 +1,11 @@
+@startuml Stock
+start
+:receive order;
+fork
+  :sort;
+  :shelve;
+  fork again
+  :update;
+endfork
+stop
+@enduml
