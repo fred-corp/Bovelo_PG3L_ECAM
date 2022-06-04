@@ -13,11 +13,11 @@ end merge
 }
 switch ()
 case ( [Add Part] )
-  :uptdate part table ;
+  :update part table ;
 case ( [Order Part] ) 
   :uptdate ordered part table;
 case ( [Use Part] )
-  :updtate part table;
+  :update part table;
 case ( [Display ordered part] )
 if (part receveid) is ([Yes]) then
 :update ordered part table;
