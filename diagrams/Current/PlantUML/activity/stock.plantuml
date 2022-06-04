@@ -15,7 +15,7 @@ switch ()
 case ( [Add Part] )
   :update part table ;
 case ( [Order Part] ) 
-  :uptdate ordered part table;
+  :update ordered part table;
 case ( [Use Part] )
   :update part table;
 case ( [Display ordered part] )
