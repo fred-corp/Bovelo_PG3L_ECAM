@@ -258,6 +258,24 @@ namespace Main.MWM.View
 
             stackSpecs.Children.Add(specs);
 
+            List<string> modelprice = new List<string>();
+
+            cmd = new MySqlCommand("SELECT price FROM Catalog where model = @model GROUP BY price", conn);
+            cmd.Parameters.Add(new MySqlParameter("model", model));
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                modelprice.Add(reader[0].ToString());
+            }
+            reader.Close();        
+
+            Label pricelabel = new Label();
+            pricelabel.HorizontalAlignment = HorizontalAlignment.Center;
+            pricelabel.Background = Brushes.Transparent;
+            pricelabel.Foreground = Brushes.White;
+            pricelabel.Content = $"Price 26': {modelprice[0]}€ \nPrice 28': {modelprice[1]}€";
+            stackSpecs.Children.Add(pricelabel);
+
             Grid.SetRow(stackSpecs, 0);
             Grid.SetColumn(stackSpecs, 1);
             grid.Children.Add(stackSpecs);
