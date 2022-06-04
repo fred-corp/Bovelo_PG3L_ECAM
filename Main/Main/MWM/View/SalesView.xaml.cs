@@ -218,7 +218,7 @@ namespace Main.MWM.View
             StackPanel stackSpecs = new StackPanel();
             stackSpecs.Orientation = Orientation.Vertical;
             Label titleSpecs = new Label();
-            titleSpecs.Content = "Spesification";
+            titleSpecs.Content = "Specification";
             titleSpecs.Foreground = Brushes.White;
             titleSpecs.Background = Brushes.Transparent;
             titleSpecs.HorizontalAlignment = HorizontalAlignment.Center;
@@ -304,6 +304,7 @@ namespace Main.MWM.View
             TextBlock TextBlock = new TextBlock();
             TextBlock.Foreground = Brushes.White;
             TextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            TextBlock.VerticalAlignment = VerticalAlignment.Center;
             TextBlock.Text = "Order";
 
             Grid.SetRow(TextBlock, 0);
@@ -321,6 +322,7 @@ namespace Main.MWM.View
                 Label text = new Label();
                 text.Foreground = Brushes.White;
                 text.Content = Texts[i];
+                text.VerticalAlignment = VerticalAlignment.Bottom;
                 Grid.SetRow(text, 0);
                 Grid.SetColumn(text, i);
                 TextstackPanel.Children.Add(text);
