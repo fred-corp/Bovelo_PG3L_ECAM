@@ -31,7 +31,7 @@ namespace Main.MWM.View
         Dictionary<int, string> ID_Size = new Dictionary<int, string>();  //links single digit id to size, wich is the second number of the bike id
         Dictionary<int, string> ID_Color = new Dictionary<int, string>();   //links single digit id to color, wich is the third number of the bike id
         Dictionary<int, int> BikePriceByID = new Dictionary<int, int>();  //links 3 digit bike id to price
-        Grid Size_grid;    //grid containing the current window selected by the tab, used to fix the size
+        Grid SizeGrid;    //grid containing the current window selected by the tab, used to fix the size
         Cart Cart;
 
         Dictionary<string, int> ID_creator = new Dictionary<string, int>();  //links digits to their corrrespoonding color/size/model to build the id used in database
@@ -154,7 +154,7 @@ namespace Main.MWM.View
                 tab.Foreground = Brushes.Gray;
                 ModelsTab.Add(tab);
                 MainTabControl.Items.Add(tab);
-                Size_grid =(Grid) tab.Content;
+                SizeGrid =(Grid) tab.Content;
             }
 
             //adds the cart tab containing the summary of the order and the fillable customer info form
@@ -166,7 +166,7 @@ namespace Main.MWM.View
             carttab.BorderBrush = Brushes.Transparent;
             carttab.Foreground = Brushes.Gray;
             carttab.Background = Brushes.Transparent;
-            carttab.Content = GetCartGrid(Size_grid.ActualHeight,Size_grid.ActualWidth);
+            carttab.Content = GetCartGrid(SizeGrid.ActualHeight,SizeGrid.ActualWidth);
             MainTabControl.Items.Add(carttab);
             MainTabControl.BorderBrush = Brushes.Transparent;
         }
