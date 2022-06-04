@@ -9,13 +9,13 @@ fork again
   :get production
  from DB;
 end merge
-    :Display stok state;
+    :Display stock state;
 }
 switch ()
 case ( [Add Part] )
   :uptdate part table ;
 case ( [Order Part] ) 
-  :uptdate orderder part table;
+  :uptdate ordered part table;
 case ( [Use Part] )
   :updtate part table;
 case ( [Display ordered part] )
