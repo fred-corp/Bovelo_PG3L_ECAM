@@ -1,0 +1,13 @@
+@startuml Sale
+start
+:get orders;
+if () is (Plan) then
+	:send to production;
+	:choose manually a date;
+        :confirm;
+        stop
+	
+else (Wait)
+	stop
+endif
+@enduml
