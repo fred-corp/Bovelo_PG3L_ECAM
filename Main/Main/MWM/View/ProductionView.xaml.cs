@@ -14,12 +14,20 @@ namespace Main.MWM.View
     {
         private MySqlDataAdapter adp = new MySqlDataAdapter();
         private MySqlCommandBuilder cmbl;
+
+        // connection used for database queries
         readonly MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+
         public ProductionView()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Returns an invoice_detail id from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the invoice_detail in the DataGrid</param>
+        /// <returns>An integerer representing the invoice_detail id</returns>
         private int GetInvoiceDetailNumber(int index)
         {
             TextBlock order = InvoicesDataGrid.Columns[1].GetCellContent(InvoicesDataGrid.Items[index]) as TextBlock;
@@ -27,6 +35,11 @@ namespace Main.MWM.View
             return string.IsNullOrEmpty(order.Text) ? 0 : int.Parse(order.Text);
         }
 
+        /// <summary>
+        /// Returns a production id from it's position in the DataGrid
+        /// </summary>
+        /// <param name="index">Index of the invoice_detail in the DataGrid</param>
+        /// <returns>An integerer representing the production id</returns>
         private int GetProductionIdNumber(int index)
         {
             TextBlock order = ProductionDataGrid.Columns[0].GetCellContent(ProductionDataGrid.Items[index]) as TextBlock;
@@ -55,6 +68,9 @@ namespace Main.MWM.View
             ProductionStackPanel.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Display only the production menu
+        /// </summary>
         private void BackButton(object sender, RoutedEventArgs e)
         {
             ScheduleStackPanel.Visibility = Visibility.Collapsed;
@@ -63,6 +79,9 @@ namespace Main.MWM.View
             MenuStackPanel.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Fill the pending invoices DataGrid from the database
+        /// </summary>
         private void FillInvoicesGrid()
         {
             try
@@ -100,6 +119,9 @@ namespace Main.MWM.View
             }
         }
 
+        /// <summary>
+        /// Fill the production backlog DataGrid from the database
+        /// </summary>
         private void FillProductionGrid()
         {
             try
@@ -200,6 +222,7 @@ namespace Main.MWM.View
 
         private void GetScheduleDb()
         {
+            // reset the listviews to avoid duplicates
             SundayListView.Items.Clear();
             MondayListView.Items.Clear();
             TuesdayListView.Items.Clear();
@@ -209,6 +232,7 @@ namespace Main.MWM.View
             SaturdayListView.Items.Clear();
 
             connection.Open();
+            // select only data from the current week
             MySqlCommand cmd = new MySqlCommand(@"SELECT
               bike_id,
               DAYOFWEEK(date) 
@@ -216,6 +240,7 @@ namespace Main.MWM.View
             WHERE schedule.date >= date_sub(curdate(), interval weekday(curdate()) day)
             AND schedule.date <= date_sub(curdate(), interval weekday(curdate()) - 7 day)", connection);
             MySqlDataReader dr = cmd.ExecuteReader();
+            // fill the listviews
             while (dr.Read())
             {
                 Button btn = new Button();
@@ -257,6 +282,9 @@ namespace Main.MWM.View
             connection.Close();
         }
 
+        /// <summary>
+        /// Fill the popup with the information of the selected bike
+        /// </summary>
         private void BikeInformationDb(int BikeId)
         {
             connection.Open();
@@ -293,6 +321,8 @@ namespace Main.MWM.View
 
         private void CompleteBikeDb(int BikeId)
         {
+            // update completed and scheduled bikes amounts
+            // remove from the schedule
             int ProductionId = Convert.ToInt32(ProductionIdLabel.Content);
             string query = @"UPDATE production p 
               SET 
@@ -309,6 +339,7 @@ namespace Main.MWM.View
             FROM production WHERE production_ID = @production_id", connection);
             cmd2.Parameters.AddWithValue("@production_id", ProductionId);
             MySqlDataReader dr = cmd2.ExecuteReader();
+            // check if the order is complete or not
             bool CompletedOrder = false;
             while (dr.Read())
             {
@@ -319,6 +350,7 @@ namespace Main.MWM.View
                 }
                 break;
             }
+            // delete order from the production backlog if it's complete
             if (CompletedOrder is true)
             {
                 MySqlCommand cmd3 = new MySqlCommand(@"UPDATE invoice_details
@@ -338,6 +370,7 @@ namespace Main.MWM.View
         private void ValidateBikeButton(object sender, RoutedEventArgs e)
         {
             CompleteBikeDb(Convert.ToInt32(BikeIdLabel.Content));
+            // update the schedule view
             GetScheduleDb();
             ValidateBikePopup.IsOpen = false;
         }
