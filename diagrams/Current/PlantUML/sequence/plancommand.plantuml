@@ -1,0 +1,17 @@
+@startuml
+ProductionManager-> Interface: view pending invoices
+Interface -> Db: get invoices 
+alt waiting 
+ 
+ProductionManager-> Interface:send to production
+ProductionManager-> Interface: view production backlog
+Interface -> Db: get backlog
+ProductionManager-> Interface: add to schedule
+Interface->ProductionManager: show schedule
+
+ProductionManager-> Interface:choose date
+ProductionManager-> Interface: confirm 
+Interface -> Db: save schedule
+end
+
+@enduml

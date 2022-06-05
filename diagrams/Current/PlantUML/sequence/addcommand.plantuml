@@ -1,0 +1,9 @@
+@startuml
+ProductionManager-> Interface: press on model
+Interface->ProductionManager: show information
+Interface -> Db: get information
+ProductionManager-> Interface: add to cart
+ProductionManager-> Interface: confirm cart
+Interface -> Db: add command
+
+@enduml
