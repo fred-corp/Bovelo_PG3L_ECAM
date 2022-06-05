@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+
+:Representative:
+:Production_manager:
+:Mechanic:
+
+Package System{
+	
+		(See production planning) as (uc6)
+		(Enter a new order) as (uc5)
+                (Show the catalog) as (uc1)
+		(See stock) as (uc3)
+		(Confirm end of production) as (uc4)
+		(Update plan production) as (uc8)
+		(Order Part) as (uc9)
+	
+}
+
+uc3 <-- Production_manager
+uc8 <-- Production_manager
+uc9 <-- Production_manager
+uc6 <-- Production_manager
+
+uc3 <-- Mechanic 
+uc4 <-- Mechanic 
+uc6 <-- Mechanic 
+
+Representative --> uc1
+Representative --> uc5
+Representative --> uc6
+@enduml

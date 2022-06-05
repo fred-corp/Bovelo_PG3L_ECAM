@@ -1,0 +1,67 @@
+ @startuml
+skinparam classAttributeIconSize 0
+class SalesView{
+{field} -Sizes : int[]
+{field} -Colors : string[]
+{field} -Models : string[]
+{field} -ModelsTab : TabItem[]
+{field} -ID_Size : Dictionary<int,string>
+{field} -ID_Color : Dictionary<int,string>
+{field} -ID_Model : Dictionary<int,string>
+{field} -BikePriceByID : Dictionary<int,int>
+{field} -ID_creator : Dictionary<string,int>
+{field} -Size_Grid : Grid
+{field} -Cart : Cart
+{field} -EstimatedDateLabel : Label
+{field} -Connection : MySqlConnection
+
+{method} +SalesView() : Void
+{method} -GetModelGrid(model) : Grid
+{method} -GetCartGrid() : Grid
+{method} -CheckInput(sender,e) : Void
+{method} -ComfirmCart(sender,e) : Void
+{method} -ComfirmAddToCart(sender,e) : Void
+}
+
+class Cart{
+{field} +BikeDict : Dictionary<int,int>
+{field} -BikePricebyID : Dictionary<int,int>
+{field} -Rows : Dictionary<int,RowDefinition>
+{field} -Children : Dictionary<int,List<UIElement>>
+{field} -ID_Model : Dictionary<int,string>
+{field} -ID_Size : Dictionary<int,string>
+{field} -ID_Color : Dictionary<int,string>
+{field} -EstimatedDateLabel : Label
+{field} - Grid : Grid
+{field} - Price : int
+{field} - Connection : MySqlConnection
+
+{method} +Cart(Connection, ID_Model, ID_Size, ID_Color, BikePricebyID, EstimatedDateLabel) : Void
+{method} +SetContainer(Grid) : Void
+{method} +AddToCart(ID, nb) : Void
+{method} +DeleteFromCart(sender, e) : Void
+{method} +ClearCart() : Void
+{method} +DeleteRow(ID) : Void
+{method} +MinusOne(sender, e) : Void
+{method} +PlusOne(sender, e) : Void
+{method} +RemoveFromCart(ID, nb) : Void
+{method} +RemoveFromCart(ID) : Void
+{method} +RegisterCustomer(customer) : Void
+{method} +GetPrice() : int
+{method} +GetEstimatedDate() : DateTime
+{method} +UpdateEstimatedDate() : Void
+}
+
+class Customer{
+{field} +FirstName : string
+{field} +LastName : string
+{field} +Address : string
+{field} +Mail : string
+{field} +Phone : string
+{field} +CustomerNumber : int
+}
+
+UserControl <|-- SalesView
+SalesView o-- Cart
+
+@enduml

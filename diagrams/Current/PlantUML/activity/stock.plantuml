@@ -1,0 +1,27 @@
+@startuml
+start
+repeat
+partition "**process** Init" {
+    
+fork
+  :get stock from DB;
+fork again
+  :get production
+ from DB;
+end merge
+    :Display stock state;
+}
+switch ()
+case ( [Add Part] )
+  :update part table ;
+case ( [Order Part] ) 
+  :update ordered part table;
+case ( [Use Part] )
+  :update part table;
+case ( [Display ordered part] )
+if (part receveid) is ([Yes]) then
+:update ordered part table;
+else ([no])
+endif
+endswitch
+@enduml
