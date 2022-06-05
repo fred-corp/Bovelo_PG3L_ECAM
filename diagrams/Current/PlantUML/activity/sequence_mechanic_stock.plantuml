@@ -1,0 +1,19 @@
+@startuml
+participant Mechanic as a
+participant App as b
+database Database as c
+activate b
+a -> b : "Use part" clicked
+b -> b : Display "Use part" popup
+a -> b: Enter Quantity
+
+alt Click confirm
+b -> c : Update part stock quantity
+c -> b : Update DataGrid
+b -> b : Close popup
+end
+
+alt Click cancel
+b -> b : Close popup
+end
+@enduml
