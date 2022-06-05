@@ -1,9 +1,18 @@
+
 @startuml
-ProductionManager-> Interface: press on model
-Interface->ProductionManager: show information
-Interface -> Db: get information
-ProductionManager-> Interface: add to cart
-ProductionManager-> Interface: confirm cart
+participant Seller
+participant Interface
+participant Db
+Interface ->Db: get information
+Seller-> Interface: press on model
+
+Interface->Seller: show information
+
+Seller-> Interface: add to cart
+Seller-> Interface: encode customer data
+
+Seller-> Interface: confirm cart
+Interface -> Db: save customer data
 Interface -> Db: add command
 
 @enduml
