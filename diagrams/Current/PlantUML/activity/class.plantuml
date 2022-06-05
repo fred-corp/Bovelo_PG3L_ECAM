@@ -61,7 +61,80 @@ class Customer{
 {field} +CustomerNumber : int
 }
 
+interface IMultiValueConverter {
+}
+
+class PartColorConverter {
+{method} +object Convert()
+}
+
+class StockView {
+{field} -adp : MySqlDataAdapter
+{field} #connection : MySqlConnection
+{method} +void StockView()
+{method} -void FillStockGrid()
+{method} -void FillOrderGrid()
+{method} -int GetPartNumber(index)
+{method} -string GetPartLocation(index)
+{method} -int GetPartQuantity(index)
+{method} -int GetPartMinimumQuantity(index)
+{method} -int GetLastPartNumber()
+{method} -int GetOrderNumber(index)
+{method} -void UseButton(sender, e)
+{method} -void UpdatePartQuantityDb(part, amount)
+{method} -void ConfirmUseButton(sender, e)
+{method} -void CancelUseButton(sender, e)
+{method} -void OrderButton(sender, e)
+{method} -void CreateOrderDb(PartNumber, quantity)
+{method} -void UpdateOrderDb()
+{method} -void ConfirmOrderButton(sender, e)
+{method} -void CancelOrderButton(sender, e)
+{method} -void ParametersButton(sender, e)
+{method} -void UpdatePartParametersDb(part, location, amount, MinAmount)
+{method} -void ConfirmParametersButton(sender, e)
+{method} -void CancelParametersButton(sender, e)
+{method} -void AddPartButton(sender, e)
+{method} -void AddPartDb(PartNumber, description, location, amount, MinAmount)
+{method} -void ConfirmAddPartButton(sender, e)
+{method} -void CancelAddPartButton(sender, e)
+{method} -void ShowOrdersButton(sender, e)
+{method} -void ShowStockButton(sender, e)
+{method} -void SaveModificationsButton(sender, e)
+{method} -void DeleteOrderDb(order)
+{method} -void AddToStockButton(sender, e)
+}
+
+class ProductionView {
+{field} -adp : MySqlDataAdapter
+{field} #connection : MySqlConnection
+{method} +void ProductionView()
+{method} -int GetInvoiceDetailNumber(index)
+{method} -int GetProductionIdNumber(index)
+{method} -void ShowScheduleButton(sender, e)
+{method} -void ShowInvoicesButton(sender, e)
+{method} -void ShowProductionButton(sender, e)
+{method} -void BackButton(sender, e)
+{method} -void FillInvoicesGrid()
+{method} -void FillProductionGrid()
+{method} -void UpdateInvoiceStatusDb(invoice, status)
+{method} -void AddToProductionDb(invoice)
+{method} -void SendProductionButton(sender, e)
+{method} -void ScheduleButton(sender, e)
+{method} -void AddToScheduleDb(ProductionId, date)
+{method} -void ConfirmScheduleButton(sender, e)
+{method} -void CancelScheduleButton(sender, e)
+{method} -void GetScheduleDb()
+{method} -void BikeInformationDb(BikeId)
+{method} -void BikeInfoButton(sender, e)
+{method} -void CompleteBikeDb(BikeId)
+{method} -void ValidateBikeButton(sender, e)
+{method} -void CloseValidatePopupButton(sender, e)
+}
+
+IMultiValueConverter <|.. PartColorConverter
+UserControl <|-- StockView
 UserControl <|-- SalesView
+UserControl <|-- ProductionView
 SalesView o-- Cart
 
 @enduml
