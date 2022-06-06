@@ -87,15 +87,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MWM\View\ProductionTabsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MWM\View\ProductionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MWM\View\SalesTabsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,17 +111,10 @@
   <ItemGroup>
     <Compile Include="MWM\ViewModel\StockViewModel.cs" />
     <Compile Include="MWM\ViewModel\MainViewModel.cs" />
-    <Compile Include="MWM\ViewModel\ProductionTabsViewModel.cs" />
     <Compile Include="MWM\ViewModel\ProductionViewModel.cs" />
     <Compile Include="MWM\ViewModel\SalesViewModel.cs" />
-    <Compile Include="MWM\View\ProductionTabsView.xaml.cs">
-      <DependentUpon>ProductionTabsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MWM\View\ProductionView.xaml.cs">
       <DependentUpon>ProductionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MWM\View\SalesTabsView.xaml.cs">
-      <DependentUpon>SalesTabsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MWM\View\SalesView.xaml.cs">
       <DependentUpon>SalesView.xaml</DependentUpon>
