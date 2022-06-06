@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Main")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Razer")]
+[assembly: AssemblyCompany("Bovelo")]
 [assembly: AssemblyProduct("Main")]
-[assembly: AssemblyCopyright("Copyright © Razer 2022")]
+[assembly: AssemblyCopyright("Copyright © Bovelo 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

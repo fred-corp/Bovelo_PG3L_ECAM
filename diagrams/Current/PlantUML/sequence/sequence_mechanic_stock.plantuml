@@ -1,5 +1,5 @@
 @startuml
-participant Mechanic as a
+actor Mechanic as a
 participant App as b
 database Database as c
 activate b

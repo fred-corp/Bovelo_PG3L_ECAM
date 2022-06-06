@@ -1,5 +1,5 @@
 @startuml
-participant Mechanic as a
+actor Mechanic as a
 participant App as b
 database Database as c
 activate b
@@ -13,7 +13,7 @@ b -> b : display [bike] popup
 alt Click validate
 b -> c : delete bike from schedule
 b -> c : Increment bike order completed quantity
-alt order amount = completed
+alt order amount = completed amount
 c -> c : order status = "complete"
 c -> c : delete order from production
 end
