@@ -1,0 +1,27 @@
+@startuml
+participant Mechanic as a
+participant App as b
+database Database as c
+activate b
+a -> b : "Show schedule" clicked
+c -> b : select data [this week]
+b -> b: Render schedule
+
+a -> b : click [bike]
+c -> b : select [bike] information
+b -> b : display [bike] popup
+alt Click validate
+b -> c : delete bike from schedule
+b -> c : Increment bike order completed quantity
+alt order amount = completed
+c -> c : order status = "complete"
+c -> c : delete order from production
+end
+b -> b : Update Schedule
+b -> b : Close popup
+end
+
+alt Click close
+b -> b : Close popup
+end
+@enduml

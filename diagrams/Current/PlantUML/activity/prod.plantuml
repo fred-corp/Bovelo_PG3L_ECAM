@@ -3,7 +3,7 @@ start
 :get orders;
 if () is (Plan) then
 	:send to production;
-	:choose manually a date;
+	:choose a date manually;
         :confirm;
         stop
 	
