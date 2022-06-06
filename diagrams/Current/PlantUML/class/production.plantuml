@@ -1,0 +1,31 @@
+@startuml
+class ProductionView {
+{field} -adp : MySqlDataAdapter
+{field} #connection : MySqlConnection
+{method} +void ProductionView()
+{method} -int GetInvoiceDetailNumber(index)
+{method} -int GetProductionIdNumber(index)
+{method} -void ShowScheduleButton(sender, e)
+{method} -void ShowInvoicesButton(sender, e)
+{method} -void ShowProductionButton(sender, e)
+{method} -void BackButton(sender, e)
+{method} -void FillInvoicesGrid()
+{method} -void FillProductionGrid()
+{method} -void UpdateInvoiceStatusDb(invoice, status)
+{method} -void AddToProductionDb(invoice)
+{method} -void SendProductionButton(sender, e)
+{method} -void ScheduleButton(sender, e)
+{method} -void AddToScheduleDb(ProductionId, date)
+{method} -void ConfirmScheduleButton(sender, e)
+{method} -void CancelScheduleButton(sender, e)
+{method} -void GetScheduleDb()
+{method} -void BikeInformationDb(BikeId)
+{method} -void BikeInfoButton(sender, e)
+{method} -void CompleteBikeDb(BikeId)
+{method} -void ValidateBikeButton(sender, e)
+{method} -void CloseValidatePopupButton(sender, e)
+}
+
+UserControl <|-- ProductionView
+
+@enduml
