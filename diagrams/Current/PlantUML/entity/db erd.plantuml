@@ -1,0 +1,101 @@
+@startuml ERD
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <i><color:#aaaaaa><&key></color> x</i>
+!define column(x) <color:#efefef><&media-record></color> x
+!define table(x) entity x << (T, white) >>
+
+skinparam linetype ortho
+
+table( Catalog ) {
+  primary_key( ID ) : INTEGER
+  column( stock ): INTEGER
+  column( model ): VARYING CHARACTER
+  foreign_key( color ): INTEGER
+  column( price ): INTEGER
+  column( description ): VARYING CHARACTER
+  column( specs ): VARYING CHARACTER
+  column( image ): VARYING CHARACTER
+}
+
+table( componentlink ) {
+  foreign_key( part_number ): INTEGER
+  foreign_key( ID ): INTEGER
+  column( amount ): INTEGER
+}
+
+table( Components ){
+  primary_key( part_number ): INTEGER
+  column( in_stock ): INTEGER
+  column( minimum_stock ): INTEGER
+  column( description ): VARYING CHARACTER
+  column( location ): VARYING CHARACTER
+}
+
+table( part_orders ){
+  primary_key( order_number ): INTEGER
+  foreign_key( part_number ): INTEGER
+  column( amount ): DECIMAL
+  column( status ): VARYING CHARACTER
+}
+part_orders }|--|| Components
+Components ||--|{ componentlink
+componentlink }|--|| Catalog
+
+
+table( customers ){
+  primary_key( customer_number ): INTEGER
+  column( firstname ): VARYING CHARACTER
+  column( lastname ): VARYING CHARACTER
+  column( address ): VARYING CHARACTER
+  column( phone ): VARYING CHARACTER
+  column( email ): VARYING CHARACTER
+}
+
+table( invoices ){
+  primary_key( invoice_number ): INTEGER
+  foreign_key( customer_number ): INTEGER
+  column( date ): DATE
+  column( totalPrice ): INTEGER
+}
+
+table( invoice_details ){
+  foreign_key( invoice_number ): INTEGER
+  foreign_key( ID ): INTEGER
+  column( amount ): INTEGER
+  column( price ): INTEGER
+}
+customers ||--|{ invoices
+invoices ||--|{ invoice_details
+invoice_details }|--|| Catalog
+
+table( production ){
+  primary_key( production_ID ): INTEGER
+  foreign_key( invoice_number ): INTEGER
+  foreign_key( ID ): INTEGER
+  column( amount ): INTEGER
+  column( amount_scheduled ): INTEGER
+  column( amount_completed ): INTEGER
+}
+invoices ||--|{ production
+production }|--|| Catalog
+
+table( schedule ){
+  primary_key( bike_ID ): INTEGER
+  foreign_key( ID ): INTEGER
+  foreign_key( production_ID ): INTEGER
+  column( date ): DATE
+}
+production ||--|{ schedule
+schedule }|--|| Catalog
+
+table( Colors ){
+  primary_key( ID ): INTEGER
+  column( description ): VARYING CHARACTER
+  column( hex ): VARYING CHARACTER
+}
+Colors ||--|{ Catalog
+
+hide methods
+hide circle
+
+@enduml
